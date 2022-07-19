@@ -1,0 +1,59 @@
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #ced4da;
+  width: 30vw;
+  margin: 15px auto;
+  padding: 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+.welcome_message {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.buttons_container {
+  width: 80%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.login_credentials {
+  width: 80%;
+  align-self: center;
+  border: 1px solid #ced4da;
+  margin: 0;
+  padding: 0;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+.login_form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 0;
+}
+
+.login_label {
+  font-size: 2rem;
+  margin-top: 10px;
+}
+
+.login_input {
+  margin: 0;
+  padding: 0;
+}
