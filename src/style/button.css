@@ -4,13 +4,13 @@
   overflow: hidden;
   white-space: nowrap;
   border: 1px solid #ced4da;
-  align-self: center;
+  text-align: center;
   padding: 0;
   margin: 0;
   background: transparent;
   transition: all .2s ease;
   color: #ced4da;
-  font-size: 2rem;
+  font-size: 1.5rem;
   letter-spacing: 1px;
   outline: none;
   border-top-left-radius: 255px 15px;
