@@ -6,6 +6,8 @@ html {
   background-color: #121212;
   color: #ced4da;
   letter-spacing: 0.1em;
+  font-size: 1rem
+    /*1 rem = 16px*/
 }
 
 *,
