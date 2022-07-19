@@ -1,38 +1,64 @@
-import React from "react"
+import React, { useState } from "react"
 import Button from "./Button"
 import "../style/login.css"
 
-
-
 const Login = () => {
 
-  const handleStudentForm = (e) => {
+  //States to handle login
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [credentials, setCredentials] = useState(null)
+
+  //States to
+
+
+
+  const handleStudentInput = (e) => {
     console.log(e.target.innerText)
   }
-
-  const handleProfessorForm = (e) => {
+  const handleProfessorInput = (e) => {
     console.log(e.target.innerText)
   }
-
   const handleNewUserForm = (e) => {
     console.log(e.target.innerText)
   }
+  const handleUser = (e) => {
+    e.preventDefault()
+
+    const user = {
+      username,
+      password
+    }
+
+    setCredentials(user)
+
+    console.log(credentials)
+  }
+
+
   return (
     <>
       <h2 className="welcome_message">Welcome to this generic LMS</h2>
       <div className='login_container'>
         <div className="buttons_container">
           <Button
-            onClick={handleStudentForm}
+            type={null}
+            onClick={handleStudentInput}
             children={'Student'}
+            style={null}
           />
           <Button
-            onClick={handleProfessorForm}
+            type={null}
+            onClick={handleProfessorInput}
             children={'Professor'}
+            style={null}
           />
         </div>
         <div className="login_credentials">
-          <form className="login_form">
+          <form
+            className="login_form"
+            onSubmit={handleUser}
+          >
             <label
               className="login_label"
               htmlFor="username"
@@ -40,6 +66,9 @@ const Login = () => {
               Username
             </label>
             <input
+              placeholder="username"
+              value={username}
+              onChange={({ target }) => setUsername(target.value)}
               className="login_input"
               id="username"
               type={'text'}
@@ -51,12 +80,23 @@ const Login = () => {
               Password
             </label>
             <input
+              placeholder="password"
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
               className="login_input"
               id="password"
               type={'text'}
             />
+            <Button
+              type={'submit'}
+              style={null}
+              onClick={handleNewUserForm}
+              children={'Sign in'}
+            />
           </form>
           <Button
+            type={null}
+            style={'new_user_button'}
             onClick={handleNewUserForm}
             children={'new user? Click here'}
           />
