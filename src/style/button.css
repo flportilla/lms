@@ -23,3 +23,7 @@
   box-shadow: 2px 8px 4px -6px rgba(255, 255, 255, 0.3);
   border: solid 2px #ced4da;
 }
+
+.new_user_button {
+  font-size: 1.2rem;
+}
