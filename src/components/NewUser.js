@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import Button from './Button'
+import newUserService from '../services/newUser'
 import '../style/newUser.css'
 import InputItem from './InputItem'
 
-function NewUser({ showNewUser }) {
+
+function NewUser({ showNewUser, setShowNewUser }) {
 
   const [rol, setRol] = useState('')
   const [newUsername, setNewUsername] = useState('')
@@ -11,33 +13,46 @@ function NewUser({ showNewUser }) {
   const [repeatedPassword, setRepeatedPassword] = useState('')
   const [name, setName] = useState('')
 
-  const handleNewUserCredentials = (e) => {
+  const handleAddNewUser = async (e) => {
+
     e.preventDefault()
 
     if (newPassword !== repeatedPassword) {
-      setNewPassword('')
       setRepeatedPassword('')
       return alert("Passwords don't match")
     }
+
     if (!rol) return alert('Please select a rol')
 
     const newUser = {
-      rol,
-      newUsername,
-      name,
-      newPassword,
+      "rol": rol,
+      "username": newUsername,
+      "name": name,
+      "password": newPassword
     }
 
-    setRol('')
-    setNewUsername('')
-    setNewPassword('')
-    setRepeatedPassword('')
-    setName('')
+    try {
 
+      await newUserService.addUser(newUser)
+
+      alert('User created succesfully')
+      setRol('')
+      setNewUsername('')
+      setNewPassword('')
+      setRepeatedPassword('')
+      setName('')
+      setShowNewUser(!showNewUser)
+
+    } catch (error) {
+      alert('Username already in use, please try a different one')
+      console.error(error)
+
+    }
   }
 
   return (
     <div className={showNewUser ? '' : 'hide'}>
+
       <h2 className='new_user_message'>Create new user</h2>
       <div className='new_user_container' >
         Choose your rol
@@ -57,7 +72,7 @@ function NewUser({ showNewUser }) {
         </div>
         <form
           className="login_form"
-          onSubmit={handleNewUserCredentials}
+          onSubmit={handleAddNewUser}
         >
           <InputItem
             value={newUsername}

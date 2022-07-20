@@ -16,7 +16,8 @@ function App() {
         setShowNewUser={setShowNewUser}
         showNewUser={showNewUser} />
       <NewUser
-        showNewUser={showNewUser} />
+        showNewUser={showNewUser}
+        setShowNewUser={setShowNewUser} />
     </>
   );
 }
