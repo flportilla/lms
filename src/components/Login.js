@@ -30,7 +30,6 @@ const Login = ({ setShowNewUser, showNewUser }) => {
 
     setCredentials(user)
 
-    console.log(credentials)
   }
 
   return (
