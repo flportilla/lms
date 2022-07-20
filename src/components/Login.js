@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "./Button";
-import NewUser from "./NewUser";
 import "../style/login.css";
 
 const Login = ({ setShowNewUser, showNewUser }) => {
@@ -41,13 +40,13 @@ const Login = ({ setShowNewUser, showNewUser }) => {
             type={null}
             onClick={handleStudentInput}
             children={'Student'}
-            style={null}
+            customClass={null}
           />
           <Button
             type={null}
             onClick={handleProfessorInput}
             children={'Professor'}
-            style={null}
+            customClass={null}
           />
         </div>
         <div className="login_credentials">
@@ -62,6 +61,7 @@ const Login = ({ setShowNewUser, showNewUser }) => {
               Username
             </label>
             <input
+              required
               placeholder="username"
               value={username}
               onChange={({ target }) => setUsername(target.value)}
@@ -76,23 +76,24 @@ const Login = ({ setShowNewUser, showNewUser }) => {
               Password
             </label>
             <input
+              required
               placeholder="password"
               value={password}
               onChange={({ target }) => setPassword(target.value)}
               className="login_input"
               id="password"
-              type={'text'}
+              type={'password'}
             />
             <Button
               type={'submit'}
-              style={null}
+              customClass={null}
               onClick={handleNewUserForm}
               children={'Sign in'}
             />
           </form>
           <Button
             type={null}
-            style={'new_user_button'}
+            customClass={'new_user_button'}
             onClick={() => setShowNewUser(!showNewUser)}
             children={'new user? Click here'}
           />
