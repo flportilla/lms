@@ -1,17 +1,14 @@
-import React, { useState } from "react"
-import Button from "./Button"
-import "../style/login.css"
+import React, { useState } from "react";
+import Button from "./Button";
+import NewUser from "./NewUser";
+import "../style/login.css";
 
-const Login = () => {
+const Login = ({ setShowNewUser, showNewUser }) => {
 
   //States to handle login
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [credentials, setCredentials] = useState(null)
-
-  //States to
-
-
 
   const handleStudentInput = (e) => {
     console.log(e.target.innerText)
@@ -34,7 +31,6 @@ const Login = () => {
 
     console.log(credentials)
   }
-
 
   return (
     <>
@@ -97,7 +93,7 @@ const Login = () => {
           <Button
             type={null}
             style={'new_user_button'}
-            onClick={handleNewUserForm}
+            onClick={() => setShowNewUser(!showNewUser)}
             children={'new user? Click here'}
           />
         </div>

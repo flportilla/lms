@@ -1,0 +1,81 @@
+.new_user_container {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  gap: 10px;
+  border: 1px solid #ced4da;
+  min-width: 400px;
+  width: 30%;
+  margin: 15px auto;
+  padding: 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+.new_user_message {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.buttons_container {
+  max-width: 80%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.new_user_credentials {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 80%;
+  text-align: center;
+  border: 1px solid #ced4da;
+  margin: 0;
+  padding: 0;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+.new_user_form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.new_username_label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.new_user_input {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  color: #ced4da;
+  font-size: 1.5rem;
+}
