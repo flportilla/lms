@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import login from '../services/login'
 import "../style/login.css";
 import InputItem from "./InputItem";
 
@@ -8,51 +9,46 @@ const Login = ({ setShowNewUser, showNewUser }) => {
   //States to handle login
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [credentials, setCredentials] = useState(null)
   const [rol, setRol] = useState('')
 
-  // const handleStudentInput = (target) => {
-  //   console.log(target.innerText)
-  // }
-  // const handleProfessorInput = (target) => {
-  //   console.log(target.innerText)
-  // }
-  // const handleNewUserForm = (target) => {
-  //   console.log(target.innerText)
-  // }
-  const handleUser = (e) => {
+  const handleUser = async (e) => {
     e.preventDefault()
 
     const user = {
       username,
-      password
+      password,
+      rol
     }
 
     try {
+
       if (!rol) return alert('Please select a rol')
       await login.login(user)
 
     } catch (error) {
-
-      alert('Username or password is invalid')
+      
+      alert('Username, password or rol is invalid')
       console.error(error)
     }
   }
 
   return (
     <>
-      <h2 className="welcome_message">Welcome to this generic LMS</h2>
+      <h2 className="welcome_message"
+      >
+        Welcome to this generic LMS
+      </h2>
       <div className='login_container'>
         <div className="buttons_container">
           <Button
             type={null}
-            onClick={({ target }) => { setRol(target.innerText) }}//handleStudentInput(); 
+            onClick={({ target }) => { setRol(target.innerText) }}
             children={'Student'}
             customClass={rol === 'Student' ? 'selected' : ''}
           />
           <Button
             type={null}
-            onClick={({ target }) => { setRol(target.innerText) }}//handleProfessorInput(); 
+            onClick={({ target }) => { setRol(target.innerText) }}
             children={'Professor'}
             customClass={rol === 'Professor' ? 'selected' : ''}
           />
@@ -71,7 +67,7 @@ const Login = ({ setShowNewUser, showNewUser }) => {
               children={'Username'}
             />
             <InputItem
-              value={username}
+              value={password}
               onChange={({ target }) => setPassword(target.value)}
               htmlFor={'password'}
               type={'password'}
@@ -81,7 +77,7 @@ const Login = ({ setShowNewUser, showNewUser }) => {
             <Button
               type={'submit'}
               customClass={null}
-              onClick={() => { }}//handleNewUserForm
+              onClick={() => { }}
               children={'Sign in'}
             />
           </form>
