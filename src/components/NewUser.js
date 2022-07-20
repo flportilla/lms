@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Button from './Button'
 import '../style/newUser.css'
+import InputItem from './InputItem'
 
 function NewUser({ showNewUser }) {
 
@@ -14,12 +15,8 @@ function NewUser({ showNewUser }) {
     e.preventDefault()
 
     if (newPassword !== repeatedPassword) {
-
-      setNewUsername('')
       setNewPassword('')
       setRepeatedPassword('')
-      setName('')
-
       return alert("Passwords don't match")
     }
     if (!rol) return alert('Please select a rol')
@@ -30,11 +27,13 @@ function NewUser({ showNewUser }) {
       name,
       newPassword,
     }
+
     setRol('')
     setNewUsername('')
     setNewPassword('')
     setRepeatedPassword('')
     setName('')
+
   }
 
   return (
@@ -45,81 +44,58 @@ function NewUser({ showNewUser }) {
         <div className="buttons_container">
           <Button
             type={null}
-            onClick={() => setRol('Student')}
+            onClick={({ target }) => setRol(target.innerText)}
             children={'Student'}
-            customClass={null}
+            customClass={rol === 'Student' ? 'selected' : ''}
           />
           <Button
             type={null}
-            onClick={() => setRol('Professor')}
+            onClick={({ target }) => setRol(target.innerText)}
             children={'Professor'}
-            customClass={null}
+            customClass={rol === 'Professor' ? 'selected' : ''}
           />
         </div>
         <form
           className="login_form"
           onSubmit={handleNewUserCredentials}
         >
-          <label
-            className="new_username_label"
-            htmlFor="new_username"
-          >
-            New username
-          </label>
-          <input
-            required
+          <InputItem
             value={newUsername}
             onChange={({ target }) => setNewUsername(target.value)}
-            className="new_user_input"
-            id="new_username"
+            htmlFor={'newUsername'}
             type={'text'}
+            isRequired
+            children={'New username'}
           />
-          <label
-            className="new_username_label"
-            htmlFor="name"
-          >
-            Name
-          </label>
-          <input
-            required
+          <InputItem
             value={name}
             onChange={({ target }) => setName(target.value)}
-            className="new_user_input"
-            id="name"
+            htmlFor={'name'}
             type={'text'}
+            isRequired
+            children={'Name'}
           />
-          <label
-            className="new_username_label"
-            htmlFor="new_password "
-          >
-            New password
-          </label>
-          <input
-            required
+          <InputItem
             value={newPassword}
             onChange={({ target }) => setNewPassword(target.value)}
-            className="new_user_input"
-            id="new_password"
+            htmlFor={'new_password'}
             type={'password'}
+            isRequired
+            children={'New password'}
           />
-          <label
-            className="new_username_label"
-            htmlFor="repeat_password"
-          >
-            Repeat password
-          </label>
-          <input
-            required
+          <InputItem
             value={repeatedPassword}
             onChange={({ target }) => setRepeatedPassword(target.value)}
-            className="new_user_input"
-            id="repeat_password"
+            htmlFor={'repeated_password'}
             type={'password'}
+            isRequired
+            children={'Repeat password'}
           />
+
           <Button
             type={'submit'}
             customClass={null}
-            onClick={() => { }}
+            onClick={null}
             children={'Sign up'}
           />
         </form>

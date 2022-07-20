@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import "../style/login.css";
+import InputItem from "./InputItem";
 
 const Login = ({ setShowNewUser, showNewUser }) => {
 
@@ -8,16 +9,17 @@ const Login = ({ setShowNewUser, showNewUser }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [credentials, setCredentials] = useState(null)
+  const [rol, setRol] = useState('')
 
-  const handleStudentInput = (e) => {
-    console.log(e.target.innerText)
-  }
-  const handleProfessorInput = (e) => {
-    console.log(e.target.innerText)
-  }
-  const handleNewUserForm = (e) => {
-    console.log(e.target.innerText)
-  }
+  // const handleStudentInput = (target) => {
+  //   console.log(target.innerText)
+  // }
+  // const handleProfessorInput = (target) => {
+  //   console.log(target.innerText)
+  // }
+  // const handleNewUserForm = (target) => {
+  //   console.log(target.innerText)
+  // }
   const handleUser = (e) => {
     e.preventDefault()
 
@@ -38,15 +40,15 @@ const Login = ({ setShowNewUser, showNewUser }) => {
         <div className="buttons_container">
           <Button
             type={null}
-            onClick={handleStudentInput}
+            onClick={({ target }) => { setRol(target.innerText) }}//handleStudentInput(); 
             children={'Student'}
-            customClass={null}
+            customClass={rol === 'Student' ? 'selected' : ''}
           />
           <Button
             type={null}
-            onClick={handleProfessorInput}
+            onClick={({ target }) => { setRol(target.innerText) }}//handleProfessorInput(); 
             children={'Professor'}
-            customClass={null}
+            customClass={rol === 'Professor' ? 'selected' : ''}
           />
         </div>
         <div className="login_credentials">
@@ -54,40 +56,26 @@ const Login = ({ setShowNewUser, showNewUser }) => {
             className="login_form"
             onSubmit={handleUser}
           >
-            <label
-              className="login_label"
-              htmlFor="username"
-            >
-              Username
-            </label>
-            <input
-              required
-              placeholder="username"
+            <InputItem
               value={username}
               onChange={({ target }) => setUsername(target.value)}
-              className="login_input"
-              id="username"
+              htmlFor={'username'}
               type={'text'}
+              isRequired
+              children={'Username'}
             />
-            <label
-              className="login_label"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              required
-              placeholder="password"
-              value={password}
+            <InputItem
+              value={username}
               onChange={({ target }) => setPassword(target.value)}
-              className="login_input"
-              id="password"
+              htmlFor={'password'}
               type={'password'}
+              isRequired
+              children={'Password'}
             />
             <Button
               type={'submit'}
               customClass={null}
-              onClick={handleNewUserForm}
+              onClick={() => { }}//handleNewUserForm
               children={'Sign in'}
             />
           </form>
