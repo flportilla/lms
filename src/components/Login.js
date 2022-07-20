@@ -19,10 +19,13 @@ const Login = ({ setShowNewUser, showNewUser }) => {
       password,
       rol
     }
+
     try {
+      if (!rol) return alert('Please select a rol')
       await login.login(user)
 
     } catch (error) {
+
       alert('Username or password is invalid')
       console.error(error)
     }
