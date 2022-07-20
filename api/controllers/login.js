@@ -14,12 +14,6 @@ loginRouter.post('/', async (request, response) => {
     ? false
     : await bcrypt.compare(password, user.passwordHash ? user.passwordHash : '')
 
-  if (!rol) {
-    return response.status(401).json({
-      error: 'Please select a rol'
-    })
-  }
-
   if (user?.rol !== rol) {
     return response.status(401).json({
       error: 'Please select your rol'

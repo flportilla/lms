@@ -21,11 +21,12 @@ const Login = ({ setShowNewUser, showNewUser }) => {
     }
 
     try {
-      if (!rol) return alert('Please select yours')
+
+      if (!rol) return alert('Please select a rol')
       await login.login(user)
 
     } catch (error) {
-
+      
       alert('Username, password or rol is invalid')
       console.error(error)
     }
