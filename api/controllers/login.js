@@ -20,6 +20,12 @@ loginRouter.post('/', async (request, response) => {
     })
   }
 
+  if (user?.rol !== rol) {
+    return response.status(401).json({
+      error: 'Please select your rol'
+    })
+  }
+
   if (!(user && passwordCorrect)) {
 
     return response.status(401).json({

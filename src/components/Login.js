@@ -21,12 +21,12 @@ const Login = ({ setShowNewUser, showNewUser }) => {
     }
 
     try {
-      if (!rol) return alert('Please select a rol')
+      if (!rol) return alert('Please select yours')
       await login.login(user)
 
     } catch (error) {
 
-      alert('Username or password is invalid')
+      alert('Username, password or rol is invalid')
       console.error(error)
     }
   }
@@ -41,13 +41,13 @@ const Login = ({ setShowNewUser, showNewUser }) => {
         <div className="buttons_container">
           <Button
             type={null}
-            onClick={({ target }) => { setRol(target.innerText) }}//handleStudentInput(); 
+            onClick={({ target }) => { setRol(target.innerText) }}
             children={'Student'}
             customClass={rol === 'Student' ? 'selected' : ''}
           />
           <Button
             type={null}
-            onClick={({ target }) => { setRol(target.innerText) }}//handleProfessorInput(); 
+            onClick={({ target }) => { setRol(target.innerText) }}
             children={'Professor'}
             customClass={rol === 'Professor' ? 'selected' : ''}
           />
