@@ -10,5 +10,4 @@ const addUserHelper = {
   addUser
 }
 
-
 export default addUserHelper

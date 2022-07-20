@@ -32,7 +32,6 @@ function NewUser({ showNewUser, setShowNewUser }) {
     }
 
     try {
-
       await newUserService.addUser(newUser)
 
       alert('User created succesfully')
@@ -53,7 +52,10 @@ function NewUser({ showNewUser, setShowNewUser }) {
   return (
     <div className={showNewUser ? '' : 'hide'}>
 
-      <h2 className='new_user_message'>Create new user</h2>
+      <h2 className='new_user_message'
+      >
+        Create new user
+      </h2>
       <div className='new_user_container' >
         Choose your rol
         <div className="buttons_container">
@@ -106,7 +108,6 @@ function NewUser({ showNewUser, setShowNewUser }) {
             isRequired
             children={'Repeat password'}
           />
-
           <Button
             type={'submit'}
             customClass={null}

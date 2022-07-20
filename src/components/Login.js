@@ -30,7 +30,10 @@ const Login = ({ setShowNewUser, showNewUser }) => {
 
   return (
     <>
-      <h2 className="welcome_message">Welcome to this generic LMS</h2>
+      <h2 className="welcome_message"
+      >
+        Welcome to this generic LMS
+      </h2>
       <div className='login_container'>
         <div className="buttons_container">
           <Button
