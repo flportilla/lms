@@ -9,28 +9,23 @@ const Login = ({ setShowNewUser, showNewUser }) => {
   //States to handle login
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [credentials, setCredentials] = useState(null)
   const [rol, setRol] = useState('')
 
-  // const handleStudentInput = (target) => {
-  //   console.log(target.innerText)
-  // }
-  // const handleProfessorInput = (target) => {
-  //   console.log(target.innerText)
-  // }
-  // const handleNewUserForm = (target) => {
-  //   console.log(target.innerText)
-  // }
-  const handleUser = (e) => {
+  const handleUser = async (e) => {
     e.preventDefault()
 
     const user = {
       username,
-      password
+      password,
+      rol
     }
+    try {
+      await login.login(user)
 
-    setCredentials(user)
-
+    } catch (error) {
+      alert('Username or password is invalid')
+      console.error(error)
+    }
   }
 
   return (
@@ -65,7 +60,7 @@ const Login = ({ setShowNewUser, showNewUser }) => {
               children={'Username'}
             />
             <InputItem
-              value={username}
+              value={password}
               onChange={({ target }) => setPassword(target.value)}
               htmlFor={'password'}
               type={'password'}
@@ -75,7 +70,7 @@ const Login = ({ setShowNewUser, showNewUser }) => {
             <Button
               type={'submit'}
               customClass={null}
-              onClick={() => { }}//handleNewUserForm
+              onClick={() => { }}
               children={'Sign in'}
             />
           </form>
