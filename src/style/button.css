@@ -78,25 +78,44 @@
 }
 
 .duration span:nth-child(1) {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .duration span:nth-child(2) {
   font-size: 1rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .navegation span:nth-child(1) {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .navegation span:nth-child(2) {
   font-size: 1rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .test span:nth-child(1) {
   font-size: 1rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .test span:nth-child(2) {
   font-size: 1rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+
 }
