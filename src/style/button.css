@@ -50,3 +50,53 @@
   text-align: center;
   font-size: 1.2rem;
 }
+
+
+.progress,
+.duration,
+.navegation,
+.test {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 25%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.progress span:nth-child(1) {
+  font-size: 2rem;
+}
+
+.progress span:nth-child(2) {
+  font-size: 1rem;
+}
+
+.duration span:nth-child(1) {
+  font-size: 2rem;
+}
+
+.duration span:nth-child(2) {
+  font-size: 1rem;
+}
+
+.navegation span:nth-child(1) {
+  font-size: 2rem;
+}
+
+.navegation span:nth-child(2) {
+  font-size: 1rem;
+}
+
+.test span:nth-child(1) {
+  font-size: 1rem;
+}
+
+.test span:nth-child(2) {
+  font-size: 1rem;
+}

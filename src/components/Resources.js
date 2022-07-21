@@ -5,11 +5,7 @@ import { FcDiploma2 } from 'react-icons/fc';
 import { GiStoneAxe } from 'react-icons/gi';
 import { MdOutlineForum } from 'react-icons/md';
 
-
-
-const resources = () => {
-
-  const survey = <><div> survey </div></>
+const Resources = () => {
 
   return (
     <div className='resources'>
@@ -48,4 +44,4 @@ const resources = () => {
   )
 }
 
-export default resources
+export default Resources
