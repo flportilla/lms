@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
@@ -7,10 +7,15 @@ import Professor from "./components/Professor";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./style/app.css"
 
-
 function App() {
 
-  const rol = window.localStorage.getItem('rol')
+  const [rol, setRol] = useState('')
+
+  useEffect(() => {
+    const newRol = String(window.localStorage.getItem('rol'))
+    setRol(newRol)
+
+  }, [rol])
 
   return (
     <>
@@ -26,12 +31,13 @@ function App() {
             <NewUser />
           } />
 
-          <Route path="/rol" element={
-            rol === 'Student'
-              ? <Student />
-              : rol === 'Professor'
-                ? <Professor />
-                : ''} />
+          <Route path="/Student" element=
+            {<Student />}
+          />
+
+          <Route path="/Professor" element=
+            {<Professor />}
+          />
         </Routes>
       </Router>
     </>

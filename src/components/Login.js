@@ -28,10 +28,12 @@ const Login = () => {
     }
 
     try {
-      if (!rol) return alert('Please select yours')
-      await login.login(user)
+      if (!rol) return alert('Please select your rol')
+
       window.localStorage.setItem('rol', user.rol)
-      navigate("rol")
+      await login.login(user)
+
+      navigate(`/${user.rol}`)
 
     } catch (error) {
 
