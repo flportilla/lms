@@ -1,0 +1,81 @@
+.student_section {
+  margin: 0 auto;
+  height: auto;
+  width: fit-content;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 2fr 1fr;
+  gap: 10px;
+  place-items: center;
+  grid-template-areas:
+    "coursename coursename description description"
+    "modules modules modules modules";
+  border: 1px solid #ced4da;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+.course_name {
+  grid-area: coursename;
+  display: flex;
+  flex-direction: column;
+}
+
+.course_name_img_container img {
+  width: 100%;
+}
+
+.course_name .resources {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  margin: 0;
+}
+
+.description {
+  grid-area: description;
+}
+
+.modules {
+  grid-area: modules;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .student_section {
+    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .student_section {
+    max-width: 970px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .student_section {
+    max-width: 1170px;
+  }
+}
