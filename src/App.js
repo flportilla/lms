@@ -1,32 +1,39 @@
-import React, { useState } from "react";
-
-import Home from "./pages/Home"
+import React from "react";
+import Header from "./components/Header";
+import Login from "./components/Login";
+import NewUser from "./components/NewUser";
+import Student from "./components/Student";
+import Professor from "./components/Professor";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./style/app.css"
 
-const H1 = () => {
-  return <h1>segundo componente</h1>
-}
 
 function App() {
 
-  const [page, setPage] = useState('Home')
-
-  const content = () => {
-
-    if (page === 'Home') {
-      return <Home />
-    }
-    else if (page === 'h1') {
-      return <H1 />
-    }
-    else return <h1>else </h1>
-  }
+  const rol = window.localStorage.getItem('rol')
 
   return (
     <>
-      <button onClick={() => setPage('Home')}>home</button>
-      <button onClick={() => setPage('h1')}>h1</button>
-      {content()}
+      <Header />
+      <Router>
+        <Routes>
+
+          <Route path="/" element={
+            <Login />
+          } />
+
+          <Route path="/new-user-form" element={
+            <NewUser />
+          } />
+
+          <Route path="/rol" element={
+            rol === 'Student'
+              ? <Student />
+              : rol === 'Professor'
+                ? <Professor />
+                : ''} />
+        </Routes>
+      </Router>
     </>
   );
 }

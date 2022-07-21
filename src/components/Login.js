@@ -1,15 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import login from '../services/login'
 import "../style/login.css";
+
 import InputItem from "./InputItem";
 
-const Login = ({ setShowNewUser, showNewUser }) => {
+const Login = () => {
 
   //States to handle login
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [rol, setRol] = useState('')
+  const navigate = useNavigate()
+
+  const displayNewUserForm = () => {
+    navigate("/new-user-form")
+  }
 
   const handleUser = async (e) => {
     e.preventDefault()
@@ -23,6 +30,8 @@ const Login = ({ setShowNewUser, showNewUser }) => {
     try {
       if (!rol) return alert('Please select yours')
       await login.login(user)
+      window.localStorage.setItem('rol', user.rol)
+      navigate("rol")
 
     } catch (error) {
 
@@ -83,7 +92,7 @@ const Login = ({ setShowNewUser, showNewUser }) => {
           <Button
             type={null}
             customClass={'new_user_button'}
-            onClick={() => setShowNewUser(!showNewUser)}
+            onClick={displayNewUserForm}
             children={'new user? Click here'}
           />
         </div>
