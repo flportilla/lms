@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
@@ -8,14 +8,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./style/app.css"
 
 function App() {
-
-  const [rol, setRol] = useState('')
-
-  useEffect(() => {
-    const newRol = String(window.localStorage.getItem('rol'))
-    setRol(newRol)
-
-  }, [rol])
 
   return (
     <>
