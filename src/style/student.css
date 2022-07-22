@@ -80,7 +80,10 @@
   position: sticky;
 }
 
-
+.sign_in_first {
+  margin-top: 10%;
+  text-align: center;
+}
 
 
 

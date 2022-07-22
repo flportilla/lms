@@ -31,35 +31,42 @@ const Student = () => {
     }
 
   ]
+  const isLogged = window.localStorage.getItem('rol') === 'Student'
+
   return (
-    <>
-      <Navbar />
-      <section className='student_section'>
+    <>{
+      isLogged
+        ? <>
+          <Navbar />
+          <section className='student_section'>
 
-        <div className='course_name'>
-          <div className='course_name_img_container'>
-            <img src={courseImg} alt="course name" />
-          </div>
-          <Resources />
-        </div>
-        <div className='description'>
-          <div className='text'>
+            <div className='course_name'>
+              <div className='course_name_img_container'>
+                <img src={courseImg} alt="course name" />
+              </div>
+              <Resources />
+            </div>
+            <div className='description'>
+              <div className='text'>
 
-            {description}
-          </div>
+                {description}
+              </div>
 
-          <Indicators />
-        </div>
-        <div className='modules'>
-          {modulesInfo.map(module => {
-            return <Module
-              key={module.id}
-              title={module.moduleNumber}
-              topic={module.topic}
-            />
-          })}
-        </div>
-      </section>
+              <Indicators />
+            </div>
+            <div className='modules'>
+              {modulesInfo.map(module => {
+                return <Module
+                  key={module.id}
+                  title={module.moduleNumber}
+                  topic={module.topic}
+                />
+              })}
+            </div>
+          </section>
+        </>
+        : <h1 className='sign_in_first'>Please login to access this page</h1>
+    }
     </>
   )
 }
