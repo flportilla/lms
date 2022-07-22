@@ -1,5 +1,5 @@
 .student_section {
-  margin: 0 auto;
+  margin: 25px auto 0;
   height: auto;
   width: fit-content;
   padding: 5px;
@@ -22,22 +22,33 @@
   grid-area: coursename;
   display: flex;
   flex-direction: column;
+  padding: 15px;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.course_name_img_container {
+  padding: 0;
+  margin: 0;
 }
 
 .course_name_img_container img {
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .course_name .resources {
   display: flex;
   justify-content: space-between;
-  height: 100px;
+  padding: 0;
   margin: 0;
+  height: 100px;
 }
 
 .description {
   grid-area: description;
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -63,6 +74,10 @@
   width: 100%;
   display: flex;
   gap: 10px;
+}
+
+.profile {
+  position: sticky;
 }
 
 

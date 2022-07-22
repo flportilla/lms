@@ -31,7 +31,10 @@ const Login = () => {
       if (!rol) return alert('Please select your rol')
 
       window.localStorage.setItem('rol', user.rol)
-      await login.login(user)
+      const response = await login.login(user)
+
+      window.localStorage.setItem('rol', response.rol)
+      window.localStorage.setItem('name', response.name)
 
       navigate(`/${user.rol}`)
 

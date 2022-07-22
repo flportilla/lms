@@ -1,0 +1,10 @@
+.navbar_container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile {
+  font-size: 1.2rem;
+  text-decoration: underline;
+  color: #ced4da;
+}

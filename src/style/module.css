@@ -15,7 +15,7 @@
 
 .module_title {
   height: 40px;
-  max-width: 100%;
+  width: 100%;
   background-color: hsla(210, 14%, 83%, 0.2);
   text-align: center;
   font-size: 1.5rem;

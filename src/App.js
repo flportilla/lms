@@ -6,6 +6,7 @@ import Student from "./components/Student";
 import Professor from "./components/Professor";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./style/app.css"
+import Test from "./components/Test";
 
 function App() {
 
@@ -23,13 +24,17 @@ function App() {
             <NewUser />
           } />
 
-          <Route path="/Student" element=
-            {<Student />}
-          />
+          <Route path="/Student" element={
+            <Student />
+          } />
 
-          <Route path="/Professor" element=
-            {<Professor />}
-          />
+          <Route path="/Professor" element={
+            <Professor />
+          } />
+
+          <Route path="test" element={
+            <Test />
+          } />
         </Routes>
       </Router>
     </>
