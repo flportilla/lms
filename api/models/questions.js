@@ -1,31 +1,39 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
-  "username": {
+const questionSchema = new mongoose.Schema({
+  "statement": {
     type: String,
     required: true
   },
-  "name": {
+  "option1": {
     type: String,
     required: true
   },
-  "passwordHash": {
+  "option2": {
     type: String,
     required: true
   },
-  "rol": {
+  "option3": {
+    type: String,
+    required: true
+  },
+  "option4": {
+    type: String,
+    required: true
+  },
+  "answer": {
     type: String,
     required: true
   },
 })
 
-userSchema.set('toJSON', {
+questionSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     const { _id, __v, ...rest } = returnedObject
     return { id: _id.toString(), ...rest }
   }
 })
 
-const User = mongoose.model('User', userSchema)
+const Questions = mongoose.model('Questions', questionSchema)
 
-module.exports = User
+module.exports = Questions
