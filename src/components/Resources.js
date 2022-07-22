@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from './Button'
+import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { RiSurveyFill } from 'react-icons/ri';
 import { FcDiploma2 } from 'react-icons/fc';
@@ -10,7 +11,7 @@ const Resources = () => {
   const navigate = useNavigate()
   const resourcesButtons = [
     {
-      id: 1,
+      id: uuidv4(),
       onclick: null,
       customClass: 'survey',
       type: 'button',
@@ -20,7 +21,7 @@ const Resources = () => {
       }
     },
     {
-      id: 2,
+      id: uuidv4(),
       onclick: null,
       customClass: 'certificate',
       type: 'button',
@@ -30,7 +31,7 @@ const Resources = () => {
       }
     },
     {
-      id: 3,
+      id: uuidv4(),
       onclick: function () {
         navigate('/test')
       },
@@ -42,7 +43,7 @@ const Resources = () => {
       }
     },
     {
-      id: 4,
+      id: uuidv4(),
       onclick: null,
       customClass: 'forum',
       type: 'button',
