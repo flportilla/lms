@@ -1,30 +1,32 @@
 import React from 'react'
 import Button from './Button'
 import '../style/professor.css'
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 const Professor = () => {
 
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
+  const navigate = useNavigate();
   const professorControls = [
     {
       id: uuidv4(),
-      onclick: null,
-      customClass: 'add_question',
+      onclick: () => navigate('/add-question'),
+      customClass: 'command',
       type: 'button',
       children: 'Add question'
     },
     {
       id: uuidv4(),
       onclick: null,
-      customClass: 'add_question',
+      customClass: 'command',
       type: 'button',
       children: 'Create test'
     },
     {
       id: uuidv4(),
       onclick: null,
-      customClass: 'add_question',
+      customClass: 'command',
       type: 'button',
       children: 'results'
     }

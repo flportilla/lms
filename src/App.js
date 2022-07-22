@@ -7,6 +7,7 @@ import Professor from "./components/Professor";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./style/app.css"
 import Test from "./components/Test";
+import AddQuestion from "./components/AddQuestion";
 
 function App() {
 
@@ -34,6 +35,10 @@ function App() {
 
           <Route path="test" element={
             <Test />
+          } />
+
+          <Route path="add-question" element={
+            <AddQuestion />
           } />
         </Routes>
       </Router>
