@@ -35,6 +35,7 @@ const Login = () => {
 
       window.localStorage.setItem('rol', response.rol)
       window.localStorage.setItem('name', response.name)
+      window.localStorage.setItem('token', response.token)
 
       navigate(`/${user.rol}`)
 
