@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import addQuestionHelper from '../services/questions'
+import questionHelper from '../services/questions'
 import '../style/addQuestion.css'
 import Button from './Button'
 import TextArea from './TextArea'
@@ -29,9 +29,9 @@ const AddQuestion = () => {
 
     try {
 
-      addQuestionHelper.setToken(token)
+      questionHelper.setToken(token)
 
-      await addQuestionHelper.addQuestion(newQuestion)
+      await questionHelper.addQuestion(newQuestion)
       alert('Question added')
 
       setStatement('')

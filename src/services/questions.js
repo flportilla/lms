@@ -23,10 +23,10 @@ const listQuestions = async () => {
   return response.data
 }
 
-const addQuestionHelper = {
+const questionHelper = {
   addQuestion,
   setToken,
   listQuestions
 }
 
-export default addQuestionHelper
+export default questionHelper
