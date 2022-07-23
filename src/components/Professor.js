@@ -29,6 +29,13 @@ const Professor = () => {
       customClass: 'command',
       type: 'button',
       children: 'results'
+    },
+    {
+      id: uuidv4(),
+      onclick: () => navigate('/list-questions'),
+      customClass: 'command',
+      type: 'button',
+      children: 'Show questions'
     }
   ]
   return (

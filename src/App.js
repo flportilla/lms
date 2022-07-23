@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./style/app.css"
 import Test from "./components/Test";
 import AddQuestion from "./components/AddQuestion";
+import ListQuestions from "./components/ListQuestions";
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
 
           <Route path="add-question" element={
             <AddQuestion />
+          } />
+          <Route path="list-questions" element={
+            <ListQuestions />
           } />
         </Routes>
       </Router>
