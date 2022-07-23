@@ -6,9 +6,10 @@ const setToken = (newToken) => {
   const token = `bearer ${newToken}`
   axios.defaults.headers.common['Authorization'] = token
 }
+const rol = window.localStorage.getItem('rol')
 
+//Adds a new question
 const addQuestion = async (question) => {
-  const rol = window.localStorage.getItem('rol')
 
   if (rol !== 'Professor') return
 
@@ -16,9 +17,16 @@ const addQuestion = async (question) => {
   return response.data
 }
 
+
+const listQuestions = async () => {
+  const response = await axios.get(baseUrl)
+  return response.data
+}
+
 const addQuestionHelper = {
   addQuestion,
-  setToken
+  setToken,
+  listQuestions
 }
 
 export default addQuestionHelper

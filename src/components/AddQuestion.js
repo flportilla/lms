@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import addQuestionHelper from '../services/newQuestion'
+import addQuestionHelper from '../services/questions'
 import '../style/addQuestion.css'
 import Button from './Button'
 import TextArea from './TextArea'

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import login from '../services/login'
-import addQuestionHelper from '../services/newQuestion'
+import addQuestionHelper from '../services/questions'
 import "../style/login.css";
 
 import InputItem from "./InputItem";
