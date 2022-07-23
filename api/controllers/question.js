@@ -1,7 +1,5 @@
 const questionRouter = require('express').Router()
-const bcrypt = require('bcryptjs')
 const Question = require('../models/questions')
-const jwt = require('jsonwebtoken')
 
 const middleware = require('../middleware/middleware')
 const userExtractor = middleware.userExtractor
@@ -25,8 +23,8 @@ questionRouter.post('/', tokenExtractor, userExtractor, async (request, response
     return response.status(401).end()
   }
 
-  const savedquestion = await question.save()
-  return response.status(201).json(savedquestion)
+  const savedQuestion = await question.save()
+  return response.status(201).json(savedQuestion)
 
 })
 

@@ -10,7 +10,6 @@ import Test from "./components/Test";
 import AddQuestion from "./components/AddQuestion";
 
 function App() {
-
   return (
     <>
       <Header />

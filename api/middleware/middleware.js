@@ -11,7 +11,8 @@ const tokenExtractor = (request, response, next) => {
   }
 
   else {
-    return console.log('error, token is missing or incorrect')
+    console.clear()
+    console.log('error, token is missing or incorrect')
   }
 
   next()

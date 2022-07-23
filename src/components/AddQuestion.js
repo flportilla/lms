@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import addQuestionHelper from '../services/newQuestion'
 import '../style/addQuestion.css'
 import Button from './Button'
 import TextArea from './TextArea'
@@ -12,7 +13,7 @@ const AddQuestion = () => {
   const [option4, setOption4] = useState('')
   const [answer, setAnswer] = useState('')
 
-  const createQuestionRequest = (e) => {
+  const createQuestionRequest = async (e) => {
     e.preventDefault()
 
     const newQuestion = {
@@ -24,8 +25,26 @@ const AddQuestion = () => {
       answer
     }
 
+    const token = JSON.parse(window.localStorage.getItem('token'))
 
+    try {
 
+      addQuestionHelper.setToken(token)
+
+      await addQuestionHelper.addQuestion(newQuestion)
+      alert('Question added')
+
+      setStatement('')
+      setOption1('')
+      setOption2('')
+      setOption3('')
+      setOption4('')
+      setAnswer('')
+
+    } catch (error) {
+      console.error(error)
+      alert('Something went wrong')
+    }
   }
 
   const questionsForm = [
@@ -94,7 +113,6 @@ const AddQuestion = () => {
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
 
   return (
-
     <>{
       isLogged
         ? <form
@@ -133,7 +151,6 @@ const AddQuestion = () => {
         </form>
         : <h1 className='sign_in_first'>Please login as a Professor to access this page</h1>
     }
-
     </>
   )
 }
