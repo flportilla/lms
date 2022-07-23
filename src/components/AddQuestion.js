@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import InputItem from './InputItem'
 import '../style/addQuestion.css'
 import Button from './Button'
+import TextArea from './TextArea'
 
 const AddQuestion = () => {
 
@@ -26,13 +26,13 @@ const AddQuestion = () => {
 
 
 
-
   }
 
   const questionsForm = [
     {
       id: 1,
       htmlFor: 'statement',
+      customClass: 'textarea',
       type: 'text',
       isRequired: true,
       children: 'statement',
@@ -42,6 +42,7 @@ const AddQuestion = () => {
     {
       id: 2,
       htmlFor: 'option1',
+      customClass: 'textarea',
       type: 'text',
       isRequired: true,
       children: 'Option 1',
@@ -51,6 +52,7 @@ const AddQuestion = () => {
     {
       id: 3,
       htmlFor: 'option2',
+      customClass: 'textarea',
       type: 'text',
       isRequired: true,
       children: 'Option 2',
@@ -60,6 +62,7 @@ const AddQuestion = () => {
     {
       id: 4,
       htmlFor: 'option3',
+      customClass: 'textarea',
       type: 'text',
       isRequired: true,
       children: 'Option 3',
@@ -69,6 +72,7 @@ const AddQuestion = () => {
     {
       id: 5,
       htmlFor: 'option4',
+      customClass: 'textarea',
       type: 'text',
       isRequired: true,
       children: 'Option 4',
@@ -78,6 +82,7 @@ const AddQuestion = () => {
     {
       id: 6,
       htmlFor: 'answer',
+      customClass: 'textarea',
       type: 'text',
       isRequired: true,
       children: 'Answer',
@@ -96,16 +101,25 @@ const AddQuestion = () => {
           className='add_question_form'
           onSubmit={createQuestionRequest}>
           {
-            questionsForm.map(question => {
+            questionsForm.map(({
+              children,
+              customClass,
+              id,
+              htmlFor,
+              value,
+              onChange,
+              isRequired
+            }) => {
+
               return (
-                <InputItem
-                  key={question.id}
-                  htmlFor={question.htmlFor}
-                  value={question.value}
-                  type={question.type}
-                  onChange={({ target }) => question.onChange(target.value)}
-                  isRequired={question.isRequired}
-                  children={question.children}
+                <TextArea
+                  customClass={customClass}
+                  key={id}
+                  htmlFor={htmlFor}
+                  value={value}
+                  onChange={({ target }) => onChange(target.value)}
+                  isRequired={isRequired}
+                  children={children}
                 />
               )
             })
