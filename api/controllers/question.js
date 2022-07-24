@@ -27,6 +27,14 @@ questionRouter.post('/', tokenExtractor, userExtractor, async (request, response
   return response.status(201).json(savedQuestion)
 
 })
+questionRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) => {
+  const questionId = request.params.id
+
+  const questionById = await Question.findById(questionId)
+
+  return response.status(200).json(questionById)
+})
+
 questionRouter.get('/', tokenExtractor, userExtractor, async (request, response) => {
 
   const { user } = request
@@ -41,13 +49,7 @@ questionRouter.get('/', tokenExtractor, userExtractor, async (request, response)
 
 })
 
-questionRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) => {
-  const questionId = request.params.id
 
-  const questionById = await Question.findById(questionId)
-
-  return response.json(questionById)
-})
 
 
 module.exports = questionRouter
