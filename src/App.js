@@ -12,8 +12,6 @@ import QuestionForm from "./components/QuestionForm";
 
 function App() {
 
-  const [updatedQuestion, setUpdatedQuestion] = useState()
-
   return (
     <>
       <Header />
@@ -41,10 +39,13 @@ function App() {
           } />
 
           <Route path="add-question" element={
-            <QuestionForm />
+            <QuestionForm updatedQuestion={null} />
           } />
           <Route path="update-question" element={
-            <QuestionForm />
+            <QuestionForm
+              updatedQuestion={updatedQuestion}
+              request
+            />
           } />
 
           <Route path="list-questions" element={

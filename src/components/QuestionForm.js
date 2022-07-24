@@ -6,20 +6,16 @@ import TextArea from './TextArea'
 
 const QuestionForm = ({
   request = false,
-  updatedStatement,
-  updatedOption1,
-  updatedOption2,
-  updatedOption3,
-  updatedOption4,
-  updatedAnswer
+  updatedQuestion
 }) => {
 
-  const [statement, setStatement] = useState('')
-  const [option1, setOption1] = useState('')
-  const [option2, setOption2] = useState('')
-  const [option3, setOption3] = useState('')
-  const [option4, setOption4] = useState('')
-  const [answer, setAnswer] = useState('')
+  const [statement, setStatement] = useState('statement')
+  const [option1, setOption1] = useState('option1')
+  const [option2, setOption2] = useState('option2')
+  const [option3, setOption3] = useState('option3')
+  const [option4, setOption4] = useState('option4')
+  const [answer, setAnswer] = useState('answer')
+
   const questionsForm = [
     {
       id: 1,
@@ -119,17 +115,11 @@ const QuestionForm = ({
 
   const updateQuestionRequest = (e) => {
     e.preventDefault()
-    console.log(request,
-      updatedStatement,
-      updatedOption1,
-      updatedOption2,
-      updatedOption3,
-      updatedOption4,
-      updatedAnswer)
+
   }
 
-
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
+  const newQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion'))
 
   return (
     <>{
@@ -153,7 +143,7 @@ const QuestionForm = ({
                   customClass={customClass}
                   key={id}
                   htmlFor={htmlFor}
-                  value={value}
+                  value={request ? newQuestion[value] : value}
                   onChange={({ target }) => onChange(target.value)}
                   isRequired={isRequired}
                   children={children}
@@ -161,12 +151,26 @@ const QuestionForm = ({
               )
             })
           }
-          <Button
-            onClick={null}
-            children={'Create'}
-            customClass={null}
-            type={'submit'}
-          />
+          {
+            <>
+              {
+                request
+                  ? <Button
+                    onClick={null}
+                    children={'Update'}
+                    customClass={null}
+                    type={'submit'}
+                  />
+                  :
+                  <Button
+                    onClick={null}
+                    children={'Create'}
+                    customClass={null}
+                    type={'submit'}
+                  />
+              }
+            </>
+          }
         </form>
         : <h1 className='sign_in_first'>Please login as a Professor to access this page</h1>
     }

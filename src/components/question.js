@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../style/question.css'
 import Button from './Button'
+import questionHelper from '../services/questions'
 
 const Question = ({ statement,
   option1,
@@ -11,12 +12,22 @@ const Question = ({ statement,
   answer,
   id,
   index,
-  setUpdatedQuestion }) => {
+}) => {
 
   const navigate = useNavigate()
 
-  const handleQuestionUpdate = () => {
-    navigate('/update-question')
+  const handleQuestionUpdate = async () => {
+
+    try {
+      const response = await questionHelper.questionById(id)
+
+      window.localStorage.setItem('updatedQuestion', JSON.stringify(response))
+      navigate('/update-question')
+
+    } catch (error) {
+      console.error(error)
+    }
+
   }
   return (
     <>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import questionHelper from '../services/questions'
 import Question from './Question'
 
-const ListQuestions = (setUpdatedQuestion) => {
+const ListQuestions = () => {
 
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
   const [questionsList, setQuestionsList] = useState([])
@@ -23,7 +23,6 @@ const ListQuestions = (setUpdatedQuestion) => {
           {
             questionsList.map(({ statement, option1, option2, option3, option4, answer, id }, index) => {
               return <Question
-                setUpdatedQuestion={setUpdatedQuestion}
                 index={index}
                 key={id}
                 statement={statement}
