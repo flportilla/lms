@@ -2,7 +2,6 @@ const questionRouter = require('express').Router()
 const Question = require('../models/questions')
 
 const middleware = require('../middleware/middleware')
-const { json } = require('express')
 const userExtractor = middleware.userExtractor
 const tokenExtractor = middleware.tokenExtractor
 
@@ -41,5 +40,14 @@ questionRouter.get('/', tokenExtractor, userExtractor, async (request, response)
   return response.status(200).json(questions)
 
 })
+
+questionRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) => {
+  const questionId = request.params.id
+
+  const questionById = await Question.findById(questionId)
+
+  return response.json(questionById)
+})
+
 
 module.exports = questionRouter
