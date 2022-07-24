@@ -23,10 +23,17 @@ const listQuestions = async () => {
   return response.data
 }
 
+const questionById = async (id) => {
+  const URLParams = baseUrl + `/${id}`
+  const response = await axios.get(URLParams, { params: { id: id } })
+  return response.data
+}
+
 const questionHelper = {
   addQuestion,
   setToken,
-  listQuestions
+  listQuestions,
+  questionById
 }
 
 export default questionHelper
