@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
@@ -7,10 +7,13 @@ import Professor from "./components/Professor";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./style/app.css"
 import Test from "./components/Test";
-import AddQuestion from "./components/AddQuestion";
 import ListQuestions from "./components/ListQuestions";
+import QuestionForm from "./components/QuestionForm";
 
 function App() {
+
+  const [updatedQuestion, setUpdatedQuestion] = useState()
+
   return (
     <>
       <Header />
@@ -38,7 +41,10 @@ function App() {
           } />
 
           <Route path="add-question" element={
-            <AddQuestion />
+            <QuestionForm />
+          } />
+          <Route path="update-question" element={
+            <QuestionForm />
           } />
 
           <Route path="list-questions" element={

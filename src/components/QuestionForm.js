@@ -4,7 +4,15 @@ import '../style/addQuestion.css'
 import Button from './Button'
 import TextArea from './TextArea'
 
-const AddQuestion = () => {
+const QuestionForm = ({
+  request = false,
+  updatedStatement,
+  updatedOption1,
+  updatedOption2,
+  updatedOption3,
+  updatedOption4,
+  updatedAnswer
+}) => {
 
   const [statement, setStatement] = useState('')
   const [option1, setOption1] = useState('')
@@ -12,41 +20,6 @@ const AddQuestion = () => {
   const [option3, setOption3] = useState('')
   const [option4, setOption4] = useState('')
   const [answer, setAnswer] = useState('')
-
-  const createQuestionRequest = async (e) => {
-    e.preventDefault()
-
-    const newQuestion = {
-      statement,
-      option1,
-      option2,
-      option3,
-      option4,
-      answer
-    }
-
-    const token = JSON.parse(window.localStorage.getItem('token'))
-
-    try {
-
-      questionHelper.setToken(token)
-
-      await questionHelper.addQuestion(newQuestion)
-      alert('Question added')
-
-      setStatement('')
-      setOption1('')
-      setOption2('')
-      setOption3('')
-      setOption4('')
-      setAnswer('')
-
-    } catch (error) {
-      console.error(error)
-      alert('Something went wrong')
-    }
-  }
-
   const questionsForm = [
     {
       id: 1,
@@ -110,6 +83,52 @@ const AddQuestion = () => {
     },
   ]
 
+  const createQuestionRequest = async (e) => {
+    e.preventDefault()
+
+    const newQuestion = {
+      statement,
+      option1,
+      option2,
+      option3,
+      option4,
+      answer
+    }
+
+    const token = JSON.parse(window.localStorage.getItem('token'))
+
+    try {
+
+      questionHelper.setToken(token)
+
+      await questionHelper.addQuestion(newQuestion)
+      alert('Question added')
+
+      setStatement('')
+      setOption1('')
+      setOption2('')
+      setOption3('')
+      setOption4('')
+      setAnswer('')
+
+    } catch (error) {
+      console.error(error)
+      alert('Something went wrong')
+    }
+  }
+
+  const updateQuestionRequest = (e) => {
+    e.preventDefault()
+    console.log(request,
+      updatedStatement,
+      updatedOption1,
+      updatedOption2,
+      updatedOption3,
+      updatedOption4,
+      updatedAnswer)
+  }
+
+
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
 
   return (
@@ -117,7 +136,7 @@ const AddQuestion = () => {
       isLogged
         ? <form
           className='add_question_form'
-          onSubmit={createQuestionRequest}>
+          onSubmit={request ? updateQuestionRequest : createQuestionRequest}>
           {
             questionsForm.map(({
               children,
@@ -155,4 +174,4 @@ const AddQuestion = () => {
   )
 }
 
-export default AddQuestion
+export default QuestionForm

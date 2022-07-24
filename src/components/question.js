@@ -1,6 +1,7 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../style/question.css'
-import Button from '../components/Button'
+import Button from './Button'
 
 const Question = ({ statement,
   option1,
@@ -9,15 +10,20 @@ const Question = ({ statement,
   option4,
   answer,
   id,
-  index }) => {
+  index,
+  setUpdatedQuestion }) => {
 
+  const navigate = useNavigate()
+
+  const handleQuestionUpdate = () => {
+    navigate('/update-question')
+  }
   return (
-
     <>
       {
         <form className='question_form'>
           <Button
-            onClick={null}
+            onClick={handleQuestionUpdate}
             children={`Edit ${index + 1}`}
             customClass={'edit_button'}
             type={'button'}
