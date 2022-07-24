@@ -40,6 +40,7 @@ function App() {
           <Route path="add-question" element={
             <AddQuestion />
           } />
+
           <Route path="list-questions" element={
             <ListQuestions />
           } />
