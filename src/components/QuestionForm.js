@@ -3,18 +3,38 @@ import questionHelper from '../services/questions'
 import '../style/addQuestion.css'
 import Button from './Button'
 import TextArea from './TextArea'
+import { useNavigate } from 'react-router-dom';
 
 const QuestionForm = ({
   request = false,
 }) => {
 
-  const [statement, setStatement] = useState('statement')
-  const [option1, setOption1] = useState('option1')
-  const [option2, setOption2] = useState('option2')
-  const [option3, setOption3] = useState('option3')
-  const [option4, setOption4] = useState('option4')
-  const [answer, setAnswer] = useState('answer')
-
+  const autoFilledQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion'))
+  const [statement, setStatement] = useState(request
+    ? `${autoFilledQuestion.statement}`
+    : 'statement'
+  )
+  const [option1, setOption1] = useState(request
+    ? `${autoFilledQuestion.option1}`
+    : 'statement'
+  )
+  const [option2, setOption2] = useState(request
+    ? `${autoFilledQuestion.option2}`
+    : 'statement'
+  )
+  const [option3, setOption3] = useState(request
+    ? `${autoFilledQuestion.option3}`
+    : 'statement'
+  )
+  const [option4, setOption4] = useState(request
+    ? `${autoFilledQuestion.option4}`
+    : 'statement'
+  )
+  const [answer, setAnswer] = useState(request
+    ? `${autoFilledQuestion.answer}`
+    : 'statement'
+  )
+  const navigate = useNavigate()
   const questionsForm = [
     {
       id: 1,
@@ -77,7 +97,8 @@ const QuestionForm = ({
       onChange: setAnswer
     },
   ]
-
+  const isLogged = window.localStorage.getItem('rol') === 'Professor'
+  const token = JSON.parse(window.localStorage.getItem('token'))
   const createQuestionRequest = async (e) => {
     e.preventDefault()
 
@@ -90,7 +111,7 @@ const QuestionForm = ({
       answer
     }
 
-    const token = JSON.parse(window.localStorage.getItem('token'))
+
 
     try {
 
@@ -112,14 +133,37 @@ const QuestionForm = ({
     }
   }
 
-  const updateQuestionRequest = (e) => {
+  const updateQuestionRequest = async (e) => {
     e.preventDefault()
+    const { id } = autoFilledQuestion
 
+    const updatedQuestion = {
+      statement,
+      option1,
+      option2,
+      option3,
+      option4,
+      answer
+    }
+    try {
+
+      questionHelper.setToken(token)
+      await questionHelper.updateQuestion(id, updatedQuestion)
+
+      alert('Question updated')
+      setStatement('')
+      setOption1('')
+      setOption2('')
+      setOption3('')
+      setOption4('')
+      setAnswer('')
+      navigate('/list-questions')
+
+    } catch (error) {
+      console.error(error)
+      alert('Something went wrong')
+    }
   }
-
-  const isLogged = window.localStorage.getItem('rol') === 'Professor'
-  const newQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion'))
-
   return (
     <>{
       isLogged
@@ -142,7 +186,7 @@ const QuestionForm = ({
                   customClass={customClass}
                   key={id}
                   htmlFor={htmlFor}
-                  value={request ? newQuestion[value] : value}
+                  value={value}
                   onChange={({ target }) => onChange(target.value)}
                   isRequired={isRequired}
                   children={children}

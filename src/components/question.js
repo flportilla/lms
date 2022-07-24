@@ -16,7 +16,7 @@ const Question = ({ statement,
 
   const navigate = useNavigate()
 
-  const handleQuestionUpdate = async () => {
+  const handleQuestionRequest = async () => {
 
     try {
       const response = await questionHelper.questionById(id)
@@ -34,7 +34,7 @@ const Question = ({ statement,
       {
         <form className='question_form'>
           <Button
-            onClick={handleQuestionUpdate}
+            onClick={handleQuestionRequest}
             children={`Edit ${index + 1}`}
             customClass={'edit_button'}
             type={'button'}
