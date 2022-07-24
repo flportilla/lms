@@ -27,6 +27,13 @@ questionRouter.post('/', tokenExtractor, userExtractor, async (request, response
   return response.status(201).json(savedQuestion)
 
 })
+
+questionRouter.put('/:id', tokenExtractor, userExtractor, async (request, response) => {
+  const updatedQuestion = await Question.findByIdAndUpdate(request.params.id, request.body, { new: true })
+  return response.json(updatedQuestion)
+})
+
+
 questionRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) => {
   const questionId = request.params.id
 
