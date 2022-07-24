@@ -6,7 +6,6 @@ import TextArea from './TextArea'
 
 const QuestionForm = ({
   request = false,
-  updatedQuestion
 }) => {
 
   const [statement, setStatement] = useState('statement')

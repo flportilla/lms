@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
@@ -39,11 +39,10 @@ function App() {
           } />
 
           <Route path="add-question" element={
-            <QuestionForm updatedQuestion={null} />
+            <QuestionForm />
           } />
           <Route path="update-question" element={
             <QuestionForm
-              updatedQuestion={updatedQuestion}
               request
             />
           } />
