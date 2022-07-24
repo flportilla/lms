@@ -10,10 +10,15 @@ const rol = window.localStorage.getItem('rol')
 
 //Adds a new question
 const addQuestion = async (question) => {
-
   if (rol !== 'Professor') return
 
   const response = await axios.post(baseUrl, question)
+  return response.data
+}
+const updateQuestion = async (id, question) => {
+  if (rol !== 'Professor') return
+  const URLParams = baseUrl + `/${id}`
+  const response = await axios.put(URLParams, question)
   return response.data
 }
 
@@ -33,7 +38,8 @@ const questionHelper = {
   addQuestion,
   setToken,
   listQuestions,
-  questionById
+  questionById,
+  updateQuestion
 }
 
 export default questionHelper
