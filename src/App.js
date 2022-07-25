@@ -9,8 +9,12 @@ import "./style/app.css"
 import Test from "./components/Test";
 import ListQuestions from "./components/ListQuestions";
 import QuestionForm from "./components/QuestionForm";
+import Navbar from "./components/Navbar";
 
 function App() {
+
+  const rol = window.localStorage.getItem('rol')
+  const username = window.localStorage.getItem('name')
 
   return (
     <>
@@ -31,7 +35,14 @@ function App() {
           } />
 
           <Route path="/Professor" element={
-            <Professor />
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <Professor />
+
+            </div>
           } />
 
           <Route path="test" element={
@@ -41,6 +52,7 @@ function App() {
           <Route path="add-question" element={
             <QuestionForm />
           } />
+
           <Route path="update-question" element={
             <QuestionForm
               request
@@ -50,6 +62,7 @@ function App() {
           <Route path="list-questions" element={
             <ListQuestions />
           } />
+
         </Routes>
       </Router>
     </>

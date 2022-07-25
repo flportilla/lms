@@ -20,6 +20,10 @@ html {
   letter-spacing: inherit;
 }
 
+.rol_container {
+  display: flex;
+}
+
 @font-face {
   font-family: Virgil;
   src: url(../font/Virgil.woff2);

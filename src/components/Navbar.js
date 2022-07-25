@@ -1,10 +1,7 @@
 import React from 'react'
 import '../style/navbar.css'
 
-const Navbar = () => {
-
-  const username = window.localStorage.getItem('name')
-  const rol = window.localStorage.getItem('rol')
+const Navbar = ({ rol, username }) => {
 
   return (
     <>

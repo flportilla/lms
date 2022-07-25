@@ -39,6 +39,7 @@ const Login = () => {
       addQuestionHelper.setToken(loggedUser.token)
 
       navigate(`/${user.rol}`)
+      window.location.reload()
 
     } catch (error) {
 
