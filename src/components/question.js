@@ -25,6 +25,7 @@ const Question = ({ statement,
       window.localStorage.setItem('updatedQuestion', JSON.stringify(response))
       navigate('/update-question')
 
+
     } catch (error) {
       console.error(error)
     }

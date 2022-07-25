@@ -158,6 +158,7 @@ const QuestionForm = ({
       setOption4('')
       setAnswer('')
       navigate('/list-questions')
+      window.location.reload()
 
     } catch (error) {
       console.error(error)
