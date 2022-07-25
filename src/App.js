@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
@@ -10,11 +10,25 @@ import Test from "./components/Test";
 import ListQuestions from "./components/ListQuestions";
 import QuestionForm from "./components/QuestionForm";
 import Navbar from "./components/Navbar";
+import CreateTest from "./components/CreateTest";
+import questionHelper from "./services/questions";
 
 function App() {
 
   const rol = window.localStorage.getItem('rol')
   const username = window.localStorage.getItem('name')
+
+  const [questionsList, setQuestionsList] = useState([])
+
+  useEffect(() => {
+    if (!rol || rol === 'Student') return
+    const token = JSON.parse(window.localStorage.getItem('token'))
+    questionHelper.setToken(token)
+
+    questionHelper.listQuestions()
+      .then(question => setQuestionsList(question))
+
+  }, [])
 
   return (
     <>
@@ -90,7 +104,16 @@ function App() {
                 rol={rol}
                 username={username}
               />
-              <ListQuestions />
+              <ListQuestions questionsList={questionsList} />
+            </div>
+          } />
+          <Route path="create-test" element={
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <CreateTest questionsList={questionsList} />
             </div>
           } />
 
