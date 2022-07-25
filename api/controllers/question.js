@@ -56,6 +56,13 @@ questionRouter.get('/', tokenExtractor, userExtractor, async (request, response)
 
 })
 
+questionRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
+
+  await Question.findByIdAndRemove(request.params.id)
+
+  return response.status(204).end()
+})
+
 
 
 
