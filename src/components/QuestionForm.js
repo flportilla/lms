@@ -16,23 +16,23 @@ const QuestionForm = ({
   )
   const [option1, setOption1] = useState(request
     ? `${autoFilledQuestion.option1}`
-    : 'statement'
+    : 'option1'
   )
   const [option2, setOption2] = useState(request
     ? `${autoFilledQuestion.option2}`
-    : 'statement'
+    : 'option2'
   )
   const [option3, setOption3] = useState(request
     ? `${autoFilledQuestion.option3}`
-    : 'statement'
+    : 'option3'
   )
   const [option4, setOption4] = useState(request
     ? `${autoFilledQuestion.option4}`
-    : 'statement'
+    : 'option4'
   )
   const [answer, setAnswer] = useState(request
     ? `${autoFilledQuestion.answer}`
-    : 'statement'
+    : 'answer'
   )
   const navigate = useNavigate()
   const questionsForm = [
