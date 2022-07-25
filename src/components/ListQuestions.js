@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import questionHelper from '../services/questions'
+import React from 'react'
 import Question from './Question'
 
-const ListQuestions = () => {
+const ListQuestions = ({ questionsList }) => {
 
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
-  const [questionsList, setQuestionsList] = useState([])
-
-  useEffect(() => {
-    const token = JSON.parse(window.localStorage.getItem('token'))
-    questionHelper.setToken(token)
-
-    questionHelper.listQuestions()
-      .then(question => setQuestionsList(question))
-
-  }, [])
 
   return (
     <>
