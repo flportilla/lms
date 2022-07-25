@@ -31,7 +31,14 @@ function App() {
           } />
 
           <Route path="/Student" element={
-            <Student />
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <Student />
+            </div>
+
           } />
 
           <Route path="/Professor" element={
@@ -41,26 +48,50 @@ function App() {
                 username={username}
               />
               <Professor />
-
             </div>
           } />
 
           <Route path="test" element={
-            <Test />
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <Test />
+            </div>
           } />
 
           <Route path="add-question" element={
-            <QuestionForm />
+
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <QuestionForm />
+            </div>
           } />
 
           <Route path="update-question" element={
-            <QuestionForm
-              request
-            />
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <QuestionForm
+                request
+              />
+            </div>
           } />
 
           <Route path="list-questions" element={
-            <ListQuestions />
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <ListQuestions />
+            </div>
           } />
 
         </Routes>
