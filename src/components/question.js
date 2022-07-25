@@ -16,7 +16,8 @@ const Question = ({ statement,
 
   const navigate = useNavigate()
 
-  const handleQuestionRequest = async () => {
+  //Sends a request and brings the selected question as a result
+  const handleQuestionByIdRequest = async () => {
 
     try {
       const response = await questionHelper.questionById(id)
@@ -29,16 +30,44 @@ const Question = ({ statement,
     }
 
   }
+
+  //Sends a request to delete the question selected
+  const handleDeleteRequest = async (index) => {
+
+    const result = window.confirm(`Are you sure you want to delete question # ${index + 1}?`);
+
+    if (result) {
+
+      try {
+        await questionHelper.deleteQuestionById(id)
+        window.location.reload()
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+
+  }
+
   return (
     <>
       {
         <form className='question_form'>
-          <Button
-            onClick={handleQuestionRequest}
-            children={`Edit ${index + 1}`}
-            customClass={'edit_button'}
-            type={'button'}
-          />
+          <div className='edit_delete_buttons_container'>
+            <Button
+              onClick={handleQuestionByIdRequest}
+              children={`Edit #${index + 1}`}
+              customClass={'edit_button'}
+              type={'button'}
+            />
+            <Button
+              onClick={() => handleDeleteRequest(index)}
+              children={`Delete #${index + 1}`}
+              customClass={'edit_button'}
+              type={'button'}
+            />
+          </div>
           <p className='statement'>{`${index + 1}. ${statement}`}:</p>
 
           <div className='options_container'>Selected is the answer *
