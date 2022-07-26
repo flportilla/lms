@@ -11,7 +11,9 @@ import ListQuestions from "./components/ListQuestions";
 import QuestionForm from "./components/QuestionForm";
 import Navbar from "./components/Navbar";
 import CreateTest from "./components/CreateTest";
+import ListTest from "./components/ListTests";
 import questionHelper from "./services/questions";
+import testHelper from "./services/test";
 
 function App() {
 
@@ -29,6 +31,10 @@ function App() {
 
     questionHelper.listQuestions()
       .then(question => setQuestionsList(question))
+
+    testHelper.setToken(token)
+    //TODO: Get all tests.
+
 
   }, [rol])
 
@@ -116,6 +122,15 @@ function App() {
                 username={username}
               />
               <CreateTest questionsList={questionsList} />
+            </div>
+          } />
+          <Route path="list-tests" element={
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <ListTest />
             </div>
           } />
 

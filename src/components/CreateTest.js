@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import Button from './Button'
 import '../style/testCreator.css'
 import testHelper from '../services/test'
+import { useNavigate } from 'react-router-dom'
 
 const CreateTest = ({ questionsList }) => {
 
   const [testName, setTestName] = useState('')
+  const navigate = useNavigate()
 
   //TODO: 
   //[] Send request to create exam only with selected questions
@@ -32,6 +34,9 @@ const CreateTest = ({ questionsList }) => {
     try {
       testHelper.setToken(JSON.parse(window.localStorage.getItem('token')))
       await testHelper.addTest(exam)
+
+      alert('Test created')
+      navigate('/Professor')
 
     } catch (error) {
       console.error(error)
