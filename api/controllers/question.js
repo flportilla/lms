@@ -46,8 +46,10 @@ questionRouter.get('/', tokenExtractor, userExtractor, async (request, response)
 
   const { user } = request
 
+  const rol = user.rol ? user.rol : ''
+
   try {
-    if (user.rol !== 'Professor') {
+    if (rol !== 'Professor') {
       return response.status(401).end()
     }
     const questions = await Question.find({})
