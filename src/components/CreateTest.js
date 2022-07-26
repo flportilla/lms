@@ -18,12 +18,15 @@ const CreateTest = ({ questionsList }) => {
 
   const handleTestCreation = async (e) => {
     e.preventDefault()
-    const selected = questionsList.filter(question => question.selected === true)
+    const questionsSelected = questionsList
+      .filter(question => question.selected === true)
+      .map(question => question.id)
+
     if (!testName) return alert('Please enter a name for this exam')
 
     const exam = {
       name: testName,
-      questions: selected
+      questions: questionsSelected
     }
 
     try {
