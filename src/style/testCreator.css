@@ -2,3 +2,39 @@
   display: flex;
   flex-direction: column;
 }
+
+.test_name_input {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  background-color: transparent;
+  margin: 0 0 15px 0;
+  padding: 0;
+  width: 80%;
+  color: #ced4da;
+  font-size: 1.5rem;
+}
+
+.create_test_form p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  text-align: center;
+  width: 80%;
+  font-weight: bold;
+}
+
+.question_container {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  max-width: 80%;
+  border-bottom: 1px solid hsl(0, 0%, 100%, 0.3);
+}
+
+.question_container input {
+  margin-right: 10px;
+}
+
+.create_test {
+  width: 80%;
+}
