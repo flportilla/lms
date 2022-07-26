@@ -21,14 +21,16 @@ function App() {
   const [questionsList, setQuestionsList] = useState([])
 
   useEffect(() => {
+
     if (!rol || rol === 'Student') return
+
     const token = JSON.parse(window.localStorage.getItem('token'))
     questionHelper.setToken(token)
 
     questionHelper.listQuestions()
       .then(question => setQuestionsList(question))
 
-  }, [])
+  }, [rol])
 
   return (
     <>
