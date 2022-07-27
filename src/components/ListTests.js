@@ -19,8 +19,19 @@ const ListTests = ({ rol }) => {
 
   }, [])
 
-  const handleDeleteRequest = () => {
-    console.log('delete')
+  const handleDeleteRequest = async (id, testName) => {
+
+    const result = window.confirm(`Are you sure you want to delete ${testName}?`);
+
+    try {
+      if (result) {
+        await testHelper.removeTest(id)
+        window.location.reload()
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -38,7 +49,7 @@ const ListTests = ({ rol }) => {
                 <h2>* {test.name}</h2>
                 <Button
                   type={'button'}
-                  onClick={handleDeleteRequest}
+                  onClick={() => handleDeleteRequest(test.id, test.name)}
                   customClass={'delete_test'}
                 >
                   Delete
