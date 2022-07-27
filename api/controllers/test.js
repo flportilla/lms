@@ -36,5 +36,4 @@ testRouter.delete('/:id', tokenExtractor, userExtractor, async (request, respons
   return response.status(204).end()
 })
 
-
 module.exports = testRouter

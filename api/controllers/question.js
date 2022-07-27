@@ -65,7 +65,4 @@ questionRouter.delete('/:id', tokenExtractor, userExtractor, async (request, res
   return response.status(204).end()
 })
 
-
-
-
 module.exports = questionRouter
