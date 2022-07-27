@@ -10,7 +10,6 @@
 .questions_container {
     display: flex;
     flex-direction: column;
-    border: 1px solid white;
     padding: 10px 15px;
     margin: 0;
 }
