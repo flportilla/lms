@@ -58,14 +58,10 @@ questionRouter.get('/', tokenExtractor, userExtractor, async (request, response)
   } catch (error) {
     console.error(error)
   }
-
-
 })
 
 questionRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
-
   await Question.findByIdAndRemove(request.params.id)
-
   return response.status(204).end()
 })
 

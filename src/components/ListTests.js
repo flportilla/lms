@@ -18,6 +18,11 @@ const ListTests = ({ rol }) => {
       .then(test => setTests([...test]))
 
   }, [])
+
+  const handleDeleteRequest = () => {
+    console.log('delete')
+  }
+
   return (
     <div className='test_container'>
       <Button
@@ -29,7 +34,16 @@ const ListTests = ({ rol }) => {
         tests.map(test => {
           return (
             <div key={test.id}>
-              <h2>* {test.name}</h2>
+              <div style={{ display: 'flex', margin: '0 10px 0 0' }}>
+                <h2>* {test.name}</h2>
+                <Button
+                  type={'button'}
+                  onClick={handleDeleteRequest}
+                  customClass={'delete_test'}
+                >
+                  Delete
+                </Button>
+              </div>
               <div>
                 {
                   showQuestions
