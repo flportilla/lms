@@ -17,7 +17,6 @@ testRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
   })
 
   await test.save()
-
   response.status(201).json(test)
 })
 

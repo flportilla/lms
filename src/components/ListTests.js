@@ -6,6 +6,7 @@ import Button from './Button'
 const ListTests = ({ rol }) => {
 
   const [tests, setTests] = useState([])
+
   const [showQuestions, setShowQuestions] = useState(false)
 
   useEffect(() => {
@@ -34,19 +35,44 @@ const ListTests = ({ rol }) => {
     }
   }
 
+  const setAvailableTests = async () => {
+    console.log(tests)
+  }
+
+  const handleSelection = (target, id) => {
+    const selectedTest = tests.find(test => test.id === id)
+    selectedTest.selected = target.checked
+  }
+
   return (
     <div className='test_container'>
       <Button
         type='button'
         onClick={() => { setShowQuestions(!showQuestions) }}
         customClass={'show_questions'}
-      >Show questions</Button>
+      >
+        Show questions
+      </Button>
+      <h3 style={{ marginBottom: '15px' }}
+      >
+        Select a test and save to make it available for students</h3>
       {
-        tests.map(test => {
+        tests.map((test, index) => {
           return (
             <div key={test.id}>
               <div style={{ display: 'flex', margin: '0 10px 0 0' }}>
-                <h2>* {test.name}</h2>
+
+                <label style={{ display: 'flex' }} htmlFor={`${index}`}>
+                  <input
+                    id={`${index}`}
+                    type={'checkbox'}
+                    defaultChecked={false}
+                    onChange={({ target }) => handleSelection(target, test.id)}
+                  />
+
+                  <h2>{test.name}</h2>
+                </label>
+
                 <Button
                   type={'button'}
                   onClick={() => handleDeleteRequest(test.id, test.name)}
@@ -70,8 +96,14 @@ const ListTests = ({ rol }) => {
             </div>
           )
         })
-
       }
+      <Button
+        type='button'
+        onClick={setAvailableTests}
+        customClass={'show_questions'}
+      >
+        Save
+      </Button>
     </div>
   )
 }
