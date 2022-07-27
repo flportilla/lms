@@ -3,6 +3,8 @@ const Question = require('../models/questions')
 
 const middleware = require('../middleware/middleware')
 const Test = require('../models/tests')
+const { useDebugValue } = require('react')
+const { updateMany, findByIdAndUpdate } = require('../models/questions')
 const userExtractor = middleware.userExtractor
 const tokenExtractor = middleware.tokenExtractor
 
@@ -30,6 +32,13 @@ testRouter.get('/', tokenExtractor, userExtractor, async (request, response) => 
 testRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
   await Test.findByIdAndRemove(request.params.id)
   return response.status(204).end()
+})
+
+//Remove one test by id
+testRouter.put('/:id', tokenExtractor, userExtractor, async (request, response) => {
+
+  const updatedTest = await Test.findByIdAndUpdate(request.params.id, request.body, { new: true })
+  return response.send(updatedTest).end()
 })
 
 module.exports = testRouter

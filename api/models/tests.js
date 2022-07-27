@@ -11,7 +11,11 @@ const testSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Questions'
     }
-  ]
+  ],
+  selectedTest: {
+    type: Boolean,
+    default: false
+  }
 })
 
 testSchema.set('toJSON', {

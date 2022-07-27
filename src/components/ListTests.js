@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import testHelper from '../services/test'
 import '../style/testList.css'
 import Button from './Button'
+import { useNavigate } from 'react-router-dom'
 
 const ListTests = ({ rol }) => {
 
   const [tests, setTests] = useState([])
 
   const [showQuestions, setShowQuestions] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -39,9 +41,14 @@ const ListTests = ({ rol }) => {
     console.log(tests)
   }
 
-  const handleSelection = (target, id) => {
+  const handleSelection = async (target, id) => {
     const selectedTest = tests.find(test => test.id === id)
-    selectedTest.selected = target.checked
+    const updatedStatusTest = { ...tests, selectedTest: target.checked }
+
+    const token = JSON.parse(window.localStorage.getItem('token'))
+    testHelper.setToken(token)
+
+    await testHelper.updateTest(id, updatedStatusTest)
   }
 
   return (
@@ -92,14 +99,13 @@ const ListTests = ({ rol }) => {
                     : null
                 }
               </div>
-
             </div>
           )
         })
       }
       <Button
         type='button'
-        onClick={setAvailableTests}
+        onClick={() => { navigate('/Professor'); window.location.reload() }}
         customClass={'show_questions'}
       >
         Save

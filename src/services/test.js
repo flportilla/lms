@@ -28,16 +28,26 @@ const listTests = async () => {
 const removeTest = async (id) => {
   if (rol !== 'Professor') return
 
-  const URLParams = baseUrl + `/${id}`
-  const response = await axios.delete(URLParams, { params: { id: id } })
+  const response = await axios.delete(`${baseUrl}/${id}`, { params: { id: id } })
   return response.data
 }
+
+//Send the request to delete a test
+const updateTest = async (id, updatedTest) => {
+  if (rol !== 'Professor') return
+
+  const response = await axios.put(`${baseUrl}/${id}`, updatedTest)
+  return response.data
+}
+
+
 //Exports all functions as one object
 const testHelper = {
   addTest,
   setToken,
   listTests,
-  removeTest
+  removeTest,
+  updateTest
 }
 
 export default testHelper
