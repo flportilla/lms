@@ -15,11 +15,20 @@ const addTest = async (question) => {
   const response = await axios.post(baseUrl, question)
   return response.data
 }
+//Send the request to fetch all tests
+
+const listTests = async () => {
+  if (rol !== 'Professor') return
+
+  const response = await axios.get(baseUrl)
+  return response.data
+}
 
 //Exports all functions as one object
 const testHelper = {
   addTest,
   setToken,
+  listTests,
 }
 
 export default testHelper
