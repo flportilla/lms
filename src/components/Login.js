@@ -28,6 +28,7 @@ const Login = () => {
       rol
     }
     try {
+
       if (!rol) return alert('Please select your rol')
 
       const loggedUser = await login.login(user)
@@ -38,8 +39,9 @@ const Login = () => {
 
       addQuestionHelper.setToken(loggedUser.token)
 
-      navigate(`/${user.rol}`)
-      window.location.reload()
+      navigate(`/${user.rol}`);
+
+      window.location.reload();
 
     } catch (error) {
 

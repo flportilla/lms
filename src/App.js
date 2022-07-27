@@ -4,7 +4,7 @@ import Login from "./components/Login";
 import NewUser from "./components/NewUser";
 import Student from "./components/Student";
 import Professor from "./components/Professor";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom"
 import "./style/app.css"
 import Test from "./components/Test";
 import ListQuestions from "./components/ListQuestions";
@@ -17,9 +17,14 @@ import testHelper from "./services/test";
 
 function App() {
 
+  const oneHour = (1000 * 60 * 60) //One hour in ms
+  setTimeout(() => {
+    window.localStorage.clear();
+    alert('Session expired, please sing in again');
+  }, oneHour)
+
   const rol = window.localStorage.getItem('rol')
   const username = window.localStorage.getItem('name')
-
   const [questionsList, setQuestionsList] = useState([])
 
   useEffect(() => {
@@ -31,10 +36,6 @@ function App() {
 
     questionHelper.listQuestions()
       .then(question => setQuestionsList(question))
-
-    testHelper.setToken(token)
-    //TODO: Get all tests.
-
 
   }, [rol])
 
@@ -130,7 +131,9 @@ function App() {
                 rol={rol}
                 username={username}
               />
-              <ListTest />
+              <ListTest
+                rol={rol}
+              />
             </div>
           } />
 
