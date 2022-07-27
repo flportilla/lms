@@ -11,8 +11,6 @@ testRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
 
   const { questions, name } = request.body
 
-  console.log(questions, name)
-
   const test = new Test({
     name,
     questions
@@ -21,7 +19,6 @@ testRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
   await test.save()
 
   response.status(201).json(test)
-
 })
 
 //Fetch all tests from DB
