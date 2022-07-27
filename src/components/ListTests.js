@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import testHelper from '../services/test'
 import '../style/testList.css'
+import Button from './Button'
 
 const ListTests = ({ rol }) => {
 
@@ -19,15 +20,16 @@ const ListTests = ({ rol }) => {
   }, [])
   return (
     <div className='test_container'>
-      <button
+      <Button
         type='button'
         onClick={() => { setShowQuestions(!showQuestions) }}
-      >Show questions</button>
+        customClass={'show_questions'}
+      >Show questions</Button>
       {
         tests.map(test => {
           return (
             <div key={test.id}>
-              <h2>{test.name}</h2>
+              <h2>* {test.name}</h2>
               <div>
                 {
                   showQuestions
