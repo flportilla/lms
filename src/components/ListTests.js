@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import testHelper from '../services/test'
 
-const listTests = () => {
+const ListTests = ({ rol }) => {
+
+  const [tests, setTests] = useState()
+
+  useEffect(() => {
+
+    testHelper.listTests()
+      .then(test => setTests)
+
+  }, [])
+
+
   return (
-    <div>listTests</div>
+    <div>{tests}</div>
   )
 }
 
-export default listTests
+export default ListTests
