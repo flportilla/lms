@@ -9,17 +9,9 @@ const CreateTest = ({ questionsList }) => {
   const [testName, setTestName] = useState('')
   const navigate = useNavigate()
 
-  //TODO: 
-  //[] Send request to create exam only with selected questions
-  //[] Show the body of the question only on 'expand' button click
-  //[] Add expand button
-  //[] Add styles to separate question statements
-  //[] Create a model for DB to store exams
-  //[] Create a route to receive requests to exam creation
-  //[] Create a service to send requests to exam creation
-
   const handleTestCreation = async (e) => {
     e.preventDefault()
+
     const questionsSelected = questionsList
       .filter(question => question.selected === true)
       .map(question => question.id)
@@ -37,6 +29,8 @@ const CreateTest = ({ questionsList }) => {
 
       alert('Test created')
       navigate('/Professor')
+
+      questionsList.map(question => question.selected = false)
 
     } catch (error) {
       console.error(error)
