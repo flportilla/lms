@@ -16,12 +16,6 @@ import questionHelper from "./services/questions";
 
 function App() {
 
-  const oneHour = (1000 * 60 * 60) //One hour in ms
-  setTimeout(() => {
-    window.localStorage.clear();
-    alert('Session expired, please sing in again');
-  }, oneHour)
-
   const rol = window.localStorage.getItem('rol')
   const username = window.localStorage.getItem('name')
   const [questionsList, setQuestionsList] = useState([])
@@ -29,7 +23,7 @@ function App() {
   useEffect(() => {
 
     if (!rol || rol === 'Student') return
-
+    console.log(rol)
     const token = JSON.parse(window.localStorage.getItem('token'))
     questionHelper.setToken(token)
 

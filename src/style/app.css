@@ -21,7 +21,8 @@ html {
 }
 
 .rol_container {
-  display: flex;
+
+  width: 100%;
 }
 
 @font-face {

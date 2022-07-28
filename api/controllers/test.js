@@ -3,8 +3,6 @@ const Question = require('../models/questions')
 
 const middleware = require('../middleware/middleware')
 const Test = require('../models/tests')
-const { useDebugValue } = require('react')
-const { updateMany, findByIdAndUpdate } = require('../models/questions')
 const userExtractor = middleware.userExtractor
 const tokenExtractor = middleware.tokenExtractor
 
