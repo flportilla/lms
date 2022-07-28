@@ -21,7 +21,8 @@ html {
 }
 
 .rol_container {
-
+  display: flex;
+  justify-content: space-evenly;
   width: 100%;
 }
 

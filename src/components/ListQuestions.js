@@ -1,5 +1,6 @@
 import React from 'react'
 import Question from './Question'
+import '../style/questionList.css'
 
 const ListQuestions = ({ questionsList }) => {
 
@@ -8,7 +9,7 @@ const ListQuestions = ({ questionsList }) => {
   return (
     <>
       {isLogged
-        ? <div>
+        ? <div className='questions_list'>
           {
             questionsList.map(({ statement, option1, option2, option3, option4, answer, id }, index) => {
               return <Question
