@@ -1,22 +1,47 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useLocation } from 'react-router-dom'
-import testHelper from '../services/test'
+
 
 const Exam = () => {
 
     const { state } = useLocation()
 
-    useEffect(() => {
-        if (!state) return
-
-        const token = JSON.parse(window.localStorage.getItem('token'))
-        testHelper.setToken(token)
-        testHelper.listSelected(state.id)
-
-    }, [state])
+    const { questions, name } = state.exam
 
     return (
-        <div>Exam</div>
+        <div className='exam_container'>
+
+            <h2>{name}</h2>
+            <ul>
+                {
+                    questions.map(question => {
+                        return (
+                            <div key={question.id}>
+                                <p>{question.statement}</p>
+                                <ul>
+                                    <li>
+                                        <input type={'checkbox'} />
+                                        {question.option1}
+                                    </li>
+                                    <li>
+                                        <input type={'checkbox'} />
+                                        {question.option2}
+                                    </li>
+                                    <li>
+                                        <input type={'checkbox'} />
+                                        {question.option3}
+                                    </li>
+                                    <li>
+                                        <input type={'checkbox'} />
+                                        {question.option4}
+                                    </li>
+                                </ul>
+                            </div>
+                        )
+                    })
+                }
+            </ul>
+        </div >
     )
 }
 
