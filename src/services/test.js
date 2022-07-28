@@ -31,7 +31,13 @@ const removeTest = async (id) => {
   return response.data
 }
 
-//Send the request to delete a test
+//Send the request to get one test
+const listSelected = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}`, { params: { id: id } })
+  return response.data
+}
+
+//Send the request to update a test
 const updateTest = async (id, updatedTest) => {
   if (rol !== 'Professor') return
 
@@ -46,7 +52,7 @@ const testHelper = {
   listTests,
   removeTest,
   updateTest,
-
+  listSelected
 }
 
 export default testHelper
