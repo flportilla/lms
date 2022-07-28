@@ -37,12 +37,7 @@ const ListTests = ({ rol }) => {
     }
   }
 
-  const setAvailableTests = async () => {
-    console.log(tests)
-  }
-
   const handleSelection = async (target, id) => {
-    const selectedTest = tests.find(test => test.id === id)
     const updatedStatusTest = { ...tests, selectedTest: target.checked }
 
     const token = JSON.parse(window.localStorage.getItem('token'))
@@ -73,7 +68,7 @@ const ListTests = ({ rol }) => {
                   <input
                     id={`${index}`}
                     type={'checkbox'}
-                    defaultChecked={false}
+                    defaultChecked={test.selectedTest ? test.selectedTest : false}
                     onChange={({ target }) => handleSelection(target, test.id)}
                   />
 

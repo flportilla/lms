@@ -1,6 +1,9 @@
 import React from 'react'
 
-const Test = () => {
+const Test = ({ tests }) => {
+
+  const testList = tests.filter(test => test.selectedTest)
+
   return (
     <div>Test</div>
   )

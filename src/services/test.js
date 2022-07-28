@@ -18,7 +18,6 @@ const addTest = async (question) => {
 
 //Send the request to fetch all tests
 const listTests = async () => {
-  if (rol !== 'Professor') return
 
   const response = await axios.get(baseUrl)
   return response.data
@@ -40,14 +39,14 @@ const updateTest = async (id, updatedTest) => {
   return response.data
 }
 
-
 //Exports all functions as one object
 const testHelper = {
   addTest,
   setToken,
   listTests,
   removeTest,
-  updateTest
+  updateTest,
+
 }
 
 export default testHelper

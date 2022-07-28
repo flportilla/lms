@@ -13,22 +13,30 @@ import Navbar from "./components/Navbar";
 import CreateTest from "./components/CreateTest";
 import ListTest from "./components/ListTests";
 import questionHelper from "./services/questions";
+import testHelper from "./services/test";
 
 function App() {
 
   const rol = window.localStorage.getItem('rol')
   const username = window.localStorage.getItem('name')
   const [questionsList, setQuestionsList] = useState([])
+  const [tests, setTests] = useState([])
 
   useEffect(() => {
 
-    if (!rol || rol === 'Student') return
-    console.log(rol)
+    if (!rol) return
+
     const token = JSON.parse(window.localStorage.getItem('token'))
     questionHelper.setToken(token)
+    testHelper.setToken(token)
 
-    questionHelper.listQuestions()
-      .then(question => setQuestionsList(question))
+    if (rol === 'Professor') {
+      questionHelper.listQuestions()
+        .then(question => setQuestionsList(question))
+    }
+
+    testHelper.listTests()
+      .then(test => setTests(test))
 
   }, [rol])
 
@@ -73,7 +81,7 @@ function App() {
                 rol={rol}
                 username={username}
               />
-              <Test />
+              <Test tests={tests} />
             </div>
           } />
 
