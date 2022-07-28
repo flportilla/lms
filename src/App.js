@@ -6,12 +6,13 @@ import Student from "./components/Student";
 import Professor from "./components/Professor";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./style/app.css"
-import Test from "./components/Test";
+import Test from "./components/TestListStudent";
 import ListQuestions from "./components/ListQuestions";
 import QuestionForm from "./components/QuestionForm";
 import Navbar from "./components/Navbar";
 import CreateTest from "./components/CreateTest";
 import ListTest from "./components/ListTests";
+import Exam from "./components/Exam";
 import questionHelper from "./services/questions";
 import testHelper from "./services/test";
 
@@ -138,6 +139,9 @@ function App() {
             </div>
           } />
 
+          <Route path="exam" element={
+            <Exam />
+          } />
         </Routes>
       </Router>
     </>
