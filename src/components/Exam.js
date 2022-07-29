@@ -28,7 +28,8 @@ const Exam = () => {
             score,
             examId: window.localStorage.getItem('examId')
         }
-        console.log(results)
+
+
 
     }
     return (
