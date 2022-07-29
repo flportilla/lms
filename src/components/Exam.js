@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useLocation } from 'react-router-dom'
 import Button from '../components/Button'
+import '../style/exam.css'
 
 
 const Exam = () => {
@@ -12,33 +13,48 @@ const Exam = () => {
     const handleAnswers = (e) => {
         e.preventDefault()
         const correctAnswers = questions.map(question => {
-            let counter = 0;
+
+            let correct = 0;
             if (question.answer === question.selectedAnswer) {
-                counter++
+                correct++
             }
-            return counter
+            return correct
         }).reduce((prev, curr) => prev + curr, 0)
 
+        const score = ((correctAnswers / questions.length) * 100).toFixed(1) + "%"
 
-        console.log(correctAnswers, questions)
+        const results = {
+            name: window.localStorage.getItem('name'),
+            score,
+            examId: window.localStorage.getItem('examId')
+        }
+        console.log(results)
+
     }
     return (
         <div className='exam_container'>
 
-            <h2>{name}</h2>
+            <h2 className='exam_name'>{name}</h2>
 
-            <form onSubmit={handleAnswers}>
+            <form
+                onSubmit={handleAnswers}
+                className={'exam_form'}
+            >
                 {
-                    questions.map(question => {
+                    questions.map((question, index) => {
                         return (
-                            <div key={question.id}>
-                                <p>{question.statement}</p>
+                            <div
+                                key={question.id}
+                                className={'questions_container'}
+                            >
+                                <p>{index + 1}. {question.statement}</p>
 
                                 <label>
                                     <input
                                         name={question.id}
                                         type={'radio'}
                                         value={question.option1}
+                                        required
                                         onChange={({ target }) => question.selectedAnswer = target.value}
                                     />
                                     {question.option1}
@@ -48,6 +64,7 @@ const Exam = () => {
                                         name={question.id}
                                         type={'radio'}
                                         value={question.option2}
+                                        required
                                         onChange={({ target }) => question.selectedAnswer = target.value}
                                     />
                                     {question.option2}
@@ -57,6 +74,7 @@ const Exam = () => {
                                         name={question.id}
                                         type={'radio'}
                                         value={question.option3}
+                                        required
                                         onChange={({ target }) => question.selectedAnswer = target.value}
                                     />
                                     {question.option3}
@@ -66,10 +84,12 @@ const Exam = () => {
                                         name={question.id}
                                         type={'radio'}
                                         value={question.option4}
+                                        required
                                         onChange={({ target }) => question.selectedAnswer = target.value}
                                     />
                                     {question.option4}
                                 </label>
+                                <hr />
                             </div>
                         )
                     })
