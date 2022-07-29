@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import Button from '../components/Button'
+import resultsHelper from '../services/exam'
 import '../style/exam.css'
 
 
@@ -10,7 +11,7 @@ const Exam = () => {
     const { questions, name } = state.exam
 
 
-    const handleAnswers = (e) => {
+    const handleAnswers = async (e) => {
         e.preventDefault()
         const correctAnswers = questions.map(question => {
 
@@ -24,11 +25,18 @@ const Exam = () => {
         const score = ((correctAnswers / questions.length) * 100).toFixed(1) + "%"
 
         const results = {
+            examId: window.localStorage.getItem('examId'),
             name,
             score,
             userId: window.localStorage.getItem('userId'),
         }
-        console.log(results)
+        try {
+            await resultsHelper.sendResults(results)
+
+        }
+        catch (error) {
+            console.error(error)
+        }
     }
     return (
         <div className='exam_container'>
