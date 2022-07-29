@@ -24,13 +24,11 @@ const Exam = () => {
         const score = ((correctAnswers / questions.length) * 100).toFixed(1) + "%"
 
         const results = {
-            name: window.localStorage.getItem('name'),
+            name,
             score,
-            examId: window.localStorage.getItem('examId')
+            userId: window.localStorage.getItem('userId'),
         }
-
-
-
+        console.log(results)
     }
     return (
         <div className='exam_container'>
@@ -102,7 +100,6 @@ const Exam = () => {
                     type={'submit'}
                 />
             </form>
-
         </div >
     )
 }
