@@ -5,11 +5,12 @@ const User = require('../models/users')
 
 resultsRouter.post('/', async (request, response) => {
 
-    const { name, score, userId, examId } = request.body
+    const { name, score, userId, examId, time } = request.body
 
     const result = new Results({
         name,
         score,
+        time
     })
     const savedResult = await result.save()
 
@@ -29,23 +30,19 @@ resultsRouter.post('/', async (request, response) => {
 
 
 resultsRouter.get('/', async (req, res) => {
-    const { userId } = req.body
 
-    const { name, testsTaken } = await User.findById(userId).populate('testsTaken')
+    const users = await User
+        .find().populate('testsTaken')
 
-    const testInfo = testsTaken.map(test => {
+    const response = users.map(user => {
         return {
-            testName: test.name,
-            testScore: test.score
+            name: user.name,
+            tests: user.testsTaken,
+            rol: user.rol,
         }
-    })
+    }).filter(user => user.rol === 'Student')
 
-    return res.json({
-        name,
-        testInfo
-    })
-
+    return res.json(response)
 })
-
 
 module.exports = resultsRouter
