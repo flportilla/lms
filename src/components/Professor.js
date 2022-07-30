@@ -25,7 +25,7 @@ const Professor = () => {
     },
     {
       id: uuidv4(),
-      onclick: null,
+      onclick: () => navigate('/results', { state: { rol: window.localStorage.getItem('rol') } }),
       customClass: 'command',
       type: 'button',
       children: 'results'
@@ -52,14 +52,15 @@ const Professor = () => {
         isLogged
           ? <section className='professor_section'>
             <div className='controls_container' >
-              {professorControls.map(command => {
-                return <Button
-                  key={command.id}
-                  onClick={command.onclick}
-                  customClass={command.customClass}
-                  type={command.type}
-                >{command.children}</Button>
-              })
+              {
+                professorControls.map(command => {
+                  return <Button
+                    key={command.id}
+                    onClick={command.onclick}
+                    customClass={command.customClass}
+                    type={command.type}
+                  >{command.children}</Button>
+                })
               }
             </div>
           </section>

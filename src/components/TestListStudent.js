@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import testHelper from '../services/test'
 import '../style/testsStudent.css'
@@ -10,7 +10,7 @@ const Test = ({ tests }) => {
   const navigate = useNavigate()
 
   const handleTestStart = async (id) => {
-    const takeTest = window.confirm('Do you want to start this test?')
+    const takeTest = window.confirm('Do you want to start this test? You have only one chance, after you hit send you will see the results')
 
     if (takeTest) {
 
@@ -29,21 +29,22 @@ const Test = ({ tests }) => {
       {
         <div className='tests_container_student'>
           {
-            testList.map((test = {}, index = 0) => {
-              return (
-                <div key={test.id}>
-
-                  <h2>{index + 1}. {test.name}</h2>
-                  <p>Description</p>
-                  <Button
-                    type={'button'}
-                    customClass={null}
-                    children={`take test ${index + 1}`}
-                    onClick={() => handleTestStart(test.id)}
-                  />
-                </div>
-              )
-            })
+            testList.length === 0
+              ? <h1>There are no tests available</h1>
+              : testList.map((test = {}, index = 0) => {
+                return (
+                  <div key={test.id}>
+                    <h2>{index + 1}. {test.name}</h2>
+                    <p>Description</p>
+                    <Button
+                      type={'button'}
+                      customClass={null}
+                      children={`take test ${index + 1}`}
+                      onClick={() => handleTestStart(test.id)}
+                    />
+                  </div>
+                )
+              })
           }
         </div>
       }

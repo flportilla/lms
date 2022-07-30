@@ -35,7 +35,6 @@ const CreateTest = ({ questionsList }) => {
     } catch (error) {
       console.error(error)
     }
-
   }
 
   const handleSelection = (target, id) => {
