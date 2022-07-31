@@ -35,6 +35,7 @@ const Login = () => {
 
       window.localStorage.setItem('rol', loggedUser.rol)
       window.localStorage.setItem('name', loggedUser.name)
+      window.localStorage.setItem('userId', loggedUser.id)
       window.localStorage.setItem('token', JSON.stringify(loggedUser.token))
 
       addQuestionHelper.setToken(loggedUser.token)
