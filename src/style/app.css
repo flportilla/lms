@@ -1,0 +1,26 @@
+html {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #121212;
+  color: #ced4da;
+  letter-spacing: 0.1em;
+  font-size: 1rem
+    /*1 rem = 16px*/
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  padding: inherit;
+  margin: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+
+@font-face {
+  font-family: Virgil;
+  src: url(../font/Virgil.woff2);
+}
