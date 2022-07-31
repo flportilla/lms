@@ -32,3 +32,90 @@
   box-shadow: 2px 8px 4px -6px rgba(255, 255, 255, 0.5);
   border: solid 2px #ced4da;
 }
+
+.survey,
+.certificate,
+.test,
+.forum {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 25%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+
+.progress,
+.duration,
+.navegation,
+.test {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 25%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.progress span:nth-child(1) {
+  font-size: 2rem;
+}
+
+.progress span:nth-child(2) {
+  font-size: 1rem;
+}
+
+.duration span:nth-child(1) {
+  font-size: 1.5rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.duration span:nth-child(2) {
+  font-size: 1rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.navegation span:nth-child(1) {
+  font-size: 1.5rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.navegation span:nth-child(2) {
+  font-size: 1rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.test span:nth-child(1) {
+  font-size: 1rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.test span:nth-child(2) {
+  font-size: 1rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+
+}

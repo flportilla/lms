@@ -1,17 +1,36 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-  "username": String,
-  "name": String,
-  "passwordHash": String,
-  "rol": String
+	username: {
+		type: String,
+		required: true
+	},
+	name: {
+		type: String,
+		required: true
+	},
+	passwordHash: {
+		type: String,
+		required: true
+	},
+	rol: {
+		type: String,
+		required: true
+	},
+	testsTaken: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Results'
+		}
+	],
+
 })
 
 userSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    const { _id, __v, ...rest } = returnedObject
-    return { id: _id.toString(), ...rest }
-  }
+	transform: (document, returnedObject) => {
+		const { _id, __v, ...rest } = returnedObject
+		return { id: _id.toString(), ...rest }
+	}
 })
 
 const User = mongoose.model('User', userSchema)

@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import Button from './Button'
 import newUserService from '../services/newUser'
 import '../style/newUser.css'
 import InputItem from './InputItem'
 
 
-function NewUser({ showNewUser, setShowNewUser }) {
+function NewUser() {
 
   const [rol, setRol] = useState('')
   const [newUsername, setNewUsername] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [repeatedPassword, setRepeatedPassword] = useState('')
   const [name, setName] = useState('')
+
+  const navigate = useNavigate()
 
   const handleAddNewUser = async (e) => {
 
@@ -40,7 +43,7 @@ function NewUser({ showNewUser, setShowNewUser }) {
       setNewPassword('')
       setRepeatedPassword('')
       setName('')
-      setShowNewUser(!showNewUser)
+      navigate("/")
 
     } catch (error) {
       alert('Username already in use, please try a different one')
@@ -50,8 +53,7 @@ function NewUser({ showNewUser, setShowNewUser }) {
   }
 
   return (
-    <div className={showNewUser ? '' : 'hide'}>
-
+    <>
       <h2 className='new_user_message'
       >
         Create new user
@@ -109,14 +111,14 @@ function NewUser({ showNewUser, setShowNewUser }) {
             children={'Repeat password'}
           />
           <Button
+            onClick={null}
             type={'submit'}
             customClass={null}
-            onClick={null}
             children={'Sign up'}
           />
         </form>
       </div>
-    </ div>
+    </>
   )
 }
 
