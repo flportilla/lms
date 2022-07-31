@@ -18,7 +18,7 @@ const Professor = () => {
     },
     {
       id: uuidv4(),
-      onclick: () => navigate('/create-test'),
+      onclick: () => { navigate('/create-test'); window.location.reload() },
       customClass: 'command',
       type: 'button',
       children: 'Create test'
