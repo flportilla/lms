@@ -4,7 +4,7 @@ import Login from "./components/Login";
 import NewUser from "./components/NewUser";
 import Student from "./components/Student";
 import Professor from "./components/Professor";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, HashRouter } from "react-router-dom"
 import "./style/app.css"
 import Test from "./components/TestListStudent";
 import ListQuestions from "./components/ListQuestions";
@@ -45,7 +45,7 @@ function App() {
   return (
     <>
       <Header />
-      <Router>
+      <HashRouter>
         <Routes>
 
           <Route path="/" element={
@@ -153,7 +153,7 @@ function App() {
             <Exam />
           } />
         </Routes>
-      </Router>
+      </HashRouter>
     </>
   );
 }
