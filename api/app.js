@@ -7,6 +7,8 @@ const app = express()
 const usersRouter = require('./controllers/user')
 const loginRouter = require('./controllers/login')
 const questionRouter = require('./controllers/question')
+const testRouter = require('./controllers/test')
+const resultsRouter = require('./controllers/results')
 
 const config = require('./utils/config')
 
@@ -26,5 +28,7 @@ app.use(express.json())
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/questions', questionRouter)
+app.use('/api/tests', testRouter)
+app.use('/api/results', resultsRouter)
 
 module.exports = app
