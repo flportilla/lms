@@ -46,10 +46,12 @@ questionRouter.get('/', tokenExtractor, userExtractor, async (request, response)
 
   const { user } = request
 
-  const rol = user.rol ? user.rol : ''
+  if (!user.rol) {
+    return response.status(401).end()
+  }
 
   try {
-    if (rol !== 'Professor') {
+    if (user.rol !== 'Professor') {
       return response.status(401).end()
     }
     const questions = await Question.find({})
@@ -58,18 +60,11 @@ questionRouter.get('/', tokenExtractor, userExtractor, async (request, response)
   } catch (error) {
     console.error(error)
   }
-
-
 })
 
 questionRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
-
   await Question.findByIdAndRemove(request.params.id)
-
   return response.status(204).end()
 })
-
-
-
 
 module.exports = questionRouter

@@ -111,8 +111,6 @@ const QuestionForm = ({
       answer
     }
 
-
-
     try {
 
       questionHelper.setToken(token)

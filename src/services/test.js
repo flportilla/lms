@@ -16,10 +16,43 @@ const addTest = async (question) => {
   return response.data
 }
 
+//Send the request to fetch all tests
+const listTests = async () => {
+
+  const response = await axios.get(baseUrl)
+  return response.data
+}
+
+//Send the request to delete a test
+const removeTest = async (id) => {
+  if (rol !== 'Professor') return
+
+  const response = await axios.delete(`${baseUrl}/${id}`, { params: { id: id } })
+  return response.data
+}
+
+//Send the request to get one test
+const listSelected = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}`, { params: { id: id } })
+  return response.data
+}
+
+//Send the request to update a test
+const updateTest = async (id, updatedTest) => {
+  if (rol !== 'Professor') return
+
+  const response = await axios.put(`${baseUrl}/${id}`, updatedTest)
+  return response.data
+}
+
 //Exports all functions as one object
 const testHelper = {
   addTest,
   setToken,
+  listTests,
+  removeTest,
+  updateTest,
+  listSelected
 }
 
 export default testHelper
