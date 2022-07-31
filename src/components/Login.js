@@ -28,18 +28,21 @@ const Login = () => {
       rol
     }
     try {
+
       if (!rol) return alert('Please select your rol')
 
       const loggedUser = await login.login(user)
 
       window.localStorage.setItem('rol', loggedUser.rol)
       window.localStorage.setItem('name', loggedUser.name)
+      window.localStorage.setItem('userId', loggedUser.id)
       window.localStorage.setItem('token', JSON.stringify(loggedUser.token))
 
       addQuestionHelper.setToken(loggedUser.token)
 
-      navigate(`/${user.rol}`)
-      window.location.reload()
+      navigate(`/${user.rol}`);
+
+      window.location.reload();
 
     } catch (error) {
 

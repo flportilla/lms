@@ -28,7 +28,6 @@ const Question = ({ statement,
     } catch (error) {
       console.error(error)
     }
-
   }
 
   //Sends a request to delete the question selected
@@ -37,7 +36,6 @@ const Question = ({ statement,
     const result = window.confirm(`Are you sure you want to delete question # ${index + 1}?`);
 
     if (result) {
-
       try {
         await questionHelper.deleteQuestionById(id)
         window.location.reload()
@@ -46,8 +44,6 @@ const Question = ({ statement,
         console.error(error)
       }
     }
-
-
   }
 
   return (
