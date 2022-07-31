@@ -1,0 +1,34 @@
+.button {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 1px solid #ced4da;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  transition: all .2s ease;
+  color: #ced4da;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  outline: none;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+.button:hover {
+  box-shadow: 2px 8px 4px -6px rgba(255, 255, 255, 0.3);
+  border: solid 2px #ced4da;
+}
+
+.new_user_button {
+  font-size: 1.2rem;
+}
+
+.selected {
+  box-shadow: 2px 8px 4px -6px rgba(255, 255, 255, 0.5);
+  border: solid 2px #ced4da;
+}
