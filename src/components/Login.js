@@ -1,57 +1,56 @@
-import React, { useState } from "react"
-import Button from "./Button"
-import "../style/login.css"
+import React, { useState } from "react";
+import Button from "./Button";
+import login from '../services/login'
+import "../style/login.css";
+import InputItem from "./InputItem";
 
-const Login = () => {
+const Login = ({ setShowNewUser, showNewUser }) => {
 
   //States to handle login
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [credentials, setCredentials] = useState(null)
+  const [rol, setRol] = useState('')
 
-  //States to
-
-
-
-  const handleStudentInput = (e) => {
-    console.log(e.target.innerText)
-  }
-  const handleProfessorInput = (e) => {
-    console.log(e.target.innerText)
-  }
-  const handleNewUserForm = (e) => {
-    console.log(e.target.innerText)
-  }
-  const handleUser = (e) => {
+  const handleUser = async (e) => {
     e.preventDefault()
 
     const user = {
       username,
-      password
+      password,
+      rol
     }
 
-    setCredentials(user)
+    try {
 
-    console.log(credentials)
+      if (!rol) return alert('Please select a rol')
+      await login.login(user)
+
+    } catch (error) {
+      
+      alert('Username, password or rol is invalid')
+      console.error(error)
+    }
   }
-
 
   return (
     <>
-      <h2 className="welcome_message">Welcome to this generic LMS</h2>
+      <h2 className="welcome_message"
+      >
+        Welcome to this generic LMS
+      </h2>
       <div className='login_container'>
         <div className="buttons_container">
           <Button
             type={null}
-            onClick={handleStudentInput}
+            onClick={({ target }) => { setRol(target.innerText) }}
             children={'Student'}
-            style={null}
+            customClass={rol === 'Student' ? 'selected' : ''}
           />
           <Button
             type={null}
-            onClick={handleProfessorInput}
+            onClick={({ target }) => { setRol(target.innerText) }}
             children={'Professor'}
-            style={null}
+            customClass={rol === 'Professor' ? 'selected' : ''}
           />
         </div>
         <div className="login_credentials">
@@ -59,45 +58,33 @@ const Login = () => {
             className="login_form"
             onSubmit={handleUser}
           >
-            <label
-              className="login_label"
-              htmlFor="username"
-            >
-              Username
-            </label>
-            <input
-              placeholder="username"
+            <InputItem
               value={username}
               onChange={({ target }) => setUsername(target.value)}
-              className="login_input"
-              id="username"
+              htmlFor={'username'}
               type={'text'}
+              isRequired
+              children={'Username'}
             />
-            <label
-              className="login_label"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              placeholder="password"
+            <InputItem
               value={password}
               onChange={({ target }) => setPassword(target.value)}
-              className="login_input"
-              id="password"
-              type={'text'}
+              htmlFor={'password'}
+              type={'password'}
+              isRequired
+              children={'Password'}
             />
             <Button
               type={'submit'}
-              style={null}
-              onClick={handleNewUserForm}
+              customClass={null}
+              onClick={() => { }}
               children={'Sign in'}
             />
           </form>
           <Button
             type={null}
-            style={'new_user_button'}
-            onClick={handleNewUserForm}
+            customClass={'new_user_button'}
+            onClick={() => setShowNewUser(!showNewUser)}
             children={'new user? Click here'}
           />
         </div>
