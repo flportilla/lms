@@ -25,6 +25,10 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  test: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Test'
+  }
 })
 
 questionSchema.set('toJSON', {
