@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../style/question.css'
-import Button from '../components/Button'
+import Button from './Button'
+import questionHelper from '../services/questions'
 
 const Question = ({ statement,
   option1,
@@ -9,19 +11,59 @@ const Question = ({ statement,
   option4,
   answer,
   id,
-  index }) => {
+  index,
+}) => {
+
+  const navigate = useNavigate()
+
+  //Sends a request and brings the selected question as a result
+  const handleQuestionByIdRequest = async () => {
+
+    try {
+      const response = await questionHelper.questionById(id)
+
+      window.localStorage.setItem('updatedQuestion', JSON.stringify(response))
+      navigate('/update-question')
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  //Sends a request to delete the question selected
+  const handleDeleteRequest = async (index) => {
+
+    const result = window.confirm(`Are you sure you want to delete question # ${index + 1}?`);
+
+    if (result) {
+      try {
+        await questionHelper.deleteQuestionById(id)
+        window.location.reload()
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
 
   return (
-
     <>
       {
         <form className='question_form'>
-          <Button
-            onClick={null}
-            children={`Edit ${index + 1}`}
-            customClass={'edit_button'}
-            type={'button'}
-          />
+          <div className='edit_delete_buttons_container'>
+            <Button
+              onClick={handleQuestionByIdRequest}
+              children={`Edit #${index + 1}`}
+              customClass={'edit_button'}
+              type={'button'}
+            />
+            <Button
+              onClick={() => handleDeleteRequest(index)}
+              children={`Delete #${index + 1}`}
+              customClass={'edit_button'}
+              type={'button'}
+            />
+          </div>
           <p className='statement'>{`${index + 1}. ${statement}`}:</p>
 
           <div className='options_container'>Selected is the answer *

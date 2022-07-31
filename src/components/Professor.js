@@ -18,7 +18,7 @@ const Professor = () => {
     },
     {
       id: uuidv4(),
-      onclick: null,
+      onclick: () => navigate('/create-test'),
       customClass: 'command',
       type: 'button',
       children: 'Create test'
@@ -36,6 +36,14 @@ const Professor = () => {
       customClass: 'command',
       type: 'button',
       children: 'Show questions'
+    }
+    ,
+    {
+      id: uuidv4(),
+      onclick: () => navigate('/list-tests'),
+      customClass: 'command',
+      type: 'button',
+      children: 'Show tests'
     }
   ]
   return (
