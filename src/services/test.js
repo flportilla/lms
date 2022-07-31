@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'http://localhost:3001/api/tests'
+const baseUrl = '/api/tests'
 
 const setToken = (newToken) => {
   const token = `bearer ${newToken}`
