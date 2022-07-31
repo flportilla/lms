@@ -1,6 +1,9 @@
 .navbar_container {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  min-width: max-content;
+  margin: 15px;
+
 }
 
 .profile {

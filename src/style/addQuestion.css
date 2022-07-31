@@ -3,7 +3,7 @@
   width: 50%;
   flex-direction: column;
   margin: 25px auto;
-  gap: 15px;
+  gap: 10px;
   padding: 50px;
   border: 1px solid #ced4da;
   border-top-left-radius: 255px 15px;
@@ -12,9 +12,15 @@
   border-bottom-left-radius: 15px 255px;
 }
 
-.add_question_form input {
+.textarea {
+  background-color: transparent;
+  color: #ced4da;
+  font-size: 1.2rem;
+  resize: none;
   padding: 0;
   margin: 0;
+  min-height: 6rem;
+  width: 100%;
 }
 
 .add_question_form label {
