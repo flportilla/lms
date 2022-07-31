@@ -1,0 +1,112 @@
+.student_section {
+  margin: 25px auto 0;
+  height: auto;
+  max-width: fit-content;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 2fr 1fr;
+  gap: 10px;
+  place-items: center;
+  grid-template-areas:
+    "coursename coursename description description"
+    "modules modules modules modules";
+  border: 1px solid #ced4da;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+.student_main_container {
+  display: flex;
+  margin: 10px auto;
+}
+
+.course_name {
+  grid-area: coursename;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.course_name_img_container {
+  padding: 0;
+  margin: 0;
+}
+
+.course_name_img_container img {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.course_name .resources {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  height: 100px;
+}
+
+.description {
+  grid-area: description;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  max-width: 100%;
+  height: 100%;
+}
+
+.text {
+  text-align: justify;
+  align-self: flex-start;
+}
+
+.indicators {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100px;
+}
+
+.modules {
+  grid-area: modules;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.profile {
+  position: sticky;
+}
+
+.sign_in_first {
+  margin-top: 10%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .student_section {
+    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .student_section {
+    max-width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .student_section {
+    max-width: 1170px;
+  }
+}
