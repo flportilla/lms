@@ -1,7 +1,7 @@
 .student_section {
   margin: 25px auto 0;
   height: auto;
-  width: fit-content;
+  max-width: fit-content;
   padding: 5px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -16,6 +16,11 @@
   border-top-right-radius: 15px 225px;
   border-bottom-right-radius: 225px 15px;
   border-bottom-left-radius: 15px 255px;
+}
+
+.student_main_container {
+  display: flex;
+  margin: 10px auto;
 }
 
 .course_name {
