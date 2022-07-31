@@ -5,12 +5,12 @@ const Header = () => {
 
   return (
     <header className="header">
-      <a className='home_anchor' href='/'
+      <a className='header_anchor' href='/'
       >
         Home
       </a>
       <a
-        className='home_anchor' href='/'
+        className='header_anchor' href='/'
         onClick={() => window.localStorage.clear()}
       >
         Logout
