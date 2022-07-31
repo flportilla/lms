@@ -1,0 +1,18 @@
+.students_results_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.test_info_container {
+    margin: 10px;
+
+}
+
+.show_info_button {
+    font-size: 1.2rem;
+    margin: 0 15px;
+}
+
+.empty_info {
+    margin: 15px 0;
+}
