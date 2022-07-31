@@ -44,8 +44,9 @@ const Login = () => {
 
       window.location.reload();
 
-    } catch (error) {
 
+    } catch (error) {
+      
       alert('Username, password or rol is invalid')
       console.error(error)
     }
