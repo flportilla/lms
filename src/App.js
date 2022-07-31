@@ -15,6 +15,7 @@ import ListTest from "./components/ListTests";
 import Exam from "./components/Exam";
 import questionHelper from "./services/questions";
 import testHelper from "./services/test";
+import Results from "./components/Results";
 
 function App() {
 
@@ -136,6 +137,15 @@ function App() {
               <ListTest
                 rol={rol}
               />
+            </div>
+          } />
+          <Route path="results" element={
+            <div className="rol_container">
+              <Navbar
+                rol={rol}
+                username={username}
+              />
+              <Results />
             </div>
           } />
 

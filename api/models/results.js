@@ -9,6 +9,10 @@ const resultSchema = new Schema({
     score: {
         type: String,
         required: true
+    },
+    time: {
+        type: String,
+        required: true
     }
 })
 
