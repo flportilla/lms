@@ -17,7 +17,6 @@ testRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
   })
 
   await test.save()
-
   response.status(201).json(test)
 })
 
@@ -27,10 +26,23 @@ testRouter.get('/', tokenExtractor, userExtractor, async (request, response) => 
   response.status(200).json(test)
 })
 
+//Fetch all tests from DB
+testRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) => {
+  const test = await Test.findById(request.params.id).populate('questions')
+  response.status(200).json(test)
+})
+
 //Remove one test by id
 testRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
   await Test.findByIdAndRemove(request.params.id)
   return response.status(204).end()
+})
+
+//Update one test by id
+testRouter.put('/:id', tokenExtractor, userExtractor, async (request, response) => {
+
+  const updatedTest = await Test.findByIdAndUpdate(request.params.id, request.body, { new: true })
+  return response.send(updatedTest).end()
 })
 
 module.exports = testRouter
