@@ -1,0 +1,33 @@
+.professor_section {
+  margin: 20px auto;
+  width: fit-content;
+  padding: 15px;
+  border: 1px solid #ced4da;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+
+.controls_container {
+  margin: 0 auto;
+  padding: 15px;
+  width: fit-content;
+  display: flex;
+  gap: 20px;
+  border: 1px solid #ced4da;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+}
+
+.command {
+  font-size: 1.5rem;
+  padding: 5px;
+  height: 100px;
+  width: 33%;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}

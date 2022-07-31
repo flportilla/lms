@@ -1,10 +1,11 @@
 import React from 'react'
 import Button from './Button'
 import '../style/student.css'
+import { v4 as uuidv4 } from 'uuid';
 
 const indicatorsButtons = [
   {
-    id: 1,
+    id: uuidv4(),
     onclick: null,
     customClass: 'progress',
     type: 'button',
@@ -14,7 +15,7 @@ const indicatorsButtons = [
     }
   },
   {
-    id: 2,
+    id: uuidv4(),
     onclick: null,
     customClass: 'duration',
     type: 'button',
@@ -24,7 +25,7 @@ const indicatorsButtons = [
     }
   },
   {
-    id: 3,
+    id: uuidv4(),
     onclick: null,
     customClass: 'navegation',
     type: 'button',
@@ -34,7 +35,7 @@ const indicatorsButtons = [
     }
   },
   {
-    id: 4,
+    id: uuidv4(),
     onclick: null,
     customClass: 'test',
     type: 'button',
@@ -45,7 +46,6 @@ const indicatorsButtons = [
   }
 
 ]
-
 
 const Indicators = () => {
 
