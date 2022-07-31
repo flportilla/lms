@@ -1,0 +1,4 @@
+.tests_container_student {
+    display: flex;
+    flex-direction: column;
+}
