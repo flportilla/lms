@@ -7,7 +7,8 @@ const Navbar = ({ rol, username }) => {
     <>
       <div className='navbar_container'>
         <h2 className='welcome'>{`Welcome ${username ? username : ''}`}</h2>
-        <a href={`${rol}`} className='profile'>Dashboard</a>
+        <hr />
+        <a href={`#/${rol}`} className='profile'>Dashboard</a>
       </div>
     </>
   )
