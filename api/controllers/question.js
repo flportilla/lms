@@ -23,23 +23,62 @@ questionRouter.post('/', tokenExtractor, userExtractor, async (request, response
     return response.status(401).end()
   }
 
-  const savedQuestion = await question.save()
-  return response.status(201).json(savedQuestion)
-
+  try {
+    const savedQuestion = await question.save()
+    return response.status(201).json(savedQuestion)
+  } catch (error) {
+    return response.json({
+      msg: `Something went wrong ${error}`
+    })
+  }
 })
 
 questionRouter.put('/:id', tokenExtractor, userExtractor, async (request, response) => {
-  const updatedQuestion = await Question.findByIdAndUpdate(request.params.id, request.body, { new: true })
-  return response.json(updatedQuestion)
-})
 
+  try {
+
+    const updatedQuestion = await Question.findByIdAndUpdate(request.params.id, request.body, { new: true })
+
+    if (!updatedQuestion) {
+      return response.status(400).json({
+        msg: "The id is not valid or doesn't exist on DB"
+      })
+    }
+
+    return response.json(updatedQuestion)
+
+  } catch (error) {
+    return response.json({
+      msg: `Something went wrong ${error}`
+    })
+  }
+
+})
 
 questionRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) => {
   const questionId = request.params.id
 
-  const questionById = await Question.findById(questionId)
+  if (!questionId) {
+    return response.status(400).json({
+      msg: 'The id is missing'
+    })
+  }
 
-  return response.status(200).json(questionById)
+  try {
+    const questionById = await Question.findById(questionId)
+    if (!questionById) {
+      return response.status(400).json({
+        msg: "The id is not valid or doesn't exist on DB"
+      })
+    }
+    return response.status(200).json(questionById)
+
+  }
+  catch (error) {
+    return response.status(400).json({
+      msg: `Something went wrong ${error}`
+    })
+  }
 })
 
 questionRouter.get('/', tokenExtractor, userExtractor, async (request, response) => {
@@ -63,8 +102,19 @@ questionRouter.get('/', tokenExtractor, userExtractor, async (request, response)
 })
 
 questionRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
-  await Question.findByIdAndRemove(request.params.id)
-  return response.status(204).end()
+
+  try {
+    const questionDeleted = await Question.findByIdAndRemove(request.params.id)
+
+    return response.status(204).json(questionDeleted)
+
+  }
+  catch (error) {
+    return response.status(400).json({
+      msg: `Something went wrong: ${error}`
+    })
+  }
+
 })
 
 module.exports = questionRouter
