@@ -6,7 +6,7 @@ import '../style/newUser.css'
 import InputItem from './InputItem'
 
 
-function NewUser() {
+function NewUser({ loadingDispatch }) {
 
   const [rol, setRol] = useState('')
   const [newUsername, setNewUsername] = useState('')
@@ -35,14 +35,11 @@ function NewUser() {
     }
 
     try {
+      loadingDispatch({ type: 'loading' })
       await newUserService.addUser(newUser)
-
+      loadingDispatch({ type: 'notLoading' })
       alert('User created succesfully')
-      setRol('')
-      setNewUsername('')
-      setNewPassword('')
-      setRepeatedPassword('')
-      setName('')
+
       navigate("/")
 
     } catch (error) {
