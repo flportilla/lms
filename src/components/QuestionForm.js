@@ -7,9 +7,12 @@ import { useNavigate } from 'react-router-dom';
 
 const QuestionForm = ({
   request = false,
+  loadingDispatch
 }) => {
 
+
   const autoFilledQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion'))
+
   const [statement, setStatement] = useState(request
     ? `${autoFilledQuestion.statement}`
     : 'statement'
@@ -35,6 +38,7 @@ const QuestionForm = ({
     : 'answer'
   )
   const navigate = useNavigate()
+
   const questionsForm = [
     {
       id: 1,
@@ -97,9 +101,16 @@ const QuestionForm = ({
       onChange: setAnswer
     },
   ]
+
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
+
   const token = JSON.parse(window.localStorage.getItem('token'))
+
+
+  //Handles the creation of new questions
   const createQuestionRequest = async (e) => {
+
+    loadingDispatch({ type: 'loading' })
     e.preventDefault()
 
     const newQuestion = {
@@ -108,27 +119,17 @@ const QuestionForm = ({
       option2,
       option3,
       option4,
-      answer
+      answer,
+      loadingDispatch
     }
 
-    try {
+    questionHelper.setToken(token)
 
-      questionHelper.setToken(token)
+    await questionHelper.addQuestion(newQuestion)
+    loadingDispatch({ type: 'notLoading' })
 
-      await questionHelper.addQuestion(newQuestion)
-      alert('Question added')
+    alert('Question added')
 
-      setStatement('')
-      setOption1('')
-      setOption2('')
-      setOption3('')
-      setOption4('')
-      setAnswer('')
-
-    } catch (error) {
-      console.error(error)
-      alert('Something went wrong')
-    }
   }
 
   const updateQuestionRequest = async (e) => {
@@ -143,26 +144,18 @@ const QuestionForm = ({
       option4,
       answer
     }
-    try {
+    questionHelper.setToken(token)
 
-      questionHelper.setToken(token)
-      await questionHelper.updateQuestion(id, updatedQuestion)
+    loadingDispatch({ type: 'loading' })
+    await questionHelper.updateQuestion(id, updatedQuestion)
+    loadingDispatch({ type: 'notLoading' })
 
-      alert('Question updated')
-      setStatement('')
-      setOption1('')
-      setOption2('')
-      setOption3('')
-      setOption4('')
-      setAnswer('')
-      navigate('/list-questions')
-      window.location.reload()
+    alert('Question updated')
 
-    } catch (error) {
-      console.error(error)
-      alert('Something went wrong')
-    }
+    navigate('/list-questions')
+
   }
+
   return (
     <>{
       isLogged
