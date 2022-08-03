@@ -23,6 +23,12 @@ const userSchema = new mongoose.Schema({
 			ref: 'Results'
 		}
 	],
+	testsAssigned: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Test'
+		}
+	],
 
 })
 
