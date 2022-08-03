@@ -12,6 +12,7 @@ const Question = ({ statement,
   answer,
   id,
   index,
+  loadingDispatch
 }) => {
 
   const navigate = useNavigate()
@@ -19,15 +20,15 @@ const Question = ({ statement,
   //Sends a request and brings the selected question as a result
   const handleQuestionByIdRequest = async () => {
 
-    try {
-      const response = await questionHelper.questionById(id)
 
-      window.localStorage.setItem('updatedQuestion', JSON.stringify(response))
-      navigate('/update-question')
+    loadingDispatch({ type: 'loading' })
+    const response = await questionHelper.questionById(id)
+    loadingDispatch({ type: 'notLoading' })
 
-    } catch (error) {
-      console.error(error)
-    }
+    window.localStorage.setItem('updatedQuestion', JSON.stringify(response))
+    navigate('/update-question')
+
+
   }
 
   //Sends a request to delete the question selected
@@ -36,13 +37,9 @@ const Question = ({ statement,
     const result = window.confirm(`Are you sure you want to delete question # ${index + 1}?`);
 
     if (result) {
-      try {
-        await questionHelper.deleteQuestionById(id)
-        window.location.reload()
-
-      } catch (error) {
-        console.error(error)
-      }
+      loadingDispatch({ type: 'loading' })
+      await questionHelper.deleteQuestionById(id)
+      loadingDispatch({ type: 'notLoading' })
     }
   }
 
@@ -52,7 +49,7 @@ const Question = ({ statement,
         <form className='question_form'>
           <div className='edit_delete_buttons_container'>
             <Button
-              onClick={handleQuestionByIdRequest}
+              onClick={() => handleQuestionByIdRequest()}
               children={`Edit #${index + 1}`}
               customClass={'edit_button'}
               type={'button'}
@@ -66,36 +63,13 @@ const Question = ({ statement,
           </div>
           <p className='statement'>{`${index + 1}. ${statement}`}:</p>
 
-          <div className='options_container'>Selected is the answer *
-
-            <label className='question_label' htmlFor={id + 1}>
-              <input
-                type={'checkbox'} id={id + 1}
-                defaultChecked={option1 === answer ? true : false}
-              />
-              1.: {option1}
-            </label>
-            <label className='question_label' htmlFor={id + 2}>
-              <input
-                defaultChecked={option2 === answer ? true : false}
-                type={'checkbox'} id={id + 2} />
-              2.: {option2}
-
-            </label>
-            <label className='question_label' htmlFor={id + 3}>
-              <input
-                defaultChecked={option3 === answer ? true : false}
-                type={'checkbox'} id={id + 3} />
-              3.: {option3}
-
-            </label>
-            <label className='question_label' htmlFor={id + 4}>
-              <input
-                defaultChecked={option4 === answer ? true : false}
-                type={'checkbox'} id={id + 4} />
-              4.: {option4}
-
-            </label>
+          <div className='options_container'>
+            <ul>
+              <li>1. {option1}</li>
+              <li>2. {option2}</li>
+              <li>3. {option3}</li>
+              <li>4. {option4}</li>
+            </ul>
           </div>
           <span className='answer_container'>Answer:
             <p>{answer}</p> </span >
