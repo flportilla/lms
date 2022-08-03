@@ -1,6 +1,7 @@
 const usersRouter = require('express').Router()
 const User = require('../models/users')
 const bcrypt = require('bcryptjs');
+const { tokenExtractor, userExtractor } = require('../middleware/middleware');
 
 usersRouter.post('/', async (request, response) => {
 
@@ -42,6 +43,21 @@ usersRouter.post('/', async (request, response) => {
   const savedUser = await user.save()
   return response.status(201).send(savedUser)
 
+})
+
+usersRouter.get('/', tokenExtractor, userExtractor, async (request, response) => {
+
+  const { rol } = request.user
+
+  if (rol !== 'Professor') {
+    return response.status(401).json({
+      msg: 'Only professors can see the list of students'
+    })
+  }
+
+  const students = await User.find({ rol: 'Student' })
+
+  response.json(students)
 })
 
 module.exports = usersRouter
