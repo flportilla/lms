@@ -110,25 +110,29 @@ const QuestionForm = ({
   //Handles the creation of new questions
   const createQuestionRequest = async (e) => {
 
-    loadingDispatch({ type: 'loading' })
-    e.preventDefault()
+    try {
+      loadingDispatch({ type: 'loading' })
+      e.preventDefault()
 
-    const newQuestion = {
-      statement,
-      option1,
-      option2,
-      option3,
-      option4,
-      answer,
-      loadingDispatch
+      const newQuestion = {
+        statement,
+        option1,
+        option2,
+        option3,
+        option4,
+        answer,
+        loadingDispatch
+      }
+
+      questionHelper.setToken(token)
+
+      await questionHelper.addQuestion(newQuestion)
+      loadingDispatch({ type: 'notLoading' })
+
+      alert('Question added')
+    } catch (error) {
+      loadingDispatch({ type: 'notLoading' })
     }
-
-    questionHelper.setToken(token)
-
-    await questionHelper.addQuestion(newQuestion)
-    loadingDispatch({ type: 'notLoading' })
-
-    alert('Question added')
 
   }
 
@@ -144,15 +148,20 @@ const QuestionForm = ({
       option4,
       answer
     }
-    questionHelper.setToken(token)
 
-    loadingDispatch({ type: 'loading' })
-    await questionHelper.updateQuestion(id, updatedQuestion)
-    loadingDispatch({ type: 'notLoading' })
+    try {
+      questionHelper.setToken(token)
+      loadingDispatch({ type: 'loading' })
+      await questionHelper.updateQuestion(id, updatedQuestion)
+      loadingDispatch({ type: 'notLoading' })
 
-    alert('Question updated')
+      alert('Question updated')
 
-    navigate('/list-questions')
+      navigate('/list-questions')
+    } catch (error) {
+      loadingDispatch({ type: 'notLoading' })
+    }
+
 
   }
 

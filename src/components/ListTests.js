@@ -31,9 +31,18 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
     const result = window.confirm(`This will delete this test for all students, do you still want to delete ${testName}?`);
     const uid = state.id
     if (result) {
-      loadingDispatch({ type: 'loading' })
-      await testHelper.removeTest(id, uid)
-      loadingDispatch({ type: 'notLoading' })
+
+      try {
+
+        loadingDispatch({ type: 'loading' })
+        await testHelper.removeTest(id, uid)
+        loadingDispatch({ type: 'notLoading' })
+
+      }
+      catch (error) {
+        loadingDispatch({ type: 'notLoading' })
+      }
+
     }
 
   }
@@ -54,10 +63,14 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
     const token = JSON.parse(window.localStorage.getItem('token') || '');
 
     usersHelper.setToken(token);
+    try {
+      loadingDispatch({ type: 'loading' })
+      await usersHelper.updateUser(request)
+      loadingDispatch({ type: 'notLoading' })
+    } catch (error) {
+      loadingDispatch({ type: 'notLoading' })
+    }
 
-    loadingDispatch({ type: 'loading' })
-    await usersHelper.updateUser(request)
-    loadingDispatch({ type: 'notLoading' })
 
 
   }

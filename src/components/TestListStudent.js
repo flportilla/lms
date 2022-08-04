@@ -41,13 +41,17 @@ const Test = ({ isLoading, loadingDispatch }) => {
       }
       const token = JSON.parse(window.localStorage.getItem('token') || '')
 
-      usersHelper.setToken(token)
+      try {
+        usersHelper.setToken(token)
 
-      loadingDispatch({ type: 'loading' })
-      await usersHelper.updateUser(request)
-      loadingDispatch({ type: 'notLoading' })
+        loadingDispatch({ type: 'loading' })
+        await usersHelper.updateUser(request)
+        loadingDispatch({ type: 'notLoading' })
 
-      navigate('/exam', { state: { exam } })
+        navigate('/exam', { state: { exam } })
+      } catch (error) {
+        loadingDispatch({ type: 'notLoading' })
+      }
 
     }
   }

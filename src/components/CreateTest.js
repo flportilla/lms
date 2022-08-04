@@ -45,16 +45,21 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
       questions: questionsSelected
     }
 
-    testHelper.setToken(JSON.parse(window.localStorage.getItem('token') || ''))
+    try {
+      testHelper.setToken(JSON.parse(window.localStorage.getItem('token') || ''))
 
-    loadingDispatch({ type: 'loading' })
-    await testHelper.addTest(exam)
-    loadingDispatch({ type: 'notLoading' })
+      loadingDispatch({ type: 'loading' })
+      await testHelper.addTest(exam)
+      loadingDispatch({ type: 'notLoading' })
 
-    alert('Test created')
-    navigate('/professor')
+      alert('Test created')
+      navigate('/professor')
 
-    questionsList.map(question => question.selected = false)
+      questionsList.map(question => question.selected = false)
+    } catch (error) {
+      loadingDispatch({ type: 'notLoading' })
+    }
+
 
   }
 

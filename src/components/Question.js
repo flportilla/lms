@@ -21,12 +21,18 @@ const Question = ({ statement,
   const handleQuestionByIdRequest = async () => {
 
 
-    loadingDispatch({ type: 'loading' })
-    const response = await questionHelper.questionById(id)
-    loadingDispatch({ type: 'notLoading' })
+    try {
+      loadingDispatch({ type: 'loading' })
+      const response = await questionHelper.questionById(id)
+      loadingDispatch({ type: 'notLoading' })
 
-    window.localStorage.setItem('updatedQuestion', JSON.stringify(response))
-    navigate('/update-question')
+      window.localStorage.setItem('updatedQuestion', JSON.stringify(response))
+      navigate('/update-question')
+    } catch (error) {
+      loadingDispatch({ type: 'notLoading' })
+
+    }
+
 
 
   }
@@ -37,9 +43,14 @@ const Question = ({ statement,
     const result = window.confirm(`Are you sure you want to delete question # ${index + 1}?`);
 
     if (result) {
-      loadingDispatch({ type: 'loading' })
-      await questionHelper.deleteQuestionById(id)
-      loadingDispatch({ type: 'notLoading' })
+      try {
+        loadingDispatch({ type: 'loading' })
+        await questionHelper.deleteQuestionById(id)
+        loadingDispatch({ type: 'notLoading' })
+      } catch (error) {
+        loadingDispatch({ type: 'notLoading' })
+      }
+
     }
   }
 
