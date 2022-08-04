@@ -22,7 +22,7 @@ const Exam = ({ loadingDispatch }) => {
   let hrs = Math.floor((time / 3600) % 60);
 
   useEffect(() => {
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = JSON.parse(window.localStorage.getItem('token') || '')
 
     const { id } = state.exam
 

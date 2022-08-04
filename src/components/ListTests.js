@@ -15,7 +15,7 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
 
   useEffect(() => {
 
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = JSON.parse(window.localStorage.getItem('token') || '')
     if (rol === 'Professor') {
       setloadInfo(true)
       testHelper.setToken(token)

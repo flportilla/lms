@@ -15,14 +15,14 @@ const Test = ({ loadingDispatch }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const userId = window.localStorage.getItem('userId')
+
     if (!rol) return
     setloadInfo(true)
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = JSON.parse(window.localStorage.getItem('token') || '')
 
     testHelper.setToken(token)
 
-    testHelper.listTests(userId)
+    testHelper.listTests()
       .then(test => setTests(test))
       .then(() => setloadInfo(false))
 

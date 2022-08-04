@@ -14,7 +14,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
 
   useEffect(() => {
 
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = JSON.parse(window.localStorage.getItem('token') || '')
     questionHelper.setToken(token)
 
     if (isLogged) {
@@ -45,7 +45,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
       questions: questionsSelected
     }
 
-    testHelper.setToken(JSON.parse(window.localStorage.getItem('token')))
+    testHelper.setToken(JSON.parse(window.localStorage.getItem('token') || ''))
 
     loadingDispatch({ type: 'loading' })
     await testHelper.addTest(exam)
