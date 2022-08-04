@@ -40,10 +40,10 @@ const Professor = () => {
     ,
     {
       id: uuidv4(),
-      onclick: () => navigate('/list-tests'),
+      onclick: () => navigate('/list-students'),
       customClass: 'command',
       type: 'button',
-      children: 'Show tests'
+      children: 'Assing tests'
     }
   ]
   return (

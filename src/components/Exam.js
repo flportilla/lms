@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Button from '../components/Button'
 import resultsHelper from '../services/exam'
+import testHelper from '../services/test'
 import '../style/exam.css'
+import Loading from './Loading'
 
 const Exam = () => {
 
   const [time, setTime] = useState(0)
+  const [questions, setQuestions] = useState([])
+  const [loadInfo, setloadInfo] = useState(false)
+
   const { state } = useLocation()
-  const { questions, name } = state.exam
+  const { name, id } = state.exam
   const navigate = useNavigate()
 
   let sec = time % 60
@@ -16,6 +21,18 @@ const Exam = () => {
   let hrs = Math.floor((time / 3600) % 60);
 
   let intervalId;
+
+  useEffect(() => {
+    const token = JSON.parse(window.localStorage.getItem('token'))
+
+    testHelper.setToken(token);
+    setloadInfo(true)
+    testHelper.listSelected(id)
+      .then(res => setQuestions(res.questions))
+      .then(() => setloadInfo(false))
+
+  }, []);
+
   useEffect(() => {
     intervalId = setInterval(() => {
       setTime((prevTime) => prevTime + 1);
@@ -63,78 +80,85 @@ const Exam = () => {
     clearInterval(intervalId)
   }
 
-
   return (
-    <div className='exam_container'>
+    <>
+      {
+        loadInfo
+          ? <Loading />
+          : <div className='exam_container'>
 
-      <h2 className='exam_name'>{name}</h2>
+            <h2 className='exam_name'>{name}</h2>
 
-      <form
-        onSubmit={handleAnswers}
-        className={'exam_form'}
-      >
-        {
-          questions.map((question, index) => {
-            return (
-              <div
-                key={question.id}
-                className={'questions_container'}
-              >
-                <p>{index + 1}. {question.statement}</p>
+            <form
+              onSubmit={handleAnswers}
+              className={'exam_form'}
+            >
+              {
+                questions.map((question, index) => {
 
-                <label>
-                  <input
-                    name={question.id}
-                    type={'radio'}
-                    value={question.option1}
-                    required
-                    onChange={({ target }) => question.selectedAnswer = target.value}
-                  />
-                  {question.option1}
-                </label>
-                <label>
-                  <input
-                    name={question.id}
-                    type={'radio'}
-                    value={question.option2}
-                    required
-                    onChange={({ target }) => question.selectedAnswer = target.value}
-                  />
-                  {question.option2}
-                </label>
-                <label>
-                  <input
-                    name={question.id}
-                    type={'radio'}
-                    value={question.option3}
-                    required
-                    onChange={({ target }) => question.selectedAnswer = target.value}
-                  />
-                  {question.option3}
-                </label>
-                <label>
-                  <input
-                    name={question.id}
-                    type={'radio'}
-                    value={question.option4}
-                    required
-                    onChange={({ target }) => question.selectedAnswer = target.value}
-                  />
-                  {question.option4}
-                </label>
-                <hr />
-              </div>
-            )
-          })
-        }
-        <Button
-          customClass={null}
-          onClick={null}
-          children={'Send'}
-          type={'submit'}
-        />
-      </form>
-    </div >
+                  return (
+                    <div
+                      key={question.id}
+                      className={'questions_container'}
+                    >
+                      <p>{index + 1}. {question.statement}</p>
+
+                      <label>
+                        <input
+                          name={question.id}
+                          type={'radio'}
+                          value={question.option1}
+                          required
+                          onChange={({ target }) => question.selectedAnswer = target.value}
+                        />
+                        {question.option1}
+                      </label>
+                      <label>
+                        <input
+                          name={question.id}
+                          type={'radio'}
+                          value={question.option2}
+                          required
+                          onChange={({ target }) => question.selectedAnswer = target.value}
+                        />
+                        {question.option2}
+                      </label>
+                      <label>
+                        <input
+                          name={question.id}
+                          type={'radio'}
+                          value={question.option3}
+                          required
+                          onChange={({ target }) => question.selectedAnswer = target.value}
+                        />
+                        {question.option3}
+                      </label>
+                      <label>
+                        <input
+                          name={question.id}
+                          type={'radio'}
+                          value={question.option4}
+                          required
+                          onChange={({ target }) => question.selectedAnswer = target.value}
+                        />
+                        {question.option4}
+                      </label>
+                      <hr />
+                    </div>
+                  )
+                })
+              }
+              <Button
+                customClass={null}
+                onClick={null}
+                children={'Send'}
+                type={'submit'}
+              />
+            </form>
+          </div >
+      }
+
+    </>
   )
 }
 

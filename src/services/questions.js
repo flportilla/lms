@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = '/api/questions'
+const baseUrl = 'http://localhost:3001/api/questions'
 
 //Place the token as default on every request send to the server
 const setToken = (newToken) => {
@@ -28,7 +28,9 @@ const updateQuestion = async (id, question) => {
 
 //Send the request to bring all the questions on DB
 const listQuestions = async () => {
+
   const response = await axios.get(baseUrl)
+
   return response.data
 }
 
