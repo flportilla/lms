@@ -6,27 +6,27 @@ import Indicators from './Indicators'
 import Module from './Module'
 
 const Student = () => {
-  const description = "This course contains the biosecurity measures implemente by this random generic company, along with regulations issued by the national goverment on the ocassion of the sanitary emergency that is facing the country and the world.You will find not only COVID - 19 general information, overview and self - caring recommendations but also against the return for the development of face - to - face activities in each of the workplaces."
+  const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas libero justo, egestas eget faucibus utet netus et malesuada fames ac turpis egestas. Nunc vitae pharetra ligula. Suspendisse iaculis sapien vitae leo dapibus, eget egestas velit viverra. Suspendisse magna odio, interdum nec enim tristique, congue egestas turpis. Suspendisse potenti. In ac ultrices orci, at tempus felis. Aliquam tortor nisl, pulvinar id mi pharetra, varius tincidunt sapien. Morbi accumsan lobortis placerat. Nam suscipit mi et arcu efficitur finibus. Phasellus gravida nunc tristique libero auctor, at scelerisque felis rhoncus. Cras elementum aliquam fringilla. Donec id ornare est. Vestibulum dapibus, libero et tristique condimentum, erat odio egestas metus, ut tincidunt diam augue sed nisi. Phasellus vitae ultrices ipsum, id laoreet ipsum. Aenean dapibus massa et mi venenatis, ac tincidunt libero"
   const modulesInfo = [
     {
       id: 1,
-      moduleNumber: 'Módulo 1',
-      topic: 'General information'
+      moduleNumber: 'Lorem 1',
+      topic: 'Lorem ipsum dolor sit'
     },
     {
       id: 2,
-      moduleNumber: 'Módulo 2',
-      topic: 'On daily activities'
+      moduleNumber: 'Lorem 2',
+      topic: 'Lorem ipsum dolor sit'
     },
     {
       id: 3,
-      moduleNumber: 'Módulo 3',
-      topic: 'On specific activities'
+      moduleNumber: 'Lorem 3',
+      topic: 'Lorem ipsum dolor sit'
     },
     {
       id: 4,
-      moduleNumber: 'Módulo 4',
-      topic: 'Responsibilities'
+      moduleNumber: 'Lorem 4',
+      topic: 'Lorem ipsum dolor sit'
     }
 
   ]
@@ -40,7 +40,7 @@ const Student = () => {
 
             <div className='course_name'>
               <div className='course_name_img_container'>
-                <img src={courseImg} alt="course name" />
+                <img src={courseImg} alt="Lorem ipsum" />
               </div>
               <Resources />
             </div>

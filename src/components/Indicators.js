@@ -11,7 +11,7 @@ const indicatorsButtons = [
     type: 'button',
     children: {
       text1: '0%',
-      text2: 'Progess'
+      text2: 'Lorem'
     }
   },
   {
@@ -21,7 +21,7 @@ const indicatorsButtons = [
     type: 'button',
     children: {
       text1: '14h:00m',
-      text2: 'duration'
+      text2: 'Lorem'
     }
   },
   {
@@ -31,7 +31,7 @@ const indicatorsButtons = [
     type: 'button',
     children: {
       text1: '00:00',
-      text2: 'navigation'
+      text2: 'Lorem'
     }
   },
   {
@@ -40,8 +40,8 @@ const indicatorsButtons = [
     customClass: 'test',
     type: 'button',
     children: {
-      text1: 'no attempts yet',
-      text2: 'test'
+      text1: 'Lorem ipsum',
+      text2: 'Lorem'
     }
   }
 

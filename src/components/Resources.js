@@ -17,7 +17,7 @@ const Resources = () => {
       type: 'button',
       children: {
         component: <RiSurveyFill />,
-        text: 'Survey'
+        text: 'Lorem '
       }
     },
     {
@@ -27,7 +27,7 @@ const Resources = () => {
       type: 'button',
       children: {
         component: <FcDiploma2 />,
-        text: 'certificate'
+        text: 'Lorem '
       }
     },
     {
@@ -49,7 +49,7 @@ const Resources = () => {
       type: 'button',
       children: {
         component: <MdOutlineForum />,
-        text: 'forum'
+        text: 'Lorem '
       }
     }
   ]
