@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Button from './Button'
 import '../style/testCreator.css'
 import testHelper from '../services/test'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import questionHelper from '../services/questions'
 import Loading from './Loading'
 
@@ -26,7 +26,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
 
     }
 
-  }, [isLoading])
+  }, [isLoading, isLogged])
 
   const [testName, setTestName] = useState('')
   const navigate = useNavigate()
@@ -89,10 +89,10 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
 
                     key={question.id}
                   >
-                    <label htmlFor={index + 1}
+                    <label htmlFor={`${index + 1}`}
                     >
                       <input
-                        id={index + 1}
+                        id={`${index + 1}`}
                         type={'checkbox'}
                         onChange={({ target }) => handleSelection(target, question.id)}
                       />

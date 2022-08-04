@@ -22,7 +22,7 @@ const ListQuestions = ({ loadingDispatch, isLoading }) => {
         .then(res => setloadInfo(false))
     }
 
-  }, [isLoading])
+  }, [isLoading, isLogged])
 
   return (
     <>
