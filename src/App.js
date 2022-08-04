@@ -84,8 +84,6 @@ function App() {
                     username={username}
                   />
                   <QuestionForm
-                    rol={rol}
-                    isLoading={isLoading}
                     loadingDispatch={loadingDispatch} />
                 </div>
               } />
@@ -97,8 +95,6 @@ function App() {
                     username={username}
                   />
                   <QuestionForm
-                    rol={rol}
-                    isLoading={isLoading}
                     loadingDispatch={loadingDispatch}
                   />
                 </div>

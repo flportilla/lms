@@ -44,8 +44,7 @@ function NewUser({ loadingDispatch }) {
 
     } catch (error) {
       alert('Username already in use, please try a different one')
-      console.error(error)
-
+      loadingDispatch({ type: 'notLoading' })
     }
   }
 
