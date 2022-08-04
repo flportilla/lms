@@ -39,7 +39,7 @@ const Login = ({ loadingDispatch }) => {
 
       window.localStorage.setItem('rol', loggedUser.rolDB)
       window.localStorage.setItem('name', loggedUser.nameDB)
-      window.localStorage.setItem('userId', loggedUser.idDB)
+
       window.localStorage.setItem('token', JSON.stringify(loggedUser.token))
 
       addQuestionHelper.setToken(loggedUser.token)

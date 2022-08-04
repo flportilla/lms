@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import testHelper from '../services/test'
 import '../style/testList.css'
 import Button from './Button'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Loading from './Loading'
 import usersHelper from '../services/users'
 
@@ -11,22 +11,21 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
   const [tests, setTests] = useState([])
   const [loadInfo, setloadInfo] = useState(false)
   const [showQuestions, setShowQuestions] = useState(false)
-  const navigate = useNavigate()
   const { state } = useLocation()
 
   useEffect(() => {
 
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = JSON.parse(window.localStorage.getItem('token') || '')
     if (rol === 'Professor') {
       setloadInfo(true)
       testHelper.setToken(token)
 
       testHelper.listTests()
         .then(test => setTests([...test]))
-        .then(res => setloadInfo(false))
+        .then(() => setloadInfo(false))
     }
 
-  }, [isLoading])
+  }, [isLoading, rol])
   const handleDeleteRequest = async (id, testName) => {
 
     const result = window.confirm(`This will delete this test for all students, do you still want to delete ${testName}?`);
@@ -52,11 +51,15 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
       studentId: state.id
     }
 
-    const token = JSON.parse(window.localStorage.getItem('token'));
+    const token = JSON.parse(window.localStorage.getItem('token') || '');
+
     usersHelper.setToken(token);
+
     loadingDispatch({ type: 'loading' })
     await usersHelper.updateUser(request)
     loadingDispatch({ type: 'notLoading' })
+
+
   }
 
   return (

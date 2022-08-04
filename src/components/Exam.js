@@ -6,24 +6,25 @@ import testHelper from '../services/test'
 import '../style/exam.css'
 import Loading from './Loading'
 
-const Exam = () => {
+const Exam = ({ loadingDispatch }) => {
 
   const [time, setTime] = useState(0)
   const [questions, setQuestions] = useState([])
   const [loadInfo, setloadInfo] = useState(false)
 
-  const { state } = useLocation()
-  const { name, id } = state.exam
   const navigate = useNavigate()
+
+  const { state } = useLocation()
+  const { name } = state.exam
 
   let sec = time % 60
   let min = Math.floor((time / 60) % 60);
   let hrs = Math.floor((time / 3600) % 60);
 
-  let intervalId;
-
   useEffect(() => {
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = JSON.parse(window.localStorage.getItem('token') || '')
+
+    const { id } = state.exam
 
     testHelper.setToken(token);
     setloadInfo(true)
@@ -31,9 +32,10 @@ const Exam = () => {
       .then(res => setQuestions(res.questions))
       .then(() => setloadInfo(false))
 
-  }, []);
+  }, [state]);
 
   useEffect(() => {
+    let intervalId;
     intervalId = setInterval(() => {
       setTime((prevTime) => prevTime + 1);
 
@@ -42,10 +44,21 @@ const Exam = () => {
   }, []);
 
 
+  const selectedQuestions = questions.slice()
   //Filters the answers selected and compares them with the correct ones
   const handleAnswers = async (e) => {
     e.preventDefault()
-    const correctAnswers = questions.map(question => {
+
+    const request = {
+      exanName: state.exam.name,
+      selectedQuestions,
+      time: `${hrs}h ${min}m ${sec}s`
+    }
+    loadingDispatch({ type: 'loading' })
+    await resultsHelper.sendResults(request)
+    loadingDispatch({ type: 'notLoading' })
+
+    const correctAnswers = selectedQuestions.map(question => {
 
       let correct = 0;
       if (question.answer === question.selectedAnswer) {
@@ -54,30 +67,15 @@ const Exam = () => {
       return correct
     }).reduce((prev, curr) => prev + curr, 0)
 
-    const score = ((correctAnswers / questions.length) * 100).toFixed(1) + "%"
+    const score = ((correctAnswers / selectedQuestions.length) * 100).toFixed(1) + "%"
+    handleSend(score)
 
-    const results = {
-      examId: window.localStorage.getItem('examId'),
-      name,
-      score,
-      userId: window.localStorage.getItem('userId'),
-      time: `${hrs}h ${min}m ${sec}s`
-    }
-    try {
-      await resultsHelper.sendResults(results)
-      handleSend(score)
-    }
-    catch (error) {
-      console.error(error)
-    }
   }
 
   //Controls the behaviour of the 'send' button on the exam
   const handleSend = (score) => {
     alert(`The exam is over, your score is: ${score} and the total time was ${hrs}h ${min}m ${sec}s`)
-    navigate('/test');
-    window.location.reload()
-    clearInterval(intervalId)
+    navigate('/test')
   }
 
   return (
@@ -94,7 +92,7 @@ const Exam = () => {
               className={'exam_form'}
             >
               {
-                questions.map((question, index) => {
+                selectedQuestions.map((question, index) => {
 
                   return (
                     <div
@@ -157,7 +155,6 @@ const Exam = () => {
             </form>
           </div >
       }
-
     </>
   )
 }

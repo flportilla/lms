@@ -17,9 +17,9 @@ const addTest = async (question) => {
 }
 
 //Send the request to fetch all tests
-const listTests = async (userId) => {
+const listTests = async () => {
 
-  const response = await axios.get(baseUrl, { params: { userId } })
+  const response = await axios.get(baseUrl)
   return response.data
 }
 

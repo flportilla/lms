@@ -56,7 +56,7 @@ usersRouter.get('/', tokenExtractor, userExtractor, isProfessor, async (request,
   response.json(res)
 })
 
-usersRouter.put('/', tokenExtractor, userExtractor, isProfessor, async (request, response) => {
+usersRouter.put('/', tokenExtractor, userExtractor, async (request, response) => {
 
   const { studentId, testIds } = request.body
 

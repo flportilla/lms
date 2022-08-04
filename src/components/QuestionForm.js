@@ -11,7 +11,7 @@ const QuestionForm = ({
 }) => {
 
 
-  const autoFilledQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion'))
+  const autoFilledQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion') || '')
 
   const [statement, setStatement] = useState(request
     ? `${autoFilledQuestion.statement}`
@@ -104,7 +104,7 @@ const QuestionForm = ({
 
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
 
-  const token = JSON.parse(window.localStorage.getItem('token'))
+  const token = JSON.parse(window.localStorage.getItem('token') || '')
 
 
   //Handles the creation of new questions

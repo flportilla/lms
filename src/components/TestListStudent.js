@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import testHelper from '../services/test'
+import usersHelper from '../services/users'
 import '../style/testsStudent.css'
 import Button from './Button'
 import Loading from './Loading'
@@ -14,14 +15,14 @@ const Test = ({ loadingDispatch }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const userId = window.localStorage.getItem('userId')
+
     if (!rol) return
     setloadInfo(true)
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = JSON.parse(window.localStorage.getItem('token') || '')
 
     testHelper.setToken(token)
 
-    testHelper.listTests(userId)
+    testHelper.listTests()
       .then(test => setTests(test))
       .then(() => setloadInfo(false))
 
@@ -33,10 +34,24 @@ const Test = ({ loadingDispatch }) => {
 
     if (takeTest) {
       const exam = tests.testsAssigned.find(test => test.id === id)
+      const newTestsList = tests.testsAssigned.filter(test => test.id !== id).map(test => test.id)
+
+      const request = {
+        studentId: tests.id,
+        testIds: newTestsList
+      }
+      const token = JSON.parse(window.localStorage.getItem('token') || '')
+
+      usersHelper.setToken(token)
+
+      loadingDispatch({ type: 'loading' })
+      await usersHelper.updateUser(request)
+      loadingDispatch({ type: 'notLoading' })
 
       navigate('/exam', { state: { exam } })
+
     }
-    //TODO: remove test from this user after hit start
+
   }
 
   return (

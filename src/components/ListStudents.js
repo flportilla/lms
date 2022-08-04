@@ -14,7 +14,7 @@ const ListStudents = ({ isLoading }) => {
     useEffect(() => {
 
         setloadInfo(true)
-        const token = JSON.parse(window.localStorage.getItem('token'))
+        const token = JSON.parse(window.localStorage.getItem('token') || '')
         usersHelper.setToken(token)
 
         usersHelper.getStudents()

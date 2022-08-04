@@ -23,9 +23,12 @@ testRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
 
 //Fetch all tests from DB
 testRouter.get('/', tokenExtractor, userExtractor, async (request, response) => {
-  const { userId } = request.query
+  const { id: userId } = request.user
 
-  if (!userId) {
+  const { rol } = await User.findById(userId)
+
+
+  if (rol === 'Professor') {
     const tests = await Test.find()
     return response.status(200).json(tests)
   }

@@ -12,7 +12,7 @@ const ListQuestions = ({ loadingDispatch, isLoading }) => {
 
   useEffect(() => {
 
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = JSON.parse(window.localStorage.getItem('token') || '')
     questionHelper.setToken(token)
 
     if (isLogged) {
@@ -22,7 +22,7 @@ const ListQuestions = ({ loadingDispatch, isLoading }) => {
         .then(res => setloadInfo(false))
     }
 
-  }, [isLoading])
+  }, [isLoading, isLogged])
 
   return (
     <>
