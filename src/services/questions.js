@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'http://localhost:3001/api/questions'
+const baseUrl = '/api/questions'
 
 //Place the token as default on every request send to the server
 const setToken = (newToken) => {

@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'http://localhost:3001/api/results'
+const baseUrl = '/api/results'
 
 const sendResults = async (result = {}) => {
 
