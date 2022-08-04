@@ -11,14 +11,14 @@ const Professor = () => {
   const professorControls = [
     {
       id: uuidv4(),
-      onclick: () => navigate('/add-question'),
+      onclick: () => navigate('/add-question', { state: { request: false } }),
       customClass: 'command',
       type: 'button',
       children: 'Add question'
     },
     {
       id: uuidv4(),
-      onclick: () => { navigate('/create-test'); window.location.reload() },
+      onclick: () => navigate('/create-test'),
       customClass: 'command',
       type: 'button',
       children: 'Create test'

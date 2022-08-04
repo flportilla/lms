@@ -27,7 +27,7 @@ const Question = ({ statement,
       loadingDispatch({ type: 'notLoading' })
 
       window.localStorage.setItem('updatedQuestion', JSON.stringify(response))
-      navigate('/update-question')
+      navigate('/update-question', { state: { updatedQuestion: response, request: true } })
     } catch (error) {
       loadingDispatch({ type: 'notLoading' })
 

@@ -45,6 +45,7 @@ const Login = ({ loadingDispatch }) => {
       addQuestionHelper.setToken(loggedUser.token)
 
       navigate(`/${user.rol}`.toLocaleLowerCase());
+      window.location.reload()
 
 
     } catch (error) {

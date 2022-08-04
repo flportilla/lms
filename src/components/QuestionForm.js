@@ -3,15 +3,15 @@ import questionHelper from '../services/questions'
 import '../style/addQuestion.css'
 import Button from './Button'
 import TextArea from './TextArea'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const QuestionForm = ({
-  request = false,
   loadingDispatch
 }) => {
 
-
-  const autoFilledQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion'))
+  const { state } = useLocation()
+  const { request, updatedQuestion: autoFilledQuestion } = state
+  const isLogged = window.localStorage.getItem('rol') === 'Professor'
 
   const [statement, setStatement] = useState(request
     ? `${autoFilledQuestion.statement}`
@@ -102,17 +102,11 @@ const QuestionForm = ({
     },
   ]
 
-  const isLogged = window.localStorage.getItem('rol') === 'Professor'
-
-  const token = JSON.parse(window.localStorage.getItem('token') || '')
-
-
   //Handles the creation of new questions
   const createQuestionRequest = async (e) => {
 
+    loadingDispatch({ type: 'loading' })
     try {
-      loadingDispatch({ type: 'loading' })
-      e.preventDefault()
 
       const newQuestion = {
         statement,
@@ -124,6 +118,7 @@ const QuestionForm = ({
         loadingDispatch
       }
 
+      const token = JSON.parse(window.localStorage.getItem('token'))
       questionHelper.setToken(token)
 
       await questionHelper.addQuestion(newQuestion)
@@ -137,7 +132,8 @@ const QuestionForm = ({
   }
 
   const updateQuestionRequest = async (e) => {
-    e.preventDefault()
+
+    loadingDispatch({ type: 'loading' })
     const { id } = autoFilledQuestion
 
     const updatedQuestion = {
@@ -150,7 +146,10 @@ const QuestionForm = ({
     }
 
     try {
+
+      const token = JSON.parse(window.localStorage.getItem('token'))
       questionHelper.setToken(token)
+
       loadingDispatch({ type: 'loading' })
       await questionHelper.updateQuestion(id, updatedQuestion)
       loadingDispatch({ type: 'notLoading' })
@@ -158,10 +157,10 @@ const QuestionForm = ({
       alert('Question updated')
 
       navigate('/list-questions')
+
     } catch (error) {
       loadingDispatch({ type: 'notLoading' })
     }
-
 
   }
 
@@ -169,8 +168,7 @@ const QuestionForm = ({
     <>{
       isLogged
         ? <form
-          className='add_question_form'
-          onSubmit={request ? updateQuestionRequest : createQuestionRequest}>
+          className='add_question_form'>
           {
             questionsForm.map(({
               children,
@@ -200,17 +198,17 @@ const QuestionForm = ({
               {
                 request
                   ? <Button
-                    onClick={null}
+                    onClick={state.request ? updateQuestionRequest : createQuestionRequest}
                     children={'Update'}
                     customClass={null}
-                    type={'submit'}
+                    type={'button'}
                   />
                   :
                   <Button
-                    onClick={null}
+                    onClick={state.request ? updateQuestionRequest : createQuestionRequest}
                     children={'Create'}
                     customClass={null}
-                    type={'submit'}
+                    type={'button'}
                   />
               }
             </>
