@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Button from './Button'
 import '../style/testCreator.css'
 import testHelper from '../services/test'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import questionHelper from '../services/questions'
 import Loading from './Loading'
 
@@ -11,7 +11,6 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
   const [questionsList, setQuestionsList] = useState([])
   const [loadInfo, setloadInfo] = useState(false)
   const isLogged = window.localStorage.getItem('rol') === 'Professor'
-
 
   useEffect(() => {
 
@@ -53,7 +52,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
     loadingDispatch({ type: 'notLoading' })
 
     alert('Test created')
-    navigate('/Professor')
+    navigate('/professor')
 
     questionsList.map(question => question.selected = false)
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = '/api/tests'
+const baseUrl = 'http://localhost:3001/api/tests'
 
 const setToken = (newToken) => {
   const token = `bearer ${newToken}`
@@ -17,17 +17,17 @@ const addTest = async (question) => {
 }
 
 //Send the request to fetch all tests
-const listTests = async () => {
+const listTests = async (userId) => {
 
-  const response = await axios.get(baseUrl)
+  const response = await axios.get(baseUrl, { params: { userId } })
   return response.data
 }
 
 //Send the request to delete a test
-const removeTest = async (id) => {
+const removeTest = async (id, uid) => {
   if (rol !== 'Professor') return
 
-  const response = await axios.delete(`${baseUrl}/${id}`, { params: { id: id } })
+  const response = await axios.delete(`${baseUrl}/${id}`, { params: { id, uid } })
   return response.data
 }
 
@@ -42,6 +42,7 @@ const updateTest = async (id, updatedTest) => {
   if (rol !== 'Professor') return
 
   const response = await axios.put(`${baseUrl}/${id}`, updatedTest)
+
   return response.data
 }
 

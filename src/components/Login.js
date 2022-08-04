@@ -48,6 +48,7 @@ const Login = ({ loadingDispatch }) => {
 
 
     } catch (error) {
+      alert('Username, Password or rol is incorrect')
       loadingDispatch({ type: 'notLoading' })
     }
   }

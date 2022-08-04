@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Button from './Button'
-import newUserService from '../services/newUser'
+import usersHelper from '../services/users'
 import '../style/newUser.css'
 import InputItem from './InputItem'
 
@@ -36,7 +36,7 @@ function NewUser({ loadingDispatch }) {
 
     try {
       loadingDispatch({ type: 'loading' })
-      await newUserService.addUser(newUser)
+      await usersHelper.addUser(newUser)
       loadingDispatch({ type: 'notLoading' })
       alert('User created succesfully')
 
