@@ -1,7 +1,7 @@
 const usersRouter = require('express').Router()
 const User = require('../models/users')
 const bcrypt = require('bcryptjs');
-const { tokenExtractor, userExtractor } = require('../middleware/middleware');
+const { tokenExtractor, userExtractor, isProfessor } = require('../middleware/middleware');
 
 usersRouter.post('/', async (request, response) => {
 
@@ -45,19 +45,33 @@ usersRouter.post('/', async (request, response) => {
 
 })
 
-usersRouter.get('/', tokenExtractor, userExtractor, async (request, response) => {
-
-  const { rol } = request.user
-
-  if (rol !== 'Professor') {
-    return response.status(401).json({
-      msg: 'Only professors can see the list of students'
-    })
-  }
+usersRouter.get('/', tokenExtractor, userExtractor, isProfessor, async (request, response) => {
 
   const students = await User.find({ rol: 'Student' })
 
-  response.json(students)
+  const res = students.map(({ name, id }) => {
+    return { name, id }
+  })
+
+  response.json(res)
+})
+
+usersRouter.put('/', tokenExtractor, userExtractor, isProfessor, async (request, response) => {
+
+  const { studentId, testIds } = request.body
+
+  const updatedUser = await User
+    .findByIdAndUpdate(
+      studentId,
+      { testsAssigned: testIds },
+      { new: true }
+    )
+    .populate('testsAssigned')
+
+  response.json({
+    updatedUser
+  })
+
 })
 
 module.exports = usersRouter
