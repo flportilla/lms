@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import testHelper from '../services/test'
 import '../style/testList.css'
 import Button from './Button'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Loading from './Loading'
+import usersHelper from '../services/users'
 
 const ListTests = ({ rol, isLoading, loadingDispatch }) => {
 
@@ -11,6 +12,7 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
   const [loadInfo, setloadInfo] = useState(false)
   const [showQuestions, setShowQuestions] = useState(false)
   const navigate = useNavigate()
+  const { state } = useLocation()
 
   useEffect(() => {
 
@@ -25,29 +27,36 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
     }
 
   }, [isLoading])
-
   const handleDeleteRequest = async (id, testName) => {
 
-    const result = window.confirm(`Are you sure you want to delete ${testName}?`);
-
+    const result = window.confirm(`This will delete this test for all students, do you still want to delete ${testName}?`);
+    const uid = state.id
     if (result) {
       loadingDispatch({ type: 'loading' })
-      await testHelper.removeTest(id)
+      await testHelper.removeTest(id, uid)
       loadingDispatch({ type: 'notLoading' })
     }
 
   }
 
-  const handleSelection = async (target, id) => {
-    const updatedStatusTest = { ...tests, selectedTest: target.checked }
+  const testsSelected = tests.slice()
 
+  const handleSelection = async () => {
 
-    const token = JSON.parse(window.localStorage.getItem('token'))
-    testHelper.setToken(token)
+    const testsAssigned = testsSelected
+      .filter(test => test.selectedTest)
+      .map(test => test.id)
+
+    const request = {
+      testIds: testsAssigned,
+      studentId: state.id
+    }
+
+    const token = JSON.parse(window.localStorage.getItem('token'));
+    usersHelper.setToken(token);
     loadingDispatch({ type: 'loading' })
-    await testHelper.updateTest(id, updatedStatusTest)
+    await usersHelper.updateUser(request)
     loadingDispatch({ type: 'notLoading' })
-
   }
 
   return (
@@ -63,11 +72,11 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
             >
               Show questions
             </Button>
-            <h3 style={{ marginBottom: '15px' }}
+            <h2 style={{ marginBottom: '15px', fontSize: '2rem', textAlign: 'center' }}
             >
-              Select a test and save to make it available for students</h3>
+              Select a test and save to make it available for {state.name}</h2>
             {
-              tests.map((test, index) => {
+              testsSelected.map((test, index) => {
                 return (
                   <div key={test.id}>
                     <div style={{ display: 'flex', margin: '0 10px 0 0' }}>
@@ -77,7 +86,7 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
                           id={`${index}`}
                           type={'checkbox'}
                           defaultChecked={test.selectedTest ? test.selectedTest : false}
-                          onChange={({ target }) => handleSelection(target, test.id)}
+                          onChange={({ target }) => test.selectedTest = target.checked}
                         />
 
                         <h2>{test.name}</h2>
@@ -108,7 +117,7 @@ const ListTests = ({ rol, isLoading, loadingDispatch }) => {
             }
             <Button
               type='button'
-              onClick={() => { navigate('/Professor'); }}
+              onClick={handleSelection}
               customClass={'show_questions'}
             >
               Save
