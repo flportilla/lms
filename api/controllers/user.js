@@ -47,10 +47,10 @@ usersRouter.post('/', async (request, response) => {
 
 usersRouter.get('/', tokenExtractor, userExtractor, isProfessor, async (request, response) => {
 
-  const students = await User.find({ rol: 'Student' })
+  const students = await User.find({ rol: 'Student' }).populate('testsTaken')
 
-  const res = students.map(({ name, id }) => {
-    return { name, id }
+  const res = students.map(({ name, id, testsTaken }) => {
+    return { name, id, testsTaken }
   })
 
   response.json(res)

@@ -41,7 +41,7 @@ const ListStudents = ({ isLoading }) => {
                                 Assing
                             </Button>
                             <Button
-                                onClick={null}
+                                onClick={() => navigate('/results-per-student', { state: { name, id } })}
                                 type={'button'}
                                 customClass={'test_button'}
                             >

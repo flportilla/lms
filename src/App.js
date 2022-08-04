@@ -17,6 +17,7 @@ import Results from "./components/Results";
 import Loading from "./components/Loading";
 import setLoading from "./reducer"
 import ListStudents from "./components/ListStudents";
+import IndividualResults from "./components/IndividualResults";
 
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
                     rol={rol}
                     username={username}
                   />
-                  <Test loadingDispatch={loadingDispatch} />
+                  <Test isLoading={isLoading} loadingDispatch={loadingDispatch} />
                 </div>
               } />
 
@@ -151,6 +152,15 @@ function App() {
                     username={username}
                   />
                   <Results />
+                </div>
+              } />
+              <Route path="results-per-student" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <IndividualResults isLoading={isLoading} />
                 </div>
               } />
 
