@@ -20,13 +20,20 @@ resultsRouter.post('/', tokenExtractor, userExtractor, async (request, response)
     const correctAnswers = selectedQuestions.map((question, index) => {
 
         let correct = 0;
-        if (question.answer === questions[index].answer) {
+        const selected = question.selectedAnswer
+        const answer = questions[index].answer
+
+        console.log(selected, answer)
+        if (selected === answer) {
             correct++
+
         }
         return correct
     }).reduce((prev, curr) => prev + curr, 0)
 
     const score = ((correctAnswers / selectedQuestions.length) * 100).toFixed(1) + "%"
+
+    console.log(correctAnswers)
 
     const student = await User.findById(id)
 
