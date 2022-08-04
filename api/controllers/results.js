@@ -1,30 +1,54 @@
 const resultsRouter = require('express').Router()
+const { tokenExtractor, userExtractor } = require('../middleware/middleware')
 const Results = require('../models/results')
 const Test = require('../models/tests')
 const User = require('../models/users')
 
-resultsRouter.post('/', async (request, response) => {
+resultsRouter.post('/', tokenExtractor, userExtractor, async (request, response) => {
 
-    const { name, score, userId, examId, time } = request.body
+    const { selectedQuestions, time, exanName } = request.body
+    const { id } = request.user
+
+    if (!selectedQuestions || !id || !time) {
+        return response.status(400).json({
+            msg: 'Missing info'
+        })
+    }
+
+    const correctAnswers = selectedQuestions.map(question => {
+
+        let correct = 0;
+        if (question.answer === question.selectedAnswer) {
+            correct++
+        }
+        return correct
+    }).reduce((prev, curr) => prev + curr, 0)
+
+    const score = ((correctAnswers / selectedQuestions.length) * 100).toFixed(1) + "%"
+
+    const student = await User.findById(id)
+
+    if (!student) {
+        return response.status(400).json({
+            msg: `The user with the id ${id} doesn't exist on the DB`
+        })
+    }
 
     const result = new Results({
-        name,
+        name: exanName,
         score,
         time
     })
+
     const savedResult = await result.save()
 
     //Save result of the test to logged specific user
-    const user = await User.findById(userId)
-    user.testsTaken = user?.testsTaken.concat(savedResult.id)
-    await user?.save()
+    student.testsTaken = student?.testsTaken.concat(savedResult.id)
+    await student?.save()
 
-    //Change the status of the test to unavailable to avoid take it again
-    const exam = await Test.findById(examId)
-    exam.selectedTest = false
-    await exam.save()
-
-    return response.json(exam)
+    return response.json({
+        msg: 'Results saved'
+    })
 
 })
 
