@@ -6,7 +6,7 @@ import '../style/testsStudent.css'
 import Button from './Button'
 import Loading from './Loading'
 
-const Test = ({ loadingDispatch }) => {
+const Test = ({ isLoading, loadingDispatch }) => {
 
   const rol = window.localStorage.getItem('rol')
 
@@ -26,8 +26,7 @@ const Test = ({ loadingDispatch }) => {
       .then(test => setTests(test))
       .then(() => setloadInfo(false))
 
-  }, [rol])
-
+  }, [isLoading])
 
   const handleTestStart = async (id) => {
     const takeTest = window.confirm('Do you want to start this test? You have only one chance, after you hit send you will see the results')
@@ -51,7 +50,6 @@ const Test = ({ loadingDispatch }) => {
       navigate('/exam', { state: { exam } })
 
     }
-
   }
 
   return (

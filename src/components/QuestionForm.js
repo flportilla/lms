@@ -11,7 +11,7 @@ const QuestionForm = ({
 }) => {
 
 
-  const autoFilledQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion') || '')
+  const autoFilledQuestion = JSON.parse(window.localStorage.getItem('updatedQuestion'))
 
   const [statement, setStatement] = useState(request
     ? `${autoFilledQuestion.statement}`
