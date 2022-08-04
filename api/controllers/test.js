@@ -23,6 +23,7 @@ testRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
 
 //Fetch all tests from DB
 testRouter.get('/', tokenExtractor, userExtractor, async (request, response) => {
+
   const { id: userId } = request.user
 
   const { rol } = await User.findById(userId)

@@ -6,19 +6,21 @@ const User = require('../models/users')
 
 resultsRouter.post('/', tokenExtractor, userExtractor, async (request, response) => {
 
-    const { selectedQuestions, time, exanName } = request.body
+    const { selectedQuestions, time, exanName, examId } = request.body
     const { id } = request.user
 
-    if (!selectedQuestions || !id || !time) {
+    if (!selectedQuestions) {
         return response.status(400).json({
             msg: 'Missing info'
         })
     }
 
-    const correctAnswers = selectedQuestions.map(question => {
+    const { questions } = await Test.findById(examId).populate('questions')
+
+    const correctAnswers = selectedQuestions.map((question, index) => {
 
         let correct = 0;
-        if (question.answer === question.selectedAnswer) {
+        if (question.answer === questions[index].answer) {
             correct++
         }
         return correct

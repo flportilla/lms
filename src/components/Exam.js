@@ -49,7 +49,10 @@ const Exam = ({ loadingDispatch }) => {
   const handleAnswers = async (e) => {
     e.preventDefault()
 
+    const { id: examId } = state.exam
+
     const request = {
+      examId,
       exanName: state.exam.name,
       selectedQuestions,
       time: `${hrs}h ${min}m ${sec}s`
