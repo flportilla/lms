@@ -7,7 +7,7 @@ import "../style/login.css";
 
 import InputItem from "./InputItem";
 
-const Login = () => {
+const Login = ({ loadingDispatch }) => {
 
   //States to handle login
   const [username, setUsername] = useState('')
@@ -31,24 +31,24 @@ const Login = () => {
 
       if (!rol) return alert('Please select your rol')
 
-      const loggedUser = await login.login(user)
+      loadingDispatch({ type: 'loading' })
 
-      window.localStorage.setItem('rol', loggedUser.rol)
-      window.localStorage.setItem('name', loggedUser.name)
-      window.localStorage.setItem('userId', loggedUser.id)
+      const loggedUser = await login.login(user)
+      loadingDispatch({ type: 'notLoading' })
+
+
+      window.localStorage.setItem('rol', loggedUser.rolDB)
+      window.localStorage.setItem('name', loggedUser.nameDB)
+      window.localStorage.setItem('userId', loggedUser.idDB)
       window.localStorage.setItem('token', JSON.stringify(loggedUser.token))
 
       addQuestionHelper.setToken(loggedUser.token)
 
-      navigate(`/${user.rol}`);
-
-      window.location.reload();
+      navigate(`/${user.rol}`.toLocaleLowerCase());
 
 
     } catch (error) {
-      
-      alert('Username, password or rol is invalid')
-      console.error(error)
+      loadingDispatch({ type: 'notLoading' })
     }
   }
 

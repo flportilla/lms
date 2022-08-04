@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
@@ -13,147 +13,144 @@ import Navbar from "./components/Navbar";
 import CreateTest from "./components/CreateTest";
 import ListTest from "./components/ListTests";
 import Exam from "./components/Exam";
-import questionHelper from "./services/questions";
 import testHelper from "./services/test";
 import Results from "./components/Results";
+import Loading from "./components/Loading";
+import setLoading from "./reducer"
+
 
 function App() {
 
   const rol = window.localStorage.getItem('rol')
   const username = window.localStorage.getItem('name')
-  const [questionsList, setQuestionsList] = useState([])
-  const [tests, setTests] = useState([])
-
-  useEffect(() => {
-
-    if (!rol) return
-
-    const token = JSON.parse(window.localStorage.getItem('token'))
-    questionHelper.setToken(token)
-    testHelper.setToken(token)
-
-    if (rol === 'Professor') {
-      questionHelper.listQuestions()
-        .then(question => setQuestionsList(question))
-    }
-
-    testHelper.listTests()
-      .then(test => setTests(test))
-
-  }, [rol])
+  const [isLoading, loadingDispatch] = useReducer(setLoading, false);
 
   return (
-    <>
-      <Header />
-      <HashRouter>
-        <Routes>
+    <>{
+      isLoading
+        ? <Loading />
+        : <>
+          <Header />
 
-          <Route path="/" element={
-            <Login />
-          } />
+          <HashRouter>
+            <Routes>
 
-          <Route path="/new-user-form" element={
-            <NewUser />
-          } />
+              <Route path="/" element={
+                <Login loadingDispatch={loadingDispatch} />
+              } />
 
-          <Route path="/Student" element={
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <Student />
-            </div>
+              <Route path="/new-user-form" element={
+                <NewUser
+                  loadingDispatch={loadingDispatch} />
+              } />
 
-          } />
+              <Route path="/student" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <Student />
+                </div>
 
-          <Route path="/Professor" element={
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <Professor />
-            </div>
-          } />
+              } />
 
-          <Route path="test" element={
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <Test tests={tests} />
-            </div>
-          } />
+              <Route path="/professor" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <Professor loadingDispatch={loadingDispatch} />
+                </div>
+              } />
 
-          <Route path="add-question" element={
+              <Route path="test" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <Test />
+                </div>
+              } />
 
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <QuestionForm />
-            </div>
-          } />
+              <Route path="add-question" element={
 
-          <Route path="update-question" element={
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <QuestionForm
-                request
-              />
-            </div>
-          } />
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <QuestionForm loadingDispatch={loadingDispatch} />
+                </div>
+              } />
 
-          <Route path="list-questions" element={
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <ListQuestions questionsList={questionsList} />
-            </div>
-          } />
-          <Route path="create-test" element={
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <CreateTest questionsList={questionsList} />
-            </div>
-          } />
-          <Route path="list-tests" element={
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <ListTest
-                rol={rol}
-              />
-            </div>
-          } />
-          <Route path="results" element={
-            <div className="rol_container">
-              <Navbar
-                rol={rol}
-                username={username}
-              />
-              <Results />
-            </div>
-          } />
+              <Route path="update-question" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <QuestionForm
+                    loadingDispatch={loadingDispatch}
+                    request
+                  />
+                </div>
+              } />
 
-          <Route path="exam" element={
-            <Exam />
-          } />
-        </Routes>
-      </HashRouter>
+              <Route path="list-questions" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <ListQuestions
+                    loadingDispatch={loadingDispatch}
+                    isLoading={isLoading} />
+                </div>
+              } />
+              <Route path="create-test" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <CreateTest
+                    isLoading={isLoading}
+                    loadingDispatch={loadingDispatch} />
+                </div>
+              } />
+              <Route path="list-tests" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <ListTest
+                    loadingDispatch={loadingDispatch}
+                    isLoading={isLoading}
+                    rol={rol}
+                  />
+                </div>
+              } />
+              <Route path="results" element={
+                <div className="rol_container">
+                  <Navbar
+                    rol={rol}
+                    username={username}
+                  />
+                  <Results />
+                </div>
+              } />
+
+              <Route path="exam" element={
+                <Exam />
+              } />
+            </Routes>
+          </HashRouter>
+        </>
+    }
     </>
   );
 }
