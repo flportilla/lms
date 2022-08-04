@@ -3,6 +3,7 @@ const Question = require('../models/questions')
 
 const middleware = require('../middleware/middleware')
 const Test = require('../models/tests')
+const User = require('../models/users')
 const userExtractor = middleware.userExtractor
 const tokenExtractor = middleware.tokenExtractor
 
@@ -22,8 +23,22 @@ testRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
 
 //Fetch all tests from DB
 testRouter.get('/', tokenExtractor, userExtractor, async (request, response) => {
-  const test = await Test.find().populate('questions')
-  response.status(200).json(test)
+  const { userId } = request.query
+
+  if (!userId) {
+    const tests = await Test.find()
+    return response.status(200).json(tests)
+  }
+
+  const { testsAssigned, name, id } = await User.findById(userId).populate('testsAssigned')
+
+  const res = {
+    id,
+    name,
+    testsAssigned
+  }
+
+  response.status(200).json(res)
 })
 
 //Fetch all tests from DB
@@ -34,6 +49,7 @@ testRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) 
 
 //Remove one test by id
 testRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
+
   await Test.findByIdAndRemove(request.params.id)
   return response.status(204).end()
 })
