@@ -1,20 +1,31 @@
 import React from 'react'
 
-const TextArea = ({ onChange, htmlFor, value, isRequired, children, customClass }) => {
-
+const TextArea = ({ onChange, htmlFor, value, children, customClass, selectedAnswer }) => {
   return (<>
     <label
       className="label"
       htmlFor={htmlFor}
     >
+      {
+        !htmlFor
+          ? ''
+          : <input
+            required
+            type={'radio'}
+            name={'answer'}
+            id={htmlFor}
+            onChange={selectedAnswer}
+          />
+
+      }
       {children}
     </label>
     <textarea
+      placeholder='Enter your text here'
       className={customClass}
-      id={htmlFor}
       value={value}
       onChange={onChange}
-      required={isRequired}
+      required
     />
   </>
   )
