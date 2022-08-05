@@ -5,84 +5,14 @@ import Button from './Button'
 import TextArea from './TextArea'
 import { useNavigate, useLocation } from 'react-router-dom';
 
-
-
-
-
-// const questionsForm = [
-//   {
-//     id: 1,
-//     htmlFor: 'statement',
-//     customClass: 'textarea',
-//     type: 'text',
-//     isRequired: true,
-//     children: 'statement',
-//     value: newQuestion.statement,
-//     onChange: setNewQuestion({ ...newQuestion, statement: newQuestion.statement })
-
-//   },
-//   {
-//     id: 2,
-//     htmlFor: 'option1',
-//     customClass: 'textarea',
-//     type: 'text',
-//     isRequired: true,
-//     children: 'Option 1',
-//     value: newQuestion.opt1,
-//     onChange: setNewQuestion({ ...newQuestion, opt1: newQuestion.opt1 })
-//   },
-//   {
-//     id: 3,
-//     htmlFor: 'option2',
-//     customClass: 'textarea',
-//     type: 'text',
-//     isRequired: true,
-//     children: 'Option 2',
-//     value: newQuestion.opt2,
-//     onChange: setNewQuestion({ ...newQuestion, opt2: newQuestion.opt2 })
-//   },
-//   {
-//     id: 4,
-//     htmlFor: 'option3',
-//     customClass: 'textarea',
-//     type: 'text',
-//     isRequired: true,
-//     children: 'Option 3',
-//     value: newQuestion.opt3,
-//     onChange: setNewQuestion({ ...newQuestion, opt3: newQuestion.opt3 })
-//   },
-//   {
-//     id: 5,
-//     htmlFor: 'option4',
-//     customClass: 'textarea',
-//     type: 'text',
-//     isRequired: true,
-//     children: 'Option 4',
-//     value: newQuestion.opt4,
-//     onChange: ({ target }) => setNewQuestion({ ...newQuestion, opt4: target.value })
-//   },
-//   {
-//     id: 6,
-//     htmlFor: 'answer',
-//     customClass: 'textarea',
-//     type: 'text',
-//     isRequired: true,
-//     children: 'Answer',
-//     value: answer,
-//     onChange: setAnswer
-//   },
-// ]
-
-
 const QuestionForm = ({ loadingDispatch }) => {
 
   const navigate = useNavigate()
   const { state } = useLocation()
 
-
   const { updateRequest, updatedQuestion: autoFilledQuestion, role } = state
 
-  const [testnewQuestion, testsetNewQuestion] = useState({
+  const [newQuestion, setNewQuestion] = useState({
     statement: updateRequest ? autoFilledQuestion.statement : '',
     opt1: updateRequest ? autoFilledQuestion.option1 : '',
     opt2: updateRequest ? autoFilledQuestion.option2 : '',
@@ -90,90 +20,78 @@ const QuestionForm = ({ loadingDispatch }) => {
     opt4: updateRequest ? autoFilledQuestion.option4 : '',
   })
 
-  const [testanswer, testsetAnswer] = useState({
+  const [answer, setAnswer] = useState({
     answer: updateRequest ? autoFilledQuestion.answer : ''
   })
 
-  console.log(testnewQuestion, testanswer)
-
   const questionsForm = [
     {
-      id: 1,
-      htmlFor: 'statement',
-      customClass: 'textarea',
-      type: 'text',
-      isRequired: true,
-      children: 'statement',
-      value: testnewQuestion.statement,
-      onChange: (value) => testsetNewQuestion({ ...testnewQuestion, statement: value })
-    },
-    {
       id: 2,
-      htmlFor: 'option1',
+      htmlFor: 'opt1',
       customClass: 'textarea',
       type: 'text',
-      isRequired: true,
       children: 'Option 1',
-      value: testnewQuestion.opt1,
-      onChange: (value) => testsetNewQuestion({ ...testnewQuestion, opt1: value })
+      value: newQuestion.opt1,
+      onChange: (value) => setNewQuestion({ ...newQuestion, opt1: value })
     },
     {
       id: 3,
-      htmlFor: 'option2',
+      htmlFor: 'opt2',
       customClass: 'textarea',
       type: 'text',
-      isRequired: true,
       children: 'Option 2',
-      value: testnewQuestion.opt2,
-      onChange: (value) => testsetNewQuestion({ ...testnewQuestion, opt2: value })
+      value: newQuestion.opt2,
+      onChange: (value) => setNewQuestion({ ...newQuestion, opt2: value })
     },
     {
       id: 4,
-      htmlFor: 'option3',
+      htmlFor: 'opt3',
       customClass: 'textarea',
       type: 'text',
-      isRequired: true,
       children: 'Option 3',
-      value: testnewQuestion.opt3,
-      onChange: (value) => testsetNewQuestion({ ...testnewQuestion, opt3: value })
+      value: newQuestion.opt3,
+      onChange: (value) => setNewQuestion({ ...newQuestion, opt3: value })
     },
     {
       id: 5,
-      htmlFor: 'option4',
+      htmlFor: 'opt4',
       customClass: 'textarea',
       type: 'text',
-      isRequired: true,
       children: 'Option 4',
-      value: testnewQuestion.opt4,
-      onChange: (value) => testsetNewQuestion({ ...testnewQuestion, opt4: value })
-    },
-    // {
-    //   id: 6,
-    //   htmlFor: 'answer',
-    //   customClass: 'textarea',
-    //   type: 'text',
-    //   isRequired: true,
-    //   children: 'Answer',
-    //   value: testanswer.answer,
-    //   onChange: (value) => testsetAnswer(value)
-    // },
+      value: newQuestion.opt4,
+      onChange: (value) => setNewQuestion({ ...newQuestion, opt4: value })
+    }
   ]
+
+  const selectedAnswer = (id) => {
+    setAnswer(current => { return { ...current, answer: newQuestion[id] } })
+  }
 
   //Handles the creation of new questions
   const createQuestionRequest = async (e) => {
+    e.preventDefault()
 
-    // loadingDispatch({ type: 'loading' })
+    loadingDispatch({ type: 'loading' })
+
+    const addQuestionRequest = {
+      statement: newQuestion.statement,
+      opt1: newQuestion.opt1,
+      opt2: newQuestion.opt2,
+      opt3: newQuestion.opt3,
+      opt4: newQuestion.opt4,
+      answer
+    }
+
+    const token = window.localStorage.getItem('token')
+
+    questionHelper.setToken(token)
+
+    const response = await questionHelper.addQuestion(newQuestion)
+    console.log(response)
+    loadingDispatch({ type: 'notLoading' })
+
     // try {
 
-    //   const newQuestion = {
-    //     statement,
-    //     option1,
-    //     option2,
-    //     option3,
-    //     option4,
-    //     answer,
-    //     loadingDispatch
-    //   }
 
     //   const token = JSON.parse(window.localStorage.getItem('token'))
     //   questionHelper.setToken(token)
@@ -225,7 +143,21 @@ const QuestionForm = ({ loadingDispatch }) => {
     <>{
       role === 'PROFESSOR_ROLE'
         ? <form
-          className='add_question_form'>
+          className='add_question_form'
+          onSubmit={updateRequest ? updateQuestionRequest : createQuestionRequest}
+        >
+          <h2 style={{ padding: '0', margin: '0', textAlign: 'center' }}>To create a new question:</h2>
+          <h2 style={{ padding: '0', margin: '0', textAlign: 'center' }}>Fill this form, select the answer and click create</h2>
+
+          <TextArea
+            selectedAnswer={null}
+            customClass={'textarea'}
+            key={null}
+            htmlFor={null}
+            value={newQuestion.statement}
+            onChange={({ target }) => setNewQuestion({ ...newQuestion, statement: target.value })}
+            children={'Statement'}
+          />
           {
             questionsForm.map(({
               children,
@@ -239,12 +171,12 @@ const QuestionForm = ({ loadingDispatch }) => {
 
               return (
                 <TextArea
+                  selectedAnswer={({ target }) => selectedAnswer(target.id)}
                   customClass={customClass}
                   key={id}
                   htmlFor={htmlFor}
                   value={value}
                   onChange={({ target }) => onChange(target.value)}
-                  isRequired={isRequired}
                   children={children}
                 />
               )
@@ -255,17 +187,17 @@ const QuestionForm = ({ loadingDispatch }) => {
               {
                 updateRequest
                   ? <Button
-                    onClick={updateRequest ? updateQuestionRequest : createQuestionRequest}
+                    onClick={null}
                     children={'Update'}
                     customClass={null}
-                    type={'button'}
+                    type={'submit'}
                   />
                   :
                   <Button
-                    onClick={updateRequest ? updateQuestionRequest : createQuestionRequest}
+                    onClick={null}
                     children={'Create'}
                     customClass={null}
-                    type={'button'}
+                    type={'submit'}
                   />
               }
             </>
