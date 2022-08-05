@@ -1,13 +1,19 @@
 import React from 'react'
-import Button from './Button'
-import '../style/professor.css'
-import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import Button from './Button'
+
+import '../style/professor.css'
 
 const Professor = () => {
 
-  const isLogged = window.localStorage.getItem('rol') === 'Professor'
+  const { state } = useLocation()
+
+  const { role, name } = state
+
   const navigate = useNavigate();
+
   const professorControls = [
     {
       id: uuidv4(),
@@ -25,7 +31,7 @@ const Professor = () => {
     },
     {
       id: uuidv4(),
-      onclick: () => navigate('/results', { state: { rol: window.localStorage.getItem('rol') } }),
+      onclick: () => navigate('/results', { state: { role, name } }),
       customClass: 'command',
       type: 'button',
       children: 'results'
@@ -49,17 +55,17 @@ const Professor = () => {
   return (
     <>
       {
-        isLogged
+        role === 'PROFESSOR_ROLE'
           ? <section className='professor_section'>
             <div className='controls_container' >
               {
-                professorControls.map(command => {
+                professorControls.map(({ id, onclick, customClass, type, children }) => {
                   return <Button
-                    key={command.id}
-                    onClick={command.onclick}
-                    customClass={command.customClass}
-                    type={command.type}
-                  >{command.children}</Button>
+                    key={id}
+                    onClick={onclick}
+                    customClass={customClass}
+                    type={type}
+                  >{children}</Button>
                 })
               }
             </div>
