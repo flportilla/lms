@@ -10,7 +10,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
 
   const [questionsList, setQuestionsList] = useState([])
   const [loadInfo, setloadInfo] = useState(false)
-  const isLogged = window.localStorage.getItem('rol') === 'Professor'
+  const isLogged = window.localStorage.getItem('role') === 'Professor'
 
   useEffect(() => {
 

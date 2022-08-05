@@ -30,7 +30,7 @@ const Student = () => {
     }
 
   ]
-  const isLogged = window.localStorage.getItem('rol') === 'Student'
+  const isLogged = window.localStorage.getItem('role') === 'Student'
 
   return (
     <>{

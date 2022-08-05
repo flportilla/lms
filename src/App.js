@@ -1,28 +1,32 @@
 import React, { useReducer } from "react";
-import Header from "./components/Header";
-import Login from "./components/Login";
-import NewUser from "./components/NewUser";
-import Student from "./components/Student";
-import Professor from "./components/Professor";
 import { Routes, Route, HashRouter } from "react-router-dom"
-import "./style/app.css"
-import Test from "./components/TestListStudent";
-import ListQuestions from "./components/ListQuestions";
-import QuestionForm from "./components/QuestionForm";
-import Navbar from "./components/Navbar";
-import CreateTest from "./components/CreateTest";
-import ListTest from "./components/ListTests";
-import Exam from "./components/Exam";
-import Results from "./components/Results";
-import Loading from "./components/Loading";
-import setLoading from "./reducer"
-import ListStudents from "./components/ListStudents";
-import IndividualResults from "./components/IndividualResults";
 
+import CreateTest from "./components/CreateTest";
+import Exam from "./components/Exam";
+import Header from "./components/Header";
+import IndividualResults from "./components/IndividualResults";
+import ListQuestions from "./components/ListQuestions";
+import ListStudents from "./components/ListStudents";
+import ListTest from "./components/ListTests";
+import Loading from "./components/Loading";
+import Login from "./components/Login";
+import Navbar from "./components/Navbar";
+import NewUser from "./components/NewUser";
+import Professor from "./components/Professor";
+import QuestionForm from "./components/QuestionForm";
+import Results from "./components/Results";
+import Student from "./components/Student";
+import Test from "./components/TestListStudent";
+
+import reducers from './reducer'
+
+import "./style/app.css"
+
+const { setLoading } = reducers
 
 function App() {
 
-  const rol = window.localStorage.getItem('rol')
+  const role = window.localStorage.getItem('role')
   const username = window.localStorage.getItem('name')
   const [isLoading, loadingDispatch] = useReducer(setLoading, false);
 
@@ -37,7 +41,8 @@ function App() {
             <Routes>
 
               <Route path="/" element={
-                <Login loadingDispatch={loadingDispatch} />
+                <Login
+                  loadingDispatch={loadingDispatch} />
               } />
 
               <Route path="/new-user-form" element={
@@ -48,7 +53,7 @@ function App() {
               <Route path="/student" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <Student />
@@ -59,7 +64,7 @@ function App() {
               <Route path="/professor" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <Professor />
@@ -69,7 +74,7 @@ function App() {
               <Route path="test" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <Test isLoading={isLoading} loadingDispatch={loadingDispatch} />
@@ -80,7 +85,7 @@ function App() {
 
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <QuestionForm
@@ -91,7 +96,7 @@ function App() {
               <Route path="update-question" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <QuestionForm
@@ -103,7 +108,7 @@ function App() {
               <Route path="list-questions" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <ListQuestions
@@ -114,7 +119,7 @@ function App() {
               <Route path="create-test" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <CreateTest
@@ -125,20 +130,20 @@ function App() {
               <Route path="list-tests" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <ListTest
                     loadingDispatch={loadingDispatch}
                     isLoading={isLoading}
-                    rol={rol}
+                    rol={role}
                   />
                 </div>
               } />
               <Route path="list-students" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <ListStudents
@@ -148,7 +153,7 @@ function App() {
               <Route path="results" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <Results />
@@ -157,7 +162,7 @@ function App() {
               <Route path="results-per-student" element={
                 <div className="rol_container">
                   <Navbar
-                    rol={rol}
+                    role={role}
                     username={username}
                   />
                   <IndividualResults isLoading={isLoading} />
