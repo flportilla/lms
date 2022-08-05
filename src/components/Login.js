@@ -35,7 +35,7 @@ const Login = ({ loadingDispatch }) => {
       navigate(navigateTo, { state: { role, name } });
 
     } catch (error) {
-      alert('Username, Password or role is incorrect')
+      alert('email or password or is incorrect')
       loadingDispatch({ type: 'notLoading' })
     }
   }
