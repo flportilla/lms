@@ -7,10 +7,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const QuestionForm = ({ loadingDispatch }) => {
 
-  const navigate = useNavigate()
-  const { state } = useLocation()
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
-  const { updateRequest, updatedQuestion: autoFilledQuestion, role } = state
+  const { updateRequest, updatedQuestion: autoFilledQuestion, role } = state;
 
   const [newQuestion, setNewQuestion] = useState({
     statement: updateRequest ? autoFilledQuestion.statement : '',
@@ -18,11 +18,11 @@ const QuestionForm = ({ loadingDispatch }) => {
     opt2: updateRequest ? autoFilledQuestion.option2 : '',
     opt3: updateRequest ? autoFilledQuestion.option3 : '',
     opt4: updateRequest ? autoFilledQuestion.option4 : '',
-  })
+  });
 
-  const [answer, setAnswer] = useState({
+  const [answerSelected, setAnswerSelected] = useState({
     answer: updateRequest ? autoFilledQuestion.answer : ''
-  })
+  });
 
   const questionsForm = [
     {
@@ -61,17 +61,17 @@ const QuestionForm = ({ loadingDispatch }) => {
       value: newQuestion.opt4,
       onChange: (value) => setNewQuestion({ ...newQuestion, opt4: value })
     }
-  ]
+  ];
 
   const selectedAnswer = (id) => {
-    setAnswer(current => { return { ...current, answer: newQuestion[id] } })
-  }
+    setAnswerSelected(current => {
+      return { ...current, answer: newQuestion[id] }
+    });
+  };
 
   //Handles the creation of new questions
   const createQuestionRequest = async (e) => {
     e.preventDefault()
-
-    loadingDispatch({ type: 'loading' })
 
     const addQuestionRequest = {
       statement: newQuestion.statement,
@@ -79,30 +79,27 @@ const QuestionForm = ({ loadingDispatch }) => {
       opt2: newQuestion.opt2,
       opt3: newQuestion.opt3,
       opt4: newQuestion.opt4,
-      answer
+      answer: answerSelected.answer
     }
 
-    const token = window.localStorage.getItem('token')
+    try {
+      loadingDispatch({ type: 'loading' })
 
-    questionHelper.setToken(token)
+      const token = window.localStorage.getItem('token')
 
-    const response = await questionHelper.addQuestion(newQuestion)
-    console.log(response)
-    loadingDispatch({ type: 'notLoading' })
+      questionHelper.setToken(token)
 
-    // try {
+      await questionHelper.addQuestion(addQuestionRequest)
 
+      alert('Question added')
+      loadingDispatch({ type: 'notLoading' })
+    }
+    catch (error) {
 
-    //   const token = JSON.parse(window.localStorage.getItem('token'))
-    //   questionHelper.setToken(token)
-
-    //   await questionHelper.addQuestion(newQuestion)
-    //   loadingDispatch({ type: 'notLoading' })
-
-    //   alert('Question added')
-    // } catch (error) {
-    //   loadingDispatch({ type: 'notLoading' })
-    // }
+      console.log(error.response.data)
+      alert('something went wrong, please contact the administrator')
+      loadingDispatch({ type: 'notLoading' })
+    }
 
   }
 
