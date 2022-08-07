@@ -1,26 +1,22 @@
 import axios from "axios";
-const baseUrl = '/api/questions'
+const baseUrl = 'http://localhost:3001/api/questions'
 
 //Place the token as default on every request send to the server
 const setToken = (newToken) => {
-  const token = `bearer ${newToken}`
-  axios.defaults.headers.common['Authorization'] = token
+  const token = `${newToken}`
+  axios.defaults.headers.common['flserv-token'] = token
 }
 
-//Get the rol of the logged in user to allow only Professors to do some actions
-const rol = window.localStorage.getItem('rol')
 
 //Send the request to add a new question
 const addQuestion = async (question) => {
-  if (rol !== 'Professor') return
-
   const response = await axios.post(baseUrl, question)
   return response.data
 }
 
 //Send the request to update a question
 const updateQuestion = async (id, question) => {
-  if (rol !== 'Professor') return
+
   const URLParams = baseUrl + `/${id}`
   const response = await axios.put(URLParams, question)
   return response.data

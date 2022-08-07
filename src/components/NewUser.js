@@ -5,45 +5,61 @@ import usersHelper from '../services/users'
 import '../style/newUser.css'
 import InputItem from './InputItem'
 
-
 function NewUser({ loadingDispatch }) {
 
-  const [rol, setRol] = useState('')
-  const [newUsername, setNewUsername] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [repeatedPassword, setRepeatedPassword] = useState('')
-  const [name, setName] = useState('')
+  const [newUser, setNewUser] = useState({
+    email: '',
+    name: '',
+    password: '',
+    repeatedPassword: '',
+    role: '',
 
+  })
   const navigate = useNavigate()
 
   const handleAddNewUser = async (e) => {
 
+    const {
+      email,
+      name,
+      password,
+      repeatedPassword,
+      role } = newUser
+
     e.preventDefault()
 
-    if (newPassword !== repeatedPassword) {
-      setRepeatedPassword('')
+    //If passwords don't match, alert the user
+    if (repeatedPassword !== password) {
+      setNewUser({ ...newUser, repeatedPassword: '' })
       return alert("Passwords don't match")
     }
 
-    if (!rol) return alert('Please select a rol')
+    if (!role) {
+      return alert('Please select a rol')
+    }
 
-    const newUser = {
-      "rol": rol,
-      "username": newUsername,
-      "name": name,
-      "password": newPassword
+    const newUserInfo = {
+      name,
+      email,
+      password,
+      role
     }
 
     try {
+
       loadingDispatch({ type: 'loading' })
-      await usersHelper.addUser(newUser)
+      await usersHelper.addUser(newUserInfo)
       loadingDispatch({ type: 'notLoading' })
+
       alert('User created succesfully')
 
-      navigate("/")
+      navigate('/')
 
     } catch (error) {
-      alert('Username already in use, please try a different one')
+
+      const errorsList = error.response.data.errors
+      errorsList.map(error => alert(error.msg))
+
       loadingDispatch({ type: 'notLoading' })
     }
   }
@@ -55,19 +71,19 @@ function NewUser({ loadingDispatch }) {
         Create new user
       </h2>
       <div className='new_user_container' >
-        Choose your rol
+        Choose your role
         <div className="buttons_container">
           <Button
             type={null}
-            onClick={({ target }) => setRol(target.innerText)}
+            onClick={() => setNewUser({ ...newUser, role: 'STUDENT_ROLE' })}
             children={'Student'}
-            customClass={rol === 'Student' ? 'selected' : ''}
+            customClass={newUser.role === 'STUDENT_ROLE' ? 'selected' : ''}
           />
           <Button
             type={null}
-            onClick={({ target }) => setRol(target.innerText)}
+            onClick={() => setNewUser({ ...newUser, role: 'PROFESSOR_ROLE' })}
             children={'Professor'}
-            customClass={rol === 'Professor' ? 'selected' : ''}
+            customClass={newUser.role === 'PROFESSOR_ROLE' ? 'selected' : ''}
           />
         </div>
         <form
@@ -75,33 +91,33 @@ function NewUser({ loadingDispatch }) {
           onSubmit={handleAddNewUser}
         >
           <InputItem
-            value={newUsername}
-            onChange={({ target }) => setNewUsername(target.value)}
-            htmlFor={'newUsername'}
-            type={'text'}
-            isRequired
-            children={'New username'}
-          />
-          <InputItem
-            value={name}
-            onChange={({ target }) => setName(target.value)}
+            value={newUser.name}
+            onChange={({ target }) => setNewUser({ ...newUser, name: target.value })}
             htmlFor={'name'}
             type={'text'}
             isRequired
             children={'Name'}
           />
           <InputItem
-            value={newPassword}
-            onChange={({ target }) => setNewPassword(target.value)}
-            htmlFor={'new_password'}
-            type={'password'}
+            value={newUser.email}
+            onChange={({ target }) => setNewUser({ ...newUser, email: target.value })}
+            htmlFor={'email'}
+            type={'text'}
             isRequired
-            children={'New password'}
+            children={'Email'}
           />
           <InputItem
-            value={repeatedPassword}
-            onChange={({ target }) => setRepeatedPassword(target.value)}
-            htmlFor={'repeated_password'}
+            value={newUser.password}
+            onChange={({ target }) => setNewUser({ ...newUser, password: target.value })}
+            htmlFor={'password'}
+            type={'password'}
+            isRequired
+            children={'Password'}
+          />
+          <InputItem
+            value={newUser.repeatedPassword}
+            onChange={({ target }) => setNewUser({ ...newUser, repeatedPassword: target.value })}
+            htmlFor={'repeatedPassword'}
             type={'password'}
             isRequired
             children={'Repeat password'}
