@@ -17,7 +17,7 @@ const Professor = () => {
   const professorControls = [
     {
       id: uuidv4(),
-      onclick: () => navigate('/add-question', { state: { request: false } }),
+      onclick: () => navigate('/add-question', { state: { updateRequest: false, role } }),
       customClass: 'command',
       type: 'button',
       children: 'Add question'

@@ -9,27 +9,20 @@ import Loading from './Loading'
 const CreateTest = ({ isLoading, loadingDispatch }) => {
 
   const [questionsList, setQuestionsList] = useState([])
-  const [loadInfo, setloadInfo] = useState(false)
-  const isLogged = window.localStorage.getItem('role') === 'Professor'
+  const [loadInfo, setloadInfo] = useState(true)
+  const [testName, setTestName] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
 
-    const token = JSON.parse(window.localStorage.getItem('token') || '')
+    const token = window.localStorage.getItem('token')
     questionHelper.setToken(token)
 
-    if (isLogged) {
-      setloadInfo(true)
+    questionHelper.listQuestions()
+      .then(question => setQuestionsList(question))
+      .finally(() => setloadInfo(false))
 
-      questionHelper.listQuestions()
-        .then(question => setQuestionsList(question))
-        .then(res => setloadInfo(false))
-
-    }
-
-  }, [isLoading, isLogged])
-
-  const [testName, setTestName] = useState('')
-  const navigate = useNavigate()
+  }, [isLoading])
 
   const handleTestCreation = async (e) => {
     e.preventDefault()
@@ -37,6 +30,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
     const questionsSelected = questionsList
       .filter(question => question.selected === true)
       .map(question => question.id)
+
 
     if (!testName) return alert('Please enter a name for this exam')
 
@@ -46,7 +40,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
     }
 
     try {
-      testHelper.setToken(JSON.parse(window.localStorage.getItem('token') || ''))
+      testHelper.setToken(window.localStorage.getItem('token'))
 
       loadingDispatch({ type: 'loading' })
       await testHelper.addTest(exam)
@@ -56,6 +50,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
       navigate('/professor')
 
       questionsList.map(question => question.selected = false)
+
     } catch (error) {
       loadingDispatch({ type: 'notLoading' })
     }
@@ -85,7 +80,7 @@ const CreateTest = ({ isLoading, loadingDispatch }) => {
               value={testName}
               onChange={({ target }) => setTestName(target.value)}
             />
-            <p>Please select the questions that you would like to add to this examn</p>
+            <p>Please select the questions that you would like to add to this exam</p>
             {
               questionsList.map((question, index) => {
                 return (
