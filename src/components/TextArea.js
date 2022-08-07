@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextArea = ({ onChange, htmlFor, value, children, customClass, selectedAnswer }) => {
+const TextArea = ({ onChange, htmlFor = '', value, children, customClass, selectedAnswer }) => {
   return (<>
     <label
       className="label"
