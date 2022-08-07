@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = '/api/questions'
+const baseUrl = 'http://localhost:3001/api/questions'
 
 //Place the token as default on every request send to the server
 const setToken = (newToken) => {
@@ -7,12 +7,12 @@ const setToken = (newToken) => {
   axios.defaults.headers.common['Authorization'] = token
 }
 
-//Get the rol of the logged in user to allow only Professors to do some actions
-const rol = window.localStorage.getItem('rol')
+//Get the role of the logged in user to allow only Professors to do some actions
+const role = window.localStorage.getItem('role')
 
 //Send the request to add a new question
 const addQuestion = async (question) => {
-  if (rol !== 'Professor') return
+  if (role !== 'Professor') return
 
   const response = await axios.post(baseUrl, question)
   return response.data
@@ -20,7 +20,7 @@ const addQuestion = async (question) => {
 
 //Send the request to update a question
 const updateQuestion = async (id, question) => {
-  if (rol !== 'Professor') return
+  if (role !== 'Professor') return
   const URLParams = baseUrl + `/${id}`
   const response = await axios.put(URLParams, question)
   return response.data

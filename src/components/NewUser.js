@@ -5,7 +5,6 @@ import usersHelper from '../services/users'
 import '../style/newUser.css'
 import InputItem from './InputItem'
 
-
 function NewUser({ loadingDispatch }) {
 
   const [newUser, setNewUser] = useState({
@@ -39,7 +38,7 @@ function NewUser({ loadingDispatch }) {
       return alert('Please select a rol')
     }
 
-    const userInfo = {
+    const newUserInfo = {
       name,
       email,
       password,
@@ -49,9 +48,7 @@ function NewUser({ loadingDispatch }) {
     try {
 
       loadingDispatch({ type: 'loading' })
-
-      await usersHelper.addUser(userInfo)
-
+      await usersHelper.addUser(newUserInfo)
       loadingDispatch({ type: 'notLoading' })
 
       alert('User created succesfully')
@@ -60,9 +57,8 @@ function NewUser({ loadingDispatch }) {
 
     } catch (error) {
 
-      const errosList = error.response.data.errors
-
-      errosList.map(error => alert(error.msg))
+      const errorsList = error.response.data.errors
+      errorsList.map(error => alert(error.msg))
 
       loadingDispatch({ type: 'notLoading' })
     }
@@ -75,7 +71,7 @@ function NewUser({ loadingDispatch }) {
         Create new user
       </h2>
       <div className='new_user_container' >
-        Choose your rol
+        Choose your role
         <div className="buttons_container">
           <Button
             type={null}

@@ -8,7 +8,7 @@ import Loading from './Loading'
 
 const Test = ({ isLoading, loadingDispatch }) => {
 
-  const rol = window.localStorage.getItem('rol')
+  const role = window.localStorage.getItem('role')
 
   const [tests, setTests] = useState([])
   const [loadInfo, setloadInfo] = useState(false)
@@ -16,7 +16,7 @@ const Test = ({ isLoading, loadingDispatch }) => {
 
   useEffect(() => {
 
-    if (!rol) return
+    if (!role) return
     setloadInfo(true)
     const token = JSON.parse(window.localStorage.getItem('token') || '')
 

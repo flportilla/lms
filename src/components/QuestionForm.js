@@ -11,7 +11,7 @@ const QuestionForm = ({
 
   const { state } = useLocation()
   const { request, updatedQuestion: autoFilledQuestion } = state
-  const isLogged = window.localStorage.getItem('rol') === 'Professor'
+  const isLogged = window.localStorage.getItem('role') === 'Professor'
 
   const [statement, setStatement] = useState(request
     ? `${autoFilledQuestion.statement}`

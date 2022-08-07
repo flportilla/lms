@@ -8,7 +8,7 @@ const Results = () => {
 
   const { state } = useLocation()
 
-  const rol = state.rol
+  const role = state.role
   const [results, setResults] = useState([])
   const [showInfo, setShowInfo] = useState(false)
 
@@ -20,7 +20,7 @@ const Results = () => {
   return (
     <>
       {
-        rol === 'Professor'
+        role === 'Professor'
           ? <div className='students_results'>
             <Button
               type={'button'}
