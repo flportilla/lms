@@ -22,7 +22,7 @@ import reducers from './reducer'
 
 import "./style/app.css"
 
-const { setLoading } = reducers
+const setLoading = reducers
 
 function App() {
 
@@ -136,7 +136,7 @@ function App() {
                   <ListTest
                     loadingDispatch={loadingDispatch}
                     isLoading={isLoading}
-                    rol={role}
+                    role={role}
                   />
                 </div>
               } />
